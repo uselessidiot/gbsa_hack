@@ -237,11 +237,20 @@ export const AdminIntelligenceView: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2 self-start md:self-center">
+                <div className="flex flex-wrap items-center gap-2 self-start md:self-center">
+                  <button
+                    type="button"
+                    onClick={() => setActivePage('performance')}
+                    className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition shadow-sm flex items-center gap-1.5"
+                  >
+                    <span className="material-symbols-outlined text-sm">monitoring</span>
+                    <span>개별 기업 성과 상세</span>
+                    <span className="px-1.5 py-0.2 rounded bg-emerald-800 text-white text-[10px] font-black">D-7</span>
+                  </button>
                   <button
                     type="button"
                     onClick={() => setActivePage('mailing')}
-                    className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-sm flex items-center gap-1.5"
+                    className="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-sm flex items-center gap-1.5"
                   >
                     <span className="material-symbols-outlined text-sm">forward_to_inbox</span>
                     <span>알림톡·메일링 일괄 발송</span>
@@ -249,7 +258,7 @@ export const AdminIntelligenceView: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setActivePage('rag')}
-                    className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition border border-slate-200 flex items-center gap-1.5"
+                    className="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition border border-slate-200 flex items-center gap-1.5"
                   >
                     <span className="material-symbols-outlined text-sm text-blue-600">library_books</span>
                     <span>RAG 지식 뷰어</span>
