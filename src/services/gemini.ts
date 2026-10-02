@@ -146,6 +146,57 @@ export function buildFallbackConsulting(company: Company, analysis: AnalysisResu
     };
   }
 
+  if (isSolar) {
+    return {
+      executiveDiagnosis: `${company.name}은 세계 최고 수준인 24.2% 광전효율의 차세대 페로브스카이트 박막 태양광 기술(T3 단계)을 보유했으나, 1m² 대면적 롤투롤 양산 라인 설비 투자금(CAPEX 30억원) 및 건축 KS 인증 부재가 상용화의 핵심 병목입니다. 해외 마케팅보다 경기도 기후테크 혁신 펀드 연계와 BIPV 시범 시공 레퍼런스 확보가 최우선 과제입니다.`,
+      marketOutlook: {
+        headline: '🌐 구글 검색 분석: 글로벌 건물 일체형 태양광(BIPV) 시장 CAGR 21.5% 급성장, 제로에너지빌딩 의무화',
+        narrative: `최신 산업 동향(Google Search & 기후변화대응 에너지 리서치 2026)에 따르면 2026년부터 국내 30세대 이상 민간 공동주택 및 대형 오피스의 제로에너지빌딩 5등급 의무화가 시행되어 BIPV 수요가 폭발하고 있습니다. 그러나 건설사들은 가격보다 '건축 외장재 KS C 8577 내화·내풍압 인증' 및 '20년 가속 수명 데이터'를 납품 필수 조건으로 요구하고 있습니다.`,
+        implications: [
+          '도내 대형 건설사 신축 오피스 제로에너지빌딩 외벽 시범 시공 추진',
+          '건축 외장재 KS/IEC 신뢰성 시험 성적서 조기 확보'
+        ],
+        evidence: ['사업계획서 p.27: H건설사 도심 오피스 시범 시공 LOI 체결 (KS 인증 완료 조건부)'],
+      },
+      technologyAssessment: {
+        headline: '📄 RAG 분석: T3 단계(소형 셀 24.2% 효율) 검증 완료, 대면적 롤투롤 코팅 균일도 양산화 필요',
+        narrative: `사업계획서 p.15 분석 결과, 10cm 소형 셀의 24.2% 초고효율 달성 및 1,000시간 내구성 테스트는 통과했습니다. 다만 1m² 대면적으로 스케일업할 때 발생하는 박막 두께 편차를 줄이기 위한 파일럿 양산 라인(30억원) 투자가 반드시 선행되어야 합니다.`,
+        implications: [
+          '대면적 롤투롤 코팅 두께 편차 3% 이내 제어 공정 표준화',
+          '가속 열화 환경(85°C/85% 습도) 2,000시간 내구성 추가 검증'
+        ],
+        evidence: ['사업계획서 p.15: "소형 셀 24.2% 효율 달성, 1m² 롤투롤 파일럿 양산 라인 구축비 30억원 소요"'],
+      },
+      businessModelAssessment: {
+        headline: '💡 사업모델 진단: 단순 패널 납품에서 BIPV 일체형 외벽 시공 설계 패키지(Turnkey) 모델로 전환',
+        narrative: `패널 단품 판매 대비 건설사 시공사와 협력한 맞춤형 BIPV 설계-시공 턴키 패키지를 제공하면 마진율을 2.5배 높일 수 있으며, 경기도 기후테크 펀드(10억원)를 연계하면 초기 설비 투자 부담을 대폭 경감할 수 있습니다.`,
+        implications: [
+          '대형 건축 설계사 및 창호 시공사와 1:1 파트너십 구축',
+          '경기도 녹색성장펀드 및 시설자금 융자 연계로 양산 라인 착공'
+        ],
+        evidence: ['사업계획서 p.29: 단순 패널 납품 시 중국산 저가 공세 대비 수익성 방어 한계'],
+      },
+      futureStrategy: [
+        { horizon: 'NOW', title: '기후테크 혁신펀드 10억원 유치', rationale: '롤투롤 파일럿 양산 라인 설비 착공을 위한 자금을 확보합니다.', actions: ['경기도 기후테크 펀드 IR', '시흥 공장 파일럿 라인 발주'], kpi: '투자 유치 10억원 완료' },
+        { horizon: 'NEXT', title: 'BIPV 건축 KS 인증 취득', rationale: '공식 시험기관 성적서로 건설사 외벽 시공 허가를 통과합니다.', actions: ['KS C 8577 내화 시험 접수', 'IEC 61215 신뢰성 평가'], kpi: '공인 KS 인증서 발급' },
+        { horizon: 'LATER', title: 'H건설사 도심 오피스 납품 개시', rationale: '대형 랜드마크 시공 실적으로 전국 BIPV 시장 확산을 주도합니다.', actions: ['1차 파일럿 시공 500m²', '유상 납품 매출 5억원 확정'], kpi: '연간 매출 30억원 달성' },
+      ],
+      keyRisks: [
+        { risk: '대면적 코팅 시 수율 저하로 인한 제조원가 상승', impact: '초기 양산 납품 단가 경쟁력 약화', mitigation: '인라인 광학 검사 시스템을 통한 불량 실시간 피드백 제어' },
+        { risk: '건축 KS 인증 평가 일정 지연', impact: '신축 건물 착공 일정 미스매치', mitigation: 'GBSA 인증 패스트트랙 지원사업 매칭으로 심사 기간 3개월 단축' },
+      ],
+      scenarios: [
+        { name: '기준 시나리오', condition: '양산 설비 투자금 확보 및 KS 인증 완료', outlook: '내년 도내 BIPV 시장 점유율 1위 및 50억원 수주' },
+        { name: '하방 시나리오', condition: '설비 투자 유치 지연', outlook: '기존 OEM 외주 생산 라인 활용으로 파일럿 테스트 우선 추진' },
+      ],
+      consultantQuestions: [
+        '1m² 대면적 페로브스카이트 모듈의 예상 양산 수율(Yield)과 목표 제조 단가는 얼마인가?',
+        'BIPV 건축 KS 인증에 필요한 시제품 제작비 및 시험 비용이 예산에 반영되어 있는가?',
+        'H건설사 외에 추가로 협의 중인 설계사무소나 시공 파트너가 확보되어 있는가?'
+      ],
+    };
+  }
+
   // 기본 P0: 제조 AI (비전웍스AI) 케이스
   return {
     executiveDiagnosis: `${company.name}은 99.4% 정확도의 Edge AI 비전 검사기(T3 단계)와 탄탄한 개발진(E3 단계)을 갖추었으나, 무상 PoC에 머물러 있는 PMF(시장검증) 부재가 핵심 병목입니다. 추가 알고리즘 R&D가 아니라 경기도 내 1차 자동차/전자 부품사 현장 양산 라인에서의 '유상 실증 전환'과 정량 ROI 입증이 스케일업의 핵심입니다.`,
@@ -206,19 +257,71 @@ export function buildFallbackConsulting(company: Company, analysis: AnalysisResu
 }
 
 export function findMatchingMockCompany(fileName: string): CompanyAnalysisPayload {
-  const lowerName = fileName.toLowerCase();
-  
-  if (lowerName.includes('모빌리티') || lowerName.includes('배터리') || lowerName.includes('자율') || lowerName.includes('mobility') || lowerName.includes('ev')) {
-    return MOCK_COMPANIES[1] || MOCK_COMPANIES[0];
-  }
-  if (lowerName.includes('바이오') || lowerName.includes('의료') || lowerName.includes('헬스') || lowerName.includes('bio') || lowerName.includes('care')) {
-    return MOCK_COMPANIES[2] || MOCK_COMPANIES[0];
-  }
-  if (lowerName.includes('솔라') || lowerName.includes('에너지') || lowerName.includes('태양') || lowerName.includes('solar') || lowerName.includes('esg')) {
+  const lower = fileName.toLowerCase();
+
+  // 1. 솔라테크 / 에너지 / 기후 / 4번 케이스
+  if (
+    lower.includes('04_에너지') ||
+    lower.includes('솔라') ||
+    lower.includes('solar') ||
+    lower.includes('에너지') ||
+    lower.includes('태양') ||
+    lower.includes('bipv') ||
+    lower.includes('페로브') ||
+    lower.includes('친환경') ||
+    lower.includes('esg') ||
+    (lower.startsWith('04') && !lower.includes('로봇')) ||
+    (lower.startsWith('4') && !lower.includes('로봇')) ||
+    lower.includes('사업계획서_4') ||
+    lower.includes('사업계획서4') ||
+    lower.includes('4번')
+  ) {
     return MOCK_COMPANIES[3] || MOCK_COMPANIES[0];
   }
-  // 기본 P0 케이스 (비전웍스AI)
-  const found = MOCK_COMPANIES.find((item) => lowerName.includes(item.company.name.split(' ')[0].toLowerCase()));
+
+  // 2. 메디헬스바이오 / 바이오 / 헬스케어 / 3번 케이스
+  if (
+    lower.includes('03') ||
+    lower.includes('바이오') ||
+    lower.includes('bio') ||
+    lower.includes('메디') ||
+    lower.includes('medi') ||
+    lower.includes('헬스') ||
+    lower.includes('care') ||
+    lower.includes('의료') ||
+    lower.includes('임상') ||
+    (lower.startsWith('03') || lower.startsWith('3')) ||
+    lower.includes('사업계획서_3') ||
+    lower.includes('사업계획서3') ||
+    lower.includes('3번')
+  ) {
+    return MOCK_COMPANIES[2] || MOCK_COMPANIES[0];
+  }
+
+  // 3. 로보플로우 / 로봇 / 물류 / AMR / 모빌리티 / 2번 케이스
+  if (
+    lower.includes('04_로봇') ||
+    lower.includes('02') ||
+    lower.includes('로봇') ||
+    lower.includes('로보') ||
+    lower.includes('robot') ||
+    lower.includes('robo') ||
+    lower.includes('flow') ||
+    lower.includes('amr') ||
+    lower.includes('slam') ||
+    lower.includes('물류') ||
+    lower.includes('모빌리티') ||
+    lower.includes('자율주행') ||
+    (lower.startsWith('02') || lower.startsWith('2')) ||
+    lower.includes('사업계획서_2') ||
+    lower.includes('사업계획서2') ||
+    lower.includes('2번')
+  ) {
+    return MOCK_COMPANIES[1] || MOCK_COMPANIES[0];
+  }
+
+  // 4. 비전웍스AI / 제조 AI / 1번 케이스 (기본값)
+  const found = MOCK_COMPANIES.find((item) => lower.includes(item.company.name.split(' ')[0].toLowerCase()));
   return found || MOCK_COMPANIES[0];
 }
 

@@ -213,7 +213,7 @@ export interface SupportProgram {
   id: string;
   organization: string; // GBSA, 경기도, 중기부 등
   title: string;
-  category: 'R&D' | '실증/PoC' | '자금/융자' | '판로/마케팅' | '인증/규제' | '글로벌';
+  category: 'R&D' | '실증/PoC' | '자금/융자' | '판로/마케팅' | '인증/규제' | '글로벌' | '교육' | '사업화';
   budgetMaxMillion?: number; // 최대 지원금 (백만원)
   targetTechLevel?: TechLevel[];
   targetExecLevel?: ExecLevel[];
@@ -224,6 +224,11 @@ export interface SupportProgram {
   status: 'OPEN' | 'UPCOMING' | 'CLOSED';
   detailUrl?: string;
   tags: string[];
+  sourceName?: string;
+  sourceUrl?: string;
+  sourceNote?: string;
+  demoRecommendation?: 'RECOMMENDED' | 'CONDITIONAL' | 'NOT_RECOMMENDED';
+  demoFitReason?: string;
 }
 
 export interface ProgramMatchResult {

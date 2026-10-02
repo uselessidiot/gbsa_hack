@@ -335,6 +335,131 @@ export const MOCK_COMPANIES: CompanyWithAnalysis[] = [
       visibility: 'PUBLIC',
       updatedAt: '2026-10-02T11:00:00Z'
     }
+  },
+
+  // 4. 솔라테크 (SolarTech) - (CAPEX / 양산 설비 투자 및 대면적 실증 병목)
+  {
+    company: {
+      id: 'COMP-004',
+      name: '솔라테크 (SolarTech)',
+      businessNumber: '128-86-98765',
+      industry: '신재생에너지 / 소재',
+      subIndustry: '차세대 페로브스카이트 태양광 모듈',
+      location: '경기도 안산시 시화스마트허브',
+      foundedYear: 2022,
+      employees: 14,
+      revenue: 280,
+      exportAmount: 120,
+      certifications: ['벤처기업', '이노비즈', 'ISO9001'],
+      patents: ['고내구성 페로브스카이트 박막 코팅 기술'],
+      summary: '도심형 건물 일체형 태양광(BIPV) 전용 고효율 페로브스카이트 모듈 개발사',
+      keywords: ['태양광', '페로브스카이트', '신재생에너지', 'BIPV', '탄소중립']
+    },
+    analysis: {
+      id: 'ANALYSIS-004',
+      companyId: 'COMP-004',
+      documentId: 'DOC-004',
+      analysisVersion: 'TEM-v1.0',
+      temDiagnosis: {
+        technology: {
+          level: 'T3',
+          score: 82,
+          reason: '10cm 소형 셀 광전효율 24.2% 달성 및 신뢰성 테스트 통과, 1m² 대면적 롤투롤 코팅 균일도 기술 고도화 진행 중',
+          sourceQuote: '사업계획서 p.15: "소형 셀 24.2% 세계 최고 수준 효율 달성"'
+        },
+        execution: {
+          level: 'E2',
+          score: 58,
+          reason: 'R&D 박사급 연구 인력은 우수하나 파일럿 양산 라인 설비(CAPEX) 및 대량 생산 공정 엔지니어 부족',
+          sourceQuote: '사업계획서 p.18: "파일럿 양산 롤투롤 설비 투자 30억원 소요 예정"'
+        },
+        market: {
+          level: 'M2',
+          score: 65,
+          reason: '건설사 및 지자체 공공건물 BIPV 시범 적용 의향서 2건 확보, 단가 절감 및 IEC 신뢰성 인증 선행 필요',
+          sourceQuote: '사업계획서 p.27: "H건설사 도심 오피스 시범 시공 LOI 체결"'
+        },
+        radarScores: {
+          tech: 82,
+          validation: 58,
+          market: 65,
+          finance: 45,
+          global: 60
+        }
+      },
+      primaryBottleneck: 'INVESTMENT',
+      secondaryBottleneck: 'VALIDATION',
+      bottlenecks: [
+        {
+          category: 'INVESTMENT',
+          title: '파일럿 양산 라인 설비 투자금(CAPEX 30억원) 확보 필요',
+          description: '소형 셀에서 대면적 상용 모듈로 스케일업하기 위한 롤투롤 양산 설비 구축 자금 조달이 시급함.',
+          severity: 'HIGH',
+          sourceEvidence: '사업계획서 p.18: 파일럿 양산 라인 구축비 30억원 소요',
+          pageNumber: 18
+        },
+        {
+          category: 'REGULATION',
+          title: '건물 일체형 태양광(BIPV) KS 인증 및 IEC 61215 신뢰성 인증 미완료',
+          description: '건축물 외벽 시공을 위한 필수 내화/내풍압 KS C 8577 인증 및 내구성 공인 성적서 확보 필요.',
+          severity: 'MEDIUM',
+          sourceEvidence: '사업계획서 p.24: BIPV KS 인증 2026 하반기 취득 목표',
+          pageNumber: 24
+        }
+      ],
+      companyRequestedSupport: [
+        '해외 마케팅 및 전시회 참가비 7천만원'
+      ],
+      recommendedSupport: [
+        '경기도 기후테크 혁신 펀드 및 시설자금 융자 연계 (최대 10억원)',
+        'GBSA BIPV 실증 테스트베드 및 신뢰성 인증 시험 지원',
+        '도내 건설사·시공사 B2B 1:1 매칭 지원'
+      ],
+      supportGapAnalysis: '기업은 해외 판로 지원을 희망하지만, 현시점에는 대면적 파일럿 양산 설비 구축(FINANCE)과 건축 KS 인증이 선행되어야 국내외 시장 납품이 가능함.',
+      strengths: [
+        '기존 실리콘 대비 50% 가볍고 유연한 박막 태양광 기술',
+        '24.2%의 높은 광전 변환 효율'
+      ],
+      weaknesses: [
+        '대면적화 시 균일도 제어 및 초기 설비 투자 부담',
+        '건축 외장재 KS/IEC 인증 획득 기간 소요'
+      ],
+      evidenceList: [
+        {
+          id: 'EVI-005',
+          category: 'T',
+          source: '04_에너지_솔라테크_사업계획서.pdf',
+          page: 15,
+          excerpt: '10cm 소형 셀 광전효율 24.2% 달성 완료, 1m² 롤투롤 대면적 양산 라인 설비 투자 30억원 필요',
+          interpretation: '기술성은 T3 단계이나 대면적 양산을 위한 설비 자금(FINANCE)이 핵심 병목임.'
+        }
+      ],
+      actionPlan90Days: [
+        { step: 1, action: '경기도 기후테크 혁신 펀드 및 스케일업 정책자금 신청', targetMetric: '정책자금 심사 통과 및 5억원 이상 확보', timeframe: 'Day 1-30' },
+        { step: 2, action: 'BIPV 건축 KS 인증 시험 접수 및 신뢰성 성적서 확보', targetMetric: '인증 시험 착수 및 가속 수명 데이터 산출', timeframe: 'Day 31-60' },
+        { step: 3, action: 'H건설사 도심 오피스 시범 시공 파일럿 모듈 공급', targetMetric: '1차 실증 시공 완료 및 홍보 레퍼런스 구축', timeframe: 'Day 61-90' }
+      ],
+      verificationNeeded: [
+        '1m² 대면적 페로브스카이트 셀의 1,000시간 가속 열화 시험 결과 확인',
+        'BIPV KS 내화 인증 통과 가능 설계 여부 점검'
+      ],
+      aiInsightSummary: '솔라테크는 기술력(T3)이 입증된 기후테크 유망주입니다. 해외 마케팅보다 경기도 기후테크 펀드 연계와 BIPV 건축 인증 지원을 통해 양산 레퍼런스를 구축하는 것이 최우선 과제입니다.',
+      status: 'COMPLETED',
+      createdAt: '2026-10-02T11:30:00Z'
+    },
+    profile: {
+      companyId: 'COMP-004',
+      companyName: '솔라테크 (SolarTech)',
+      industry: '신재생에너지 / 기후테크',
+      technologies: ['페로브스카이트', 'BIPV', '롤투롤 코팅', '박막 태양전지'],
+      products: ['SolarSkin BIPV 모듈'],
+      targetCustomers: ['대형 건설사', '외벽 시공사', '공공기관 시설관리부서'],
+      capabilities: ['고효율 박막 코팅', '경량 유연 태양광 패널 제조'],
+      needs: ['양산 설비 투자 펀드 매칭', '건축 외장재 KS 인증 지원', '시범 시공 실증처'],
+      desiredPartners: ['대형 건설사(시공 파트너)', '유리/창호 제조사', '기후테크 전문 투자사'],
+      visibility: 'PUBLIC',
+      updatedAt: '2026-10-02T11:30:00Z'
+    }
   }
 ];
 
@@ -434,6 +559,37 @@ export const MOCK_B2B_MATCHES: Record<string, B2BMatchResult[]> = {
       ],
       synergyDescription: '식약처 2등급 의료기기 허가 패스트트랙 통과 및 임상 근거 확보',
       matchType: 'JOINT_POC',
+      status: 'RECOMMENDED'
+    }
+  ],
+  'COMP-004': [
+    {
+      id: 'MATCH-007',
+      sourceCompanyId: 'COMP-004',
+      targetCompanyId: 'PARTNER-401',
+      targetCompanyName: '현대건설 스마트건축기술연구팀',
+      targetIndustry: '대형 건설사 / 친환경 건축',
+      matchScore: 96,
+      matchingReasons: [
+        'BIPV 시공 연계: 신축 제로에너지빌딩 외벽에 솔라테크 태양광 패널 시범 시공',
+        'KS 인증 협력: 건축 외장재 화재안전 및 내구성 테스트 지원'
+      ],
+      synergyDescription: '국내 최고 수준의 대형 오피스 실증 레퍼런스 확보 및 양산 발주 계약',
+      matchType: 'CAPABILITY_TO_NEED',
+      status: 'RECOMMENDED'
+    },
+    {
+      id: 'MATCH-008',
+      sourceCompanyId: 'COMP-004',
+      targetCompanyId: 'PARTNER-402',
+      targetCompanyName: '경기도 기후테크 녹색성장펀드 운용단',
+      targetIndustry: '벤처캐피탈 / 기후테크 투자',
+      matchScore: 91,
+      matchingReasons: [
+        'CAPEX 투자 연계: 30억원 규모 롤투롤 파일럿 양산 라인 설비 투자 1순위 심사 매칭'
+      ],
+      synergyDescription: '양산 설비 자금 병목(FINANCE) 단기 해결',
+      matchType: 'SUPPLY_CHAIN',
       status: 'RECOMMENDED'
     }
   ]

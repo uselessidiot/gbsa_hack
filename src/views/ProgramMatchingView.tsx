@@ -12,18 +12,27 @@ interface ProgramMatchingViewProps {
   onNavigateToMatching?: () => void;
 }
 
+type RecommendationFilter = 'ALL' | 'RECOMMENDED' | 'CONDITIONAL' | 'NOT_RECOMMENDED';
+
+const recommendationLabel: Record<RecommendationFilter, string> = {
+  ALL: '전체 공고',
+  RECOMMENDED: '추천',
+  CONDITIONAL: '조건부 추천',
+  NOT_RECOMMENDED: '비추천',
+};
+
 export const ProgramMatchingView: React.FC<ProgramMatchingViewProps> = ({
   currentCompany,
   onNavigateToMatching
 }) => {
   const activeTarget = currentCompany || MOCK_COMPANIES[0];
   const { company, analysis } = activeTarget;
-  const [selectedFilter, setSelectedFilter] = useState<string>('RECOMMENDED');
+  const [selectedFilter, setSelectedFilter] = useState<RecommendationFilter>('RECOMMENDED');
   const [generatedDraft, setGeneratedDraft] = useState<string | null>(null);
 
   // Compute matched programs for this specific company
   const matchedPrograms = MOCK_SUPPORT_PROGRAMS.map((prog) => {
-    let score = 70;
+    let score = prog.demoRecommendation === 'RECOMMENDED' ? 90 : prog.demoRecommendation === 'CONDITIONAL' ? 70 : 35;
     const isBottleneckMatched = prog.targetBottlenecks.includes(analysis.primaryBottleneck);
     if (isBottleneckMatched) score += 25;
     if (prog.category === '실증/PoC' && analysis.primaryBottleneck === 'PMF') score += 5;
@@ -33,13 +42,14 @@ export const ProgramMatchingView: React.FC<ProgramMatchingViewProps> = ({
     return {
       ...prog,
       matchScore: Math.min(score, 98),
-      isRecommended: isBottleneckMatched
+      recommendation: prog.demoRecommendation || (isBottleneckMatched ? 'RECOMMENDED' : 'CONDITIONAL'),
+      isRecommended: (prog.demoRecommendation || (isBottleneckMatched ? 'RECOMMENDED' : 'CONDITIONAL')) === 'RECOMMENDED',
     };
   }).sort((a, b) => b.matchScore - a.matchScore);
 
-  const displayedPrograms = selectedFilter === 'RECOMMENDED'
-    ? matchedPrograms.filter(p => p.isRecommended)
-    : matchedPrograms;
+  const displayedPrograms = selectedFilter === 'ALL'
+    ? matchedPrograms
+    : matchedPrograms.filter((p) => p.recommendation === selectedFilter);
 
   const handleGenerateApplication = (progTitle: string) => {
     setGeneratedDraft(
@@ -102,30 +112,23 @@ export const ProgramMatchingView: React.FC<ProgramMatchingViewProps> = ({
           </h2>
         </div>
 
-        {/* Filter Pills */}
-        <div className="flex items-center gap-space-xs">
-          <button
-            type="button"
-            onClick={() => setSelectedFilter('RECOMMENDED')}
-            className={`px-space-md py-space-xs rounded-xl font-label-sm text-label-sm font-bold transition ${
-              selectedFilter === 'RECOMMENDED'
-                ? 'bg-secondary text-white shadow-md'
-                : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container'
-            }`}
-          >
-            ✓ 최우선 적합 추천만 보기
-          </button>
-          <button
-            type="button"
-            onClick={() => setSelectedFilter('ALL')}
-            className={`px-space-md py-space-xs rounded-xl font-label-sm text-label-sm font-bold transition ${
-              selectedFilter === 'ALL'
-                ? 'bg-primary text-white shadow-md'
-                : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container'
-            }`}
-          >
-            전체 공고 ({matchedPrograms.length}건)
-          </button>
+        {/* Recommendation Filters */}
+        <div className="flex flex-wrap items-center gap-space-xs">
+          {(['RECOMMENDED', 'CONDITIONAL', 'NOT_RECOMMENDED', 'ALL'] as RecommendationFilter[]).map((filter) => {
+            const count = filter === 'ALL' ? matchedPrograms.length : matchedPrograms.filter((p) => p.recommendation === filter).length;
+            return <button
+              key={filter}
+              type="button"
+              onClick={() => setSelectedFilter(filter)}
+              className={`px-space-md py-space-xs rounded-xl font-label-sm text-label-sm font-bold transition ${
+                selectedFilter === filter
+                  ? filter === 'RECOMMENDED' ? 'bg-secondary text-white shadow-md' : filter === 'NOT_RECOMMENDED' ? 'bg-slate-600 text-white shadow-md' : 'bg-primary text-white shadow-md'
+                  : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container'
+              }`}
+            >
+              {filter === 'RECOMMENDED' ? '✓ ' : filter === 'NOT_RECOMMENDED' ? '× ' : ''}{recommendationLabel[filter]} ({count})
+            </button>;
+          })}
         </div>
       </div>
 
@@ -169,7 +172,7 @@ export const ProgramMatchingView: React.FC<ProgramMatchingViewProps> = ({
           <div
             key={prog.id}
             className={`p-space-xl rounded-2xl bg-surface-container-lowest shadow-md border transition flex flex-col justify-between ${
-              idx === 0 && prog.isRecommended
+              idx === 0 && prog.recommendation === 'RECOMMENDED'
                 ? 'border-2 border-secondary shadow-xl'
                 : 'border-outline-variant/20 hover:border-primary/40'
             }`}
@@ -183,7 +186,10 @@ export const ProgramMatchingView: React.FC<ProgramMatchingViewProps> = ({
                   <span className="px-space-xs py-space-2xs rounded bg-secondary-container text-on-secondary-container font-label-sm font-bold">
                     {prog.category}
                   </span>
-                  {idx === 0 && (
+                  <span className={`px-space-xs py-space-2xs rounded-full font-label-sm font-bold ${prog.recommendation === 'RECOMMENDED' ? 'bg-secondary-container text-on-secondary-container' : prog.recommendation === 'CONDITIONAL' ? 'bg-primary-fixed text-primary' : 'bg-surface-container text-on-surface-variant'}`}>
+                    {prog.recommendation === 'RECOMMENDED' ? '추천' : prog.recommendation === 'CONDITIONAL' ? '조건부 추천' : '비추천'}
+                  </span>
+                  {idx === 0 && prog.recommendation === 'RECOMMENDED' && (
                     <span className="px-space-xs py-space-2xs rounded-full bg-error text-white font-label-sm font-black animate-pulse">
                       1순위 최우선 매칭 (적합도 {prog.matchScore}%)
                     </span>
@@ -198,6 +204,11 @@ export const ProgramMatchingView: React.FC<ProgramMatchingViewProps> = ({
               <h3 className="font-headline-md text-headline-md font-bold text-on-surface mb-space-xs">
                 {prog.title}
               </h3>
+              <div className="flex flex-wrap items-center gap-space-xs mb-space-md text-[11px] text-on-surface-variant">
+                {prog.sourceName && <span>원문: {prog.sourceName}</span>}
+                {prog.sourceUrl && <a href={prog.sourceUrl} target="_blank" rel="noreferrer" className="text-primary font-bold hover:underline">공고 원문 보기 ↗</a>}
+                {prog.sourceNote && <span className="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">{prog.sourceNote}</span>}
+              </div>
 
               {/* Match Reason Banner */}
               <div className="p-space-md rounded-xl bg-surface-container-low mb-space-md border border-outline-variant/20">
@@ -205,8 +216,7 @@ export const ProgramMatchingView: React.FC<ProgramMatchingViewProps> = ({
                   💡 GBSA AI 진단 기반 추천 사유:
                 </span>
                 <p className="font-body-sm text-body-sm text-on-surface">
-                  {company.name}의 핵심 병목인 <strong>[{analysis.primaryBottleneck}]</strong>을 해결하기 위해 최적화된 사업입니다.{' '}
-                  {analysis.supportGapAnalysis}
+                  {prog.demoFitReason || `${company.name}의 핵심 병목인 [${analysis.primaryBottleneck}]을 해결하기 위해 최적화된 사업입니다.`}
                 </p>
               </div>
 
@@ -229,6 +239,10 @@ export const ProgramMatchingView: React.FC<ProgramMatchingViewProps> = ({
             <div className="pt-space-md border-t border-outline-variant/20 flex flex-col md:flex-row items-center justify-between gap-space-sm">
               <span className="font-label-sm text-label-sm text-on-surface-variant">
                 접수 마감일: <strong className="text-on-surface">{prog.applicationDeadline}</strong>
+              </span>
+
+              <span className={`font-label-sm font-bold ${prog.status === 'OPEN' ? 'text-secondary' : 'text-on-surface-variant'}`}>
+                {prog.status === 'OPEN' ? '현재 접수 가능' : prog.status === 'CLOSED' ? '접수 종료·다음 공고 참고' : '접수 예정'}
               </span>
 
               <div className="flex items-center gap-space-xs w-full md:w-auto">

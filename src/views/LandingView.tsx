@@ -294,23 +294,39 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
               onClick={() => handleSampleSelect('COMP-001')}
             >
               <span className="px-1.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-extrabold">
-                인기
+                1번
               </span>
-              <span>01 비전웍스AI</span>
+              <span>비전웍스AI (제조AI)</span>
             </button>
             <button
               type="button"
-              className="inline-flex items-center px-space-md py-space-xs rounded-full bg-surface-container-lowest hover:bg-surface-container font-label-sm text-label-sm text-on-surface font-bold shadow-sm transition active:scale-95"
+              className="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-lowest hover:bg-surface-container font-label-sm text-label-sm text-on-surface font-bold shadow-sm transition active:scale-95"
               onClick={() => handleSampleSelect('COMP-002')}
             >
-              <span>04 로보플로우</span>
+              <span className="px-1.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant text-[10px] font-extrabold">
+                2번
+              </span>
+              <span>로보플로우 (로봇)</span>
             </button>
             <button
               type="button"
-              className="inline-flex items-center px-space-md py-space-xs rounded-full bg-surface-container-lowest hover:bg-surface-container font-label-sm text-label-sm text-on-surface font-bold shadow-sm transition active:scale-95"
+              className="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-lowest hover:bg-surface-container font-label-sm text-label-sm text-on-surface font-bold shadow-sm transition active:scale-95"
               onClick={() => handleSampleSelect('COMP-003')}
             >
-              <span>11 메디헬스바이오</span>
+              <span className="px-1.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant text-[10px] font-extrabold">
+                3번
+              </span>
+              <span>메디헬스 (바이오)</span>
+            </button>
+            <button
+              type="button"
+              className="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-lowest hover:bg-surface-container font-label-sm text-label-sm text-on-surface font-bold shadow-sm transition active:scale-95"
+              onClick={() => handleSampleSelect('COMP-004')}
+            >
+              <span className="px-1.5 py-0.5 rounded-full bg-primary-container text-on-primary-container text-[10px] font-extrabold">
+                4번
+              </span>
+              <span>솔라테크 (에너지)</span>
             </button>
           </div>
         </div>
