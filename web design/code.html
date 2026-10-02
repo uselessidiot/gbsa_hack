@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>G-브릿지 AI - 경기도경제과학진흥원</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"secondary":"#006b5f","surface-bright":"#f9f9ff","inverse-primary":"#a7c8ff","inverse-surface":"#263143","error-container":"#ffdad6","on-secondary-fixed-variant":"#005047","primary":"#004482","background":"#f9f9ff","surface-container-highest":"#d8e3fb","tertiary-fixed-dim":"#59dcb8","on-secondary":"#ffffff","surface-dim":"#cfdaf2","on-background":"#111c2d","surface-tint":"#0b5eaf","primary-container":"#005bac","on-primary-container":"#bdd5ff","on-error-container":"#93000a","primary-fixed-dim":"#a7c8ff","tertiary-container":"#006853","secondary-container":"#8cf2e0","inverse-on-surface":"#ecf1ff","on-secondary-container":"#006f63","on-error":"#ffffff","on-surface":"#111c2d","surface-container-lowest":"#ffffff","secondary-fixed-dim":"#72d8c7","on-primary-fixed-variant":"#004788","on-surface-variant":"#424751","error":"#ba1a1a","on-tertiary-fixed":"#002018","tertiary":"#004e3d","surface-container-low":"#f0f3ff","surface-variant":"#d8e3fb","surface-container-high":"#dee8ff","surface":"#f9f9ff","on-primary-fixed":"#001b3b","on-tertiary":"#ffffff","on-primary":"#ffffff","primary-fixed":"#d5e3ff","outline-variant":"#c2c6d3","tertiary-fixed":"#79f9d3","on-tertiary-fixed-variant":"#005140","secondary-fixed":"#8ef4e3","on-secondary-fixed":"#00201c","on-tertiary-container":"#69eac5","surface-container":"#e7eeff","outline":"#727783"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-2xs":"0.25rem","gutter-sm":"1rem","space-xs":"0.5rem","margin-mobile":"1rem","margin-desktop":"2.5rem","gutter":"1.5rem","space-2xl":"3rem","margin":"2rem","space-xl":"2rem","space-lg":"1.5rem","space-md":"1rem","space-sm":"0.75rem","gutter-lg":"2rem"},"fontFamily":{"label-md":["Public Sans"],"body-md":["Public Sans"],"headline-lg":["Public Sans"],"label-sm":["Public Sans"],"body-sm":["Public Sans"],"data-metric":["Public Sans"],"label-lg":["Public Sans"],"body-lg":["Public Sans"],"display":["Public Sans"],"headline-sm":["Public Sans"],"headline-lg-mobile":["Public Sans"],"headline-md":["Public Sans"]},"fontSize":{"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"500"}],"body-md":["14px",{"lineHeight":"22px","fontWeight":"400"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"700"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}],"data-metric":["32px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"26px","fontWeight":"400"}],"display":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["16px",{"lineHeight":"24px","fontWeight":"600"}],"headline-lg-mobile":["22px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"700"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed"><header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-margin-desktop flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs"><div class="w-7 h-7 rounded-xl bg-primary flex items-center justify-center text-on-primary font-headline-sm text-headline-sm">G</div><span class="font-headline-md text-headline-md text-primary tracking-tight font-bold">G-브릿지 AI</span></div><span class="px-space-xs py-space-2xs rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold tracking-wide">GBSA 2.4</span></div><nav class="hidden lg:flex items-center gap-space-lg" data-active-classes="text-primary font-semibold"><a aria-current="page" class="transition-colors text-primary font-semibold" data-path="business-plan-diagnosis" href="#">사업계획서 진단</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="portfolio-monitoring" href="#">12개사 관제 포트폴리오</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="public-rag-policy-archive" href="#">공공 RAG 정책자료실</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="world-bank-api-integration" href="#">World Bank API 연동</a></nav><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-space-2xs rounded-full bg-surface-container-low"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span></span><span class="font-label-sm text-label-sm text-on-surface-variant">실시간 연동</span></div><div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container flex items-center justify-center"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1XVAxYBCJeOaDnZajB-56t4xd_sSTmxW9DnX2RX_ZIaZ4V8ymz1cFzyA1Twb-gowwzyBawXlV_lN6dROXYtJfwGSdA49gE36i3-_zNVmqy2uZXoppO3CpkX1-y96gPrxgHRsTXFY7tlPjtHG4kGTXd_pcbTkiUn0OU3I3g248aWqQmIxPpTSo77aorSky9P2cCZFeRLQbgX-Ejip0Dyb-rAXjOoVif1Hy9uakZselMeCfxxuHvhU_QaObpHPxFL8Nb9Bt-CD8Yx"/></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full font-body-md text-on-surface antialiased bg-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Main Hero Section (Toss Style Upload Center) -->
+<section class="w-full px-margin-desktop py-space-2xl flex flex-col items-center justify-center text-center">
+<!-- Micro Badge -->
+<div class="inline-flex items-center gap-space-xs px-space-md py-space-2xs rounded-full bg-surface-container mb-space-md">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-md text-label-md text-primary font-semibold tracking-wide">경기도경제과학진흥원 AI 진단 엔진 v2.4</span>
+</div>
+<!-- Main Impact Headlines (Toss Bold Tone) -->
+<h1 class="font-display text-display text-primary tracking-tight font-extrabold max-w-3xl mb-space-sm leading-tight">
+      사업계획서 한 장이면 충분해요.
+    </h1>
+<p class="font-headline-sm text-headline-sm text-on-surface-variant font-normal max-w-2xl mb-space-2xl">
+      PDF를 끌어다 놓으면 10초 만에 T·E·M 성장 진단과 공공 지원사업 맞춤 처방이 완성됩니다.
+    </p>
+<!-- Toss-style Large Interaction Drag & Drop Card -->
+<div class="w-full max-w-3xl bg-surface-container-lowest rounded-full p-space-2xl shadow-xl transition-all duration-300 relative group overflow-hidden">
+<!-- Ambient Backlight -->
+<div class="absolute -top-24 -left-24 w-60 h-60 bg-primary-fixed/30 rounded-full blur-3xl pointer-events-none group-hover:bg-primary-fixed/50 transition-all"></div>
+<div class="absolute -bottom-24 -right-24 w-60 h-60 bg-secondary-fixed/30 rounded-full blur-3xl pointer-events-none group-hover:bg-secondary-fixed/50 transition-all"></div>
+<!-- Drag & Drop Interactive Dropzone -->
+<div class="w-full rounded-2xl p-space-2xl bg-surface-container-low transition-all duration-300 flex flex-col items-center justify-center text-center cursor-pointer" id="dropzoneArea">
+<input accept=".pdf,.hwp,.hwpx" class="hidden" id="fileInput" type="file"/>
+<!-- Toss-style Floating Upload Graphic -->
+<div class="w-20 h-20 rounded-full bg-surface-container-lowest shadow-md flex items-center justify-center text-primary mb-space-md group-hover:scale-105 transition-transform duration-300">
+<span class="material-symbols-outlined text-4xl">cloud_upload</span>
+</div>
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface mb-space-xs">
+          PDF / HWPX 파일 끌어다 놓기
+        </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-lg">
+          파일을 마우스로 끌어오거나 버튼을 눌러 선택해주세요
+        </p>
+<!-- Main Action CTA Button -->
+<button class="inline-flex items-center gap-space-xs px-space-xl py-space-md rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold shadow-md hover:opacity-95 active:scale-95 transition-all" onclick="document.getElementById('fileInput').click()" type="button">
+<span class="material-symbols-outlined text-xl">folder_open</span>
+<span>내 PC에서 파일 선택하기</span>
+</button>
+<!-- Compliance & Security Footnote -->
+<div class="flex items-center gap-space-sm mt-space-lg text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-sm text-secondary">verified_user</span>
+            PDF, HWP, HWPX (최대 100MB)
+          </span>
+<span class="text-outline-variant">|</span>
+<span>100% 암호화 안전 보관 (KISA 인증 보안망)</span>
+</div>
+</div>
+<!-- Processing State Overlay (Hidden by Default) -->
+<div class="hidden absolute inset-0 bg-surface-container-lowest/95 backdrop-blur-sm z-20 flex-col items-center justify-center p-space-xl" id="loadingOverlay">
+<div class="w-16 h-16 rounded-full border-4 border-surface-container-highest border-t-primary animate-spin mb-space-md"></div>
+<h4 class="font-headline-sm text-headline-sm font-bold text-primary mb-space-2xs">G-브릿지 AI가 사업계획서를 분석하고 있어요</h4>
+<p class="font-body-md text-body-md text-on-surface-variant" id="analysisProgressText">자연어 RAG 엔진으로 기술성과 실증 지표를 파싱 중입니다 (38%)...</p>
+</div>
+</div>
+<!-- Quick Demo Testset Bar (Toss One-click Chips) -->
+<div class="w-full max-w-3xl mt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-sm bg-surface-container-low px-space-lg py-space-md rounded-2xl">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-primary text-lg">bolt</span>
+<span class="font-medium">파일이 없으신가요? 검증용 테스트셋으로 바로 체험해보세요:</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs">
+<button class="group inline-flex items-center gap-space-xs px-space-sm py-space-2xs rounded-full bg-surface-container-lowest hover:bg-surface-container font-label-sm text-label-sm text-on-surface font-semibold shadow-sm transition" onclick="loadSampleCase('visionworks')">
+<span class="px-space-2xs py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold">인기/추천</span>
+<span>01 (주)비전웍스AI</span>
+</button>
+<button class="inline-flex items-center px-space-sm py-space-2xs rounded-full bg-surface-container-lowest hover:bg-surface-container font-label-sm text-label-sm text-on-surface font-semibold shadow-sm transition" onclick="loadSampleCase('optiworks')">
+<span>03 (주)옵티웍스</span>
+</button>
+<button class="inline-flex items-center px-space-sm py-space-2xs rounded-full bg-surface-container-lowest hover:bg-surface-container font-label-sm text-label-sm text-on-surface font-semibold shadow-sm transition" onclick="loadSampleCase('cardio')">
+<span>11 카디오인사이트</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Progressive Disclosure: Realtime Diagnostic Results (Toss Report Style) -->
+<section class="w-full px-margin-desktop py-space-xl flex flex-col gap-space-xl max-w-6xl mx-auto transition-opacity duration-500" id="diagnosticResults">
+<!-- Section Title & Meta -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div>
+<span class="font-label-md text-label-md text-secondary font-bold uppercase tracking-wider">AI 종합 진단 리포트</span>
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight mt-space-2xs" id="reportTitle">
+          (주)비전웍스AI 맞춤 처방 분석 결과
+        </h2>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="px-space-sm py-space-2xs rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">진단번호: GBSA-2025-0419</span>
+<button class="inline-flex items-center gap-space-2xs px-space-md py-space-2xs rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md font-semibold transition" onclick="window.print()">
+<span class="material-symbols-outlined text-sm">print</span> 리포트 저장
+        </button>
+</div>
+</div>
+<!-- 1. Executive Summary: Contrast & Gap Elimination (Toss Style) -->
+<div class="w-full bg-surface-container-lowest rounded-2xl p-space-xl shadow-md flex flex-col gap-space-lg">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm text-primary font-bold uppercase tracking-wide">
+<span class="material-symbols-outlined text-base">balance</span>
+<span>Executive Summary · 정책 괴리율 사전 차단</span>
+</div>
+<!-- Toss-style Head-to-Head Comparison Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
+<!-- Corporate Wish (Discrepancy) -->
+<div class="p-space-lg rounded-xl bg-surface-container-low flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">기업 대표 희망지원 (사업계획서 기준)</span>
+<span class="px-space-xs py-space-2xs rounded bg-surface-variant text-on-surface-variant font-label-sm text-label-sm font-semibold">비효율 감지</span>
+</div>
+<div class="font-data-metric text-data-metric font-extrabold text-on-surface tracking-tight mb-space-2xs">
+              AI 기술 R&amp;D 1.5억원
+            </div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              추가적인 모델 고도화 및 자체 서버 인프라 구축 R&amp;D 자금 요청
+            </p>
+</div>
+<div class="mt-space-md pt-space-sm border-t border-outline-variant/30 flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>지원 시 선정 가능성</span>
+<span class="font-bold text-on-surface">22.4% (선행요건 불부합)</span>
+</div>
+</div>
+<!-- GBSA AI Prescribed Solution -->
+<div class="p-space-lg rounded-xl bg-surface-container-highest flex flex-col justify-between relative overflow-hidden">
+<div class="absolute -right-10 -bottom-10 w-32 h-32 bg-primary/10 rounded-full blur-xl pointer-events-none"></div>
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-md text-label-md text-primary font-bold">GBSA AI 데이터 확정 최적 처방</span>
+<span class="px-space-xs py-space-2xs rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold">최우선 권고</span>
+</div>
+<div class="font-data-metric text-data-metric font-extrabold text-primary tracking-tight mb-space-2xs">
+              [P02] 실증 바우처 5,000만원
+            </div>
+<p class="font-body-md text-body-md text-on-surface font-medium">
+              + 경기도 1차 협력사 현장 양산 라인 실증(PoC) 및 구매 LOI 직결 연계
+            </p>
+</div>
+<div class="mt-space-md pt-space-sm border-t border-outline-variant/40 flex items-center justify-between font-label-sm text-label-sm text-primary">
+<span>지원 시 선정 가능성</span>
+<span class="font-extrabold text-primary">94.8% (초격차 적합 판정)</span>
+</div>
+</div>
+</div>
+<!-- Decisive Toss Insight Message -->
+<div class="p-space-md rounded-xl bg-surface-container flex items-start gap-space-md">
+<span class="material-symbols-outlined text-secondary text-2xl shrink-0 mt-0.5">tips_and_updates</span>
+<div>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface mb-0.5">
+            1.5억원의 연구개발보다 첫 유상 고객 확보가 4.2배 시급해요.
+          </h4>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            비전 알고리즘 성능(mAP 98.4%)은 이미 양산 기준을 초과했습니다. 지금 R&amp;D를 추가 투입하면 런웨이만 소진되며, 경기도 완성차 부품 라인 실증 레퍼런스 확보가 차기 시리즈 A 유치의 결정적 열쇠가 됩니다.
+          </p>
+</div>
+</div>
+</div>
+<!-- 2. T·E·M 3-Axis Growth Diagnostic (Toss Segment Gauge) -->
+<div class="w-full bg-surface-container-lowest rounded-2xl p-space-xl shadow-md flex flex-col gap-space-lg">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wide">3대 핵심 성장 축 진단</span>
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface mt-space-2xs">T·E·M 성장 성숙도 분석</h3>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant">종합 진단 종합 점수</span>
+<div class="font-headline-lg text-headline-lg font-black text-primary">61.3<span class="font-body-sm text-body-sm text-on-surface-variant font-normal"> / 100</span></div>
+</div>
+</div>
+<!-- 3 Axis Progress Visualizers -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+<!-- Axis T: Technology -->
+<div class="p-space-lg rounded-xl bg-surface-container-low flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">T (기술성숙도)</span>
+<span class="font-headline-md text-headline-md font-extrabold text-primary">88<span class="font-label-sm text-label-sm text-on-surface-variant font-normal">점</span></span>
+</div>
+<div class="w-full h-3 rounded-full bg-surface-container overflow-hidden mb-space-sm">
+<div class="h-full bg-primary rounded-full transition-all duration-1000" style="width: 88%;"></div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant mb-space-md">
+<span>T3 상용화 완성 단계</span>
+<span class="text-primary font-semibold">최상위 5%</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            특허 4건 등록, Edge 구동 최적화 완료로 추가 R&amp;D 자금 투입 불필요.
+          </p>
+</div>
+<!-- Axis E: Empirical Prep -->
+<div class="p-space-lg rounded-xl bg-surface-container-low flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">E (실증준비도)</span>
+<span class="font-headline-md text-headline-md font-extrabold text-secondary">64<span class="font-label-sm text-label-sm text-on-surface-variant font-normal">점</span></span>
+</div>
+<div class="w-full h-3 rounded-full bg-surface-container overflow-hidden mb-space-sm">
+<div class="h-full bg-secondary rounded-full transition-all duration-1000" style="width: 64%;"></div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant mb-space-md">
+<span>E3 현장실증 착수 적기</span>
+<span class="text-secondary font-semibold">골든타임</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            테스트베드 통신 연동 규격 92% 충족. 실증 지원금 연계 즉시 투입 가능.
+          </p>
+</div>
+<!-- Axis M: Market Validation -->
+<div class="p-space-lg rounded-xl bg-surface-container-low flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">M (시장검증도)</span>
+<span class="font-headline-md text-headline-md font-extrabold text-on-surface-variant">32<span class="font-label-sm text-label-sm text-on-surface-variant font-normal">점</span></span>
+</div>
+<div class="w-full h-3 rounded-full bg-surface-container overflow-hidden mb-space-sm">
+<div class="h-full bg-outline rounded-full transition-all duration-1000" style="width: 32%;"></div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant mb-space-md">
+<span>M1 시장 진입 정체 구간</span>
+<span class="text-outline font-semibold">핵심 병목</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant font-medium">
+            유상 계약 0건이 유일한 성장의 병목이에요. 전환률 제고 지원 집중 필요.
+          </p>
+</div>
+</div>
+</div>
+<!-- 3. Customer Validation Funnel (Toss Clean Horizontal Progression) -->
+<div class="w-full bg-surface-container-lowest rounded-2xl p-space-xl shadow-md flex flex-col gap-space-lg">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wide">수요처 파이프라인 분석</span>
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface mt-space-2xs">6단계 고객 검증 퍼널</h3>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-space-sm py-space-2xs rounded-full">
+          무상 PoC에서 유상 전환 지체 중
+        </span>
+</div>
+<!-- Funnel Bar Visualization -->
+<div class="grid grid-cols-2 md:grid-cols-6 gap-space-xs">
+<!-- Step 1 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">1. 잠재고객</span>
+<span class="font-headline-md text-headline-md font-black text-primary mt-space-2xs">40</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-auto pt-space-xs">아웃바운드 접촉</span>
+</div>
+<!-- Step 2 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">2. 심층상담</span>
+<span class="font-headline-md text-headline-md font-black text-primary mt-space-2xs">9</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-auto pt-space-xs">기술 사양 미팅</span>
+</div>
+<!-- Step 3 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">3. 무상 PoC</span>
+<span class="font-headline-md text-headline-md font-black text-secondary mt-space-2xs">2</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-auto pt-space-xs">안산 단지 내 테스트</span>
+</div>
+<!-- Step 4 (Bottleneck) -->
+<div class="p-space-md rounded-xl bg-surface-container flex flex-col">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-primary font-bold">4. LOI 의향서</span>
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+</div>
+<span class="font-headline-md text-headline-md font-black text-on-surface-variant mt-space-2xs">0</span>
+<span class="font-label-sm text-label-sm text-outline font-semibold mt-auto pt-space-xs">계약 전환 정체</span>
+</div>
+<!-- Step 5 -->
+<div class="p-space-md rounded-xl bg-surface-container flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">5. 유상계약</span>
+<span class="font-headline-md text-headline-md font-black text-on-surface-variant mt-space-2xs">0</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-auto pt-space-xs">목표 매출액 0원</span>
+</div>
+<!-- Step 6 -->
+<div class="p-space-md rounded-xl bg-surface-container flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">6. 반복매출</span>
+<span class="font-headline-md text-headline-md font-black text-on-surface-variant mt-space-2xs">0</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-auto pt-space-xs">구독/유지보수</span>
+</div>
+</div>
+</div>
+<!-- 4. Tailored Public Support 3-Zone Prescription Cards (Toss Recommend Cards) -->
+<div class="w-full flex flex-col gap-space-md">
+<div>
+<span class="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wide">경기도 공공 RAG 연계 처방</span>
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface mt-space-2xs">맞춤 지원사업 3단계 로드맵</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+<!-- Zone 1: Right Now (Strong Recommend) -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-md flex flex-col justify-between">
+<div>
+<div class="inline-flex items-center gap-space-2xs px-space-xs py-space-2xs rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold mb-space-sm">
+<span class="material-symbols-outlined text-xs">check_circle</span> 지금 즉시 신청
+            </div>
+<h4 class="font-headline-sm text-headline-sm font-bold text-primary mb-space-xs">
+              [P02] AI 현장실증(PoC) 지원
+            </h4>
+<div class="font-data-metric text-data-metric font-extrabold text-on-surface mb-space-xs">5,000만원</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-md">
+              현대차/기아 1차 협력사 조립라인 현장 설치 및 3개월 양산성 실증 비용 전액 국비/도비 바우처 지원.
+            </p>
+</div>
+<div class="pt-space-md border-t border-outline-variant/30 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">신청 마감 D-12</span>
+<button class="px-space-md py-space-xs rounded-xl bg-primary text-on-primary font-label-md text-label-md font-bold hover:opacity-90 transition">신청 서류 자동 생성</button>
+</div>
+</div>
+<!-- Zone 2: Next Stage -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-md flex flex-col justify-between">
+<div>
+<div class="inline-flex items-center gap-space-2xs px-space-xs py-space-2xs rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-bold mb-space-sm">
+<span class="material-symbols-outlined text-xs">schedule</span> 다음 단계 (Q3 예정)
+            </div>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface mb-space-xs">
+              [P05] 글로벌 수출 바우처
+            </h4>
+<div class="font-data-metric text-data-metric font-extrabold text-on-surface-variant mb-space-xs">3,000만원</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-md">
+              국내 첫 유상 계약 1건 확보 후 북미/유럽 모빌리티 공급망 규격(CE, ISO26262) 인증 및 해외 로드쇼 파견.
+            </p>
+</div>
+<div class="pt-space-md border-t border-outline-variant/30 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">선결 조건: 유상 LOI 1건</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">대기 알림 예약</span>
+</div>
+</div>
+<!-- Zone 3: Not Recommended Right Now (Blocked to Save Time) -->
+<div class="bg-surface-container-low rounded-2xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="inline-flex items-center gap-space-2xs px-space-xs py-space-2xs rounded-full bg-surface-variant text-on-surface-variant font-label-sm text-label-sm font-bold mb-space-sm">
+<span class="material-symbols-outlined text-xs">block</span> 지금은 권하지 않음
+            </div>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface-variant mb-space-xs">
+              [P01] AI 원천기술 R&amp;D 지원
+            </h4>
+<div class="font-data-metric text-data-metric font-extrabold text-on-surface-variant mb-space-xs">1억 5,000만원</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+              [차단 사유]: 모델 성숙도가 이미 88점에 도달하여, 추가 R&amp;D 선정 점수가 낮고 시장 진입 타이밍을 상실할 위험이 큼.
+            </p>
+</div>
+<div class="pt-space-md border-t border-outline-variant/20">
+<span class="font-label-sm text-label-sm text-outline font-semibold">대표자 불필요 서류 낭비 차단</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 5. World Bank Group 20,000+ Indicator Benchmark (Global Macro Alignment) -->
+<div class="w-full bg-surface-container-lowest rounded-2xl p-space-xl shadow-md flex flex-col gap-space-lg">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div>
+<span class="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wide">api.worldbank.org/v2 실시간 데이터 연계</span>
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface mt-space-2xs">글로벌 거시제조 벤치마크 진단</h3>
+</div>
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-space-sm py-space-2xs rounded-full">
+<span class="material-symbols-outlined text-xs text-secondary">public</span>
+<span>World Bank WDI Data Exchange Verified</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
+<!-- Indicator 1: MVA (Manufacturing Value Added) -->
+<div class="p-space-lg rounded-xl bg-surface-container-low flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-md text-label-md text-on-surface-variant">제조업 부가가치 비중 (MVA % of GDP)</span>
+<span class="font-label-sm text-label-sm text-primary font-bold">OECD 1위 (27.6%)</span>
+</div>
+<div class="font-headline-lg text-headline-lg font-black text-primary mb-space-xs">대한민국 27.6% <span class="font-body-sm text-body-sm font-normal text-on-surface-variant">vs OECD 평균 14.1%</span></div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              경기도는 국내 제조업 부가가치의 34%를 창출하는 최대 밀집지입니다. (주)비전웍스AI의 머신비전 솔루션은 현장 공급망 적합도 지수 최상위(91.2)에 해당합니다.
+            </p>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden mt-space-md">
+<div class="h-full bg-primary rounded-full" style="width: 82%;"></div>
+</div>
+</div>
+<!-- Indicator 2: High-Tech Export Share -->
+<div class="p-space-lg rounded-xl bg-surface-container-low flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-md text-label-md text-on-surface-variant">High-Tech 제조 수출 비중 (TX.VAL.TECH.MF.ZS)</span>
+<span class="font-label-sm text-label-sm text-secondary font-bold">글로벌 상위 3%</span>
+</div>
+<div class="font-headline-lg text-headline-lg font-black text-secondary mb-space-xs">한국 34.8% <span class="font-body-sm text-body-sm font-normal text-on-surface-variant">vs 글로벌 평균 19.3%</span></div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              현장 PoC 완료 즉시 해외 자동차 OEM 및 반도체 후공정 밸류체인 진입이 용이한 고부가가치 세부 카테고리로 분류되었습니다.
+            </p>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden mt-space-md">
+<div class="h-full bg-secondary rounded-full" style="width: 76%;"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive 3D Official Mascot Playground & Floating Toss Chatbot Bar -->
+<aside class="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-space-sm pointer-events-none">
+<!-- Mascot Toss Speech Bubble -->
+<div class="pointer-events-auto bg-surface-container-lowest text-on-surface p-space-md rounded-2xl shadow-xl max-w-xs transition-all duration-300" id="mascotBubble">
+<div class="flex items-center gap-space-xs mb-space-2xs">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm font-bold text-primary">이콤 &amp; 경이 AI 파트너</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface font-medium leading-relaxed" id="bubbleMessage">
+        사업계획서를 올려주시면 이콤이가 10초 만에 완벽히 읽고 맞춤 지원을 찾아드려요!
+      </p>
+</div>
+<!-- Floating Interactive Card -->
+<div class="pointer-events-auto bg-surface-container-lowest/95 backdrop-blur-md p-space-sm rounded-3xl shadow-xl flex items-center gap-space-sm">
+<!-- Character Image Container with Interactive ThreeJS Hook -->
+<div class="relative w-14 h-14 rounded-2xl bg-surface-container overflow-hidden flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-110" id="characterStage" onclick="triggerMotion('wave')">
+<img class="w-full h-full object-cover" data-alt="Official 3D rendered anime mascot characters of GBSA named Ikom and Gyeongi, wearing white futuristic astronaut spacesuits with cyan blue and lime accents, smiling cheerfully and sitting side by side with a glowing blue orb light, pristine studio lighting on clean background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCV7B44YjBj03EcmHsA1EH7JUU-zWJXgmxfLZaewc8kd3WWmCPMxanBdorrllWOZYgkRoX5X3aNjnTblVoQcyfas3JKLsjK6ivzSDW3p67pSPxyOrEoCt97aWQHH2xYYIJ7uGp3q0Y8HfyrhnCaXkBe-NgJxaCtzm8-UOEWLsCupAOKQ7XOwdImEnmfBMDIcMSkvQSESh8vwpu3QfSNA7njRCOGlYhYNrMpQUrOzTZ0KQWLEg-NGIY3"/>
+</div>
+<!-- Quick 4 Motion Action Buttons -->
+<div class="flex items-center gap-1 pr-1">
+<button class="w-8 h-8 rounded-full bg-surface-container-low hover:bg-primary hover:text-on-primary text-on-surface-variant font-label-sm text-label-sm flex items-center justify-center transition" onclick="triggerMotion('jump')" title="점프">
+<span class="material-symbols-outlined text-base">north</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-surface-container-low hover:bg-primary hover:text-on-primary text-on-surface-variant font-label-sm text-label-sm flex items-center justify-center transition" onclick="triggerMotion('flip')" title="재주넘기">
+<span class="material-symbols-outlined text-base">replay</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-surface-container-low hover:bg-primary hover:text-on-primary text-on-surface-variant font-label-sm text-label-sm flex items-center justify-center transition" onclick="triggerMotion('wave')" title="손인사">
+<span class="material-symbols-outlined text-base">waving_hand</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-surface-container-low hover:bg-primary hover:text-on-primary text-on-surface-variant font-label-sm text-label-sm flex items-center justify-center transition" onclick="triggerMotion('ball')" title="공놀이">
+<span class="material-symbols-outlined text-base">sports_soccer</span>
+</button>
+</div>
+</div>
+</aside>
+</div>
+<script>
+  // Quick Mock Diagnostic Dataset
+  const MOCK_DATA = {
+    visionworks: {
+      title: "(주)비전웍스AI 맞춤 처방 분석 결과",
+      score: "61.3",
+      tScore: 88,
+      eScore: 64,
+      mScore: 32,
+      bubble: "비전웍스AI는 모델 완성도가 높아서 1.5억 R&D보다 실증 바우처 5,000만원이 훨씬 효과적이에요!"
+    },
+    optiworks: {
+      title: "(주)옵티웍스 (광학센서/성숙) 분석 결과",
+      score: "78.4",
+      tScore: 92,
+      eScore: 81,
+      mScore: 62,
+      bubble: "옵티웍스는 이미 실증 단계에 진입했어요. 글로벌 수출 바우처 연계가 가장 빠르게 승인됩니다!"
+    },
+    cardio: {
+      title: "카디오인사이트 (디지털헬스/규제) 분석 결과",
+      score: "54.1",
+      tScore: 84,
+      eScore: 49,
+      mScore: 29,
+      bubble: "디지털헬스는 식약처 인허가 트랙이 필수예요. 규제 샌드박스 패스트트랙 [P03]을 추천합니다!"
+    }
+  };
+
+  // Sample Case Loader Micro-interaction
+  function loadSampleCase(key) {
+    const data = MOCK_DATA[key];
+    if (!data) return;
+
+    // Trigger Overlay Transition
+    const overlay = document.getElementById('loadingOverlay');
+    const progressText = document.getElementById('analysisProgressText');
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
+    progressText.innerText = "선택하신 사업계획서 셋을 자연어 RAG로 파싱 중입니다 (42%)...";
+
+    setTimeout(() => {
+      progressText.innerText = "World Bank MVA 지표 및 도내 바우처 적합도 매칭 중 (89%)...";
+    }, 400);
+
+    setTimeout(() => {
+      overlay.classList.add('hidden');
+      overlay.classList.remove('flex');
+      
+      // Update DOM
+      document.getElementById('reportTitle').innerText = data.title;
+      document.getElementById('bubbleMessage').innerText = data.bubble;
+      
+      // Scroll smoothly to results
+      document.getElementById('diagnosticResults').scrollIntoView({ behavior: 'smooth' });
+      triggerMotion('wave');
+    }, 800);
+  }
+
+  // Drag and Drop Simulator
+  const dropzone = document.getElementById('dropzoneArea');
+  const fileInput = document.getElementById('fileInput');
+
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropzone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropzone.classList.add('bg-surface-container');
+    }, false);
+  });
+
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropzone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropzone.classList.remove('bg-surface-container');
+    }, false);
+  });
+
+  dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    if (files.length > 0) {
+      loadSampleCase('visionworks');
+    }
+  });
+
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files.length > 0) {
+      loadSampleCase('visionworks');
+    }
+  });
+
+  // Mascot Motion Controls
+  function triggerMotion(type) {
+    const stage = document.getElementById('characterStage');
+    const bubble = document.getElementById('bubbleMessage');
+
+    if (type === 'jump') {
+      stage.classList.add('-translate-y-4');
+      bubble.innerText = "이콤이가 높이 점프했어요! 경기도 1등 기업으로 비상하세요!";
+      setTimeout(() => stage.classList.remove('-translate-y-4'), 400);
+    } else if (type === 'flip') {
+      stage.classList.add('rotate-180');
+      bubble.innerText = "짜잔! 재주넘기로 막힌 시장 규제도 가볍게 돌파할게요!";
+      setTimeout(() => stage.classList.remove('rotate-180'), 500);
+    } else if (type === 'wave') {
+      stage.classList.add('scale-125');
+      bubble.innerText = "반가워요! GBSA G-브릿지 AI가 대표님의 든든한 파트너가 되어드릴게요!";
+      setTimeout(() => stage.classList.remove('scale-125'), 350);
+    } else if (type === 'ball') {
+      stage.classList.add('translate-x-2');
+      bubble.innerText = "골인! 글로벌 시장을 향해 데이터 패스를 정확히 찔러드렸어요!";
+      setTimeout(() => stage.classList.remove('translate-x-2'), 400);
+    }
+  }
+</script></main><footer class="w-full bg-surface-container-lowest shadow-[0_-1px_8px_rgba(0,0,0,0.02)] py-space-xl"><div class="w-full px-margin-desktop flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex flex-col gap-space-2xs text-left"><span class="font-headline-sm text-headline-sm text-on-surface font-bold">경기도경제과학진흥원 GBSA</span><span class="font-body-sm text-body-sm text-on-surface-variant">경영혁신형 공공 RAG 및 B2B 인공지능 지원 거점 플랫폼</span></div><div class="flex items-center gap-space-lg text-on-surface-variant font-label-md text-label-md"><span>데이터 신뢰 보증 시스템 v2.4</span><span>운영센터 1588-0000</span><span>© GBSA. All rights reserved.</span></div></div></footer></body></html>

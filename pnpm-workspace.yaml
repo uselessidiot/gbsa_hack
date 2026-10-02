@@ -1,0 +1,2 @@
+minimumReleaseAgeExclude:
+  - '@google/genai@2.26.0'
