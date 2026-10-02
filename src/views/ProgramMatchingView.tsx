@@ -105,7 +105,7 @@ export const ProgramMatchingView: React.FC<ProgramMatchingViewProps> = ({
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
         <div>
           <span className="font-label-md text-label-md text-secondary font-bold uppercase tracking-wider">
-            Track A · GBSA 맞춤형 공공 지원사업 매칭 엔진
+            Track A · 맞춤 지원사업 연계
           </span>
           <h2 className="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight mt-space-2xs">
             최적 지원사업 추천

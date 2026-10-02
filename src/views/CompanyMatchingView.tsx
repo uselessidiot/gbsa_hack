@@ -65,7 +65,7 @@ export const CompanyMatchingView: React.FC<CompanyMatchingViewProps> = ({
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
         <div>
           <span className="font-label-md text-label-md text-secondary font-bold uppercase tracking-wider">
-            Track B · 기업 Discovery & B2B 협력 매칭 엔진
+            Track B · 기업 협력 매칭
           </span>
           <h2 className="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight mt-space-2xs">
             도내 파트너·수요기업 탐색

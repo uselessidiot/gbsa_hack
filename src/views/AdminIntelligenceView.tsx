@@ -83,7 +83,7 @@ export const AdminIntelligenceView: React.FC = () => {
             </span>
             <div>
               <span className="font-extrabold text-sm md:text-base text-slate-900 tracking-tight block">
-                GBSA 기업지원 Intelligence
+                GBSA 기업지원 운영센터
               </span>
               <span className="text-[10px] text-slate-400 font-semibold block -mt-0.5">
                 경기도경제과학진흥원 관리자 통합 관제 콘솔
@@ -159,14 +159,14 @@ export const AdminIntelligenceView: React.FC = () => {
 
             <div>
               <div className="px-3 pb-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                기업 데이터 & AI 파이프라인
+                기업 데이터 & 분석 운영
               </div>
               <nav className="space-y-1">
                 {[
                   ['business', '기업 관리 & 진단 목록', 'companies'],
                   ['monitoring', '개별 기업 성과 상세', 'performance'],
                   ['mail', '맞춤형 알림톡·메일링', 'mailing'],
-                  ['library_books', '공공 RAG 지식베이스', 'rag'],
+                  ['library_books', '공공 자료 지식베이스', 'rag'],
                   ['tune', '분석 방법 관리', 'analysis-method'],
                 ].map(([icon, label, pageKey]) => {
                   const isActive = activePage === pageKey;
@@ -210,10 +210,10 @@ export const AdminIntelligenceView: React.FC = () => {
           <div className="rounded-2xl bg-gradient-to-br from-slate-900 to-blue-950 p-4 text-white text-xs border border-blue-900 shadow-sm space-y-2">
             <div className="flex items-center gap-1.5 text-blue-300 font-extrabold text-[11px]">
               <span className="material-symbols-outlined text-sm">verified</span>
-              GBSA AI Enterprise
+              GBSA 기업지원 운영
             </div>
             <p className="text-[11px] text-blue-100/80 leading-relaxed">
-              공공 RAG 팩트체크와 T·E·M 정밀 진단으로 도내 유망 중소기업의 성장을 가속합니다.
+              기업 진단과 지원사업 데이터를 연결해 담당자의 업무 판단을 돕습니다.
             </p>
           </div>
         </aside>
@@ -247,7 +247,7 @@ export const AdminIntelligenceView: React.FC = () => {
                      AI실증지원팀 담당자님, 오늘의 기업지원 현황입니다.
                   </h1>
                   <p className="text-xs text-slate-500 mt-1">
-                    사업계획서 원문 파싱 데이터와 7종 공공 리포트 RAG 지식베이스가 100% 동기화되어 있습니다.
+                    사업계획서 분석 데이터와 공공 자료 기준이 최신 상태로 연동되어 있습니다.
                   </p>
                 </div>
 
@@ -275,7 +275,7 @@ export const AdminIntelligenceView: React.FC = () => {
                     className="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition border border-slate-200 flex items-center gap-1.5"
                   >
                     <span className="material-symbols-outlined text-sm text-blue-600">library_books</span>
-                    <span>RAG 지식 뷰어</span>
+                     <span>공공 자료 뷰어</span>
                   </button>
                 </div>
               </div>

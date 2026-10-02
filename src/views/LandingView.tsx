@@ -15,48 +15,71 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
 
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [currentStep, setCurrentStep] = useState<number>(1);
-  const [progressPercent, setProgressPercent] = useState<number>(15);
+  const [progressPercent, setProgressPercent] = useState<number>(20);
+  const [activeFrameIndex, setActiveFrameIndex] = useState<number>(0);
+
+  const MASCOT_FRAMES = [
+    '/frames/frame_20.jpg',
+    '/frames/frame_40.jpg',
+    '/frames/frame_60.jpg',
+    '/frames/frame_80.jpg',
+    '/frames/frame_95.jpg',
+    '/frames/frame_100_a.jpg',
+  ];
 
   const startAnalysisSequence = (targetPayload: { company: Company; analysis: AnalysisResult; profile: CompanyB2BProfile }) => {
     setIsLoading(true);
     setUploadError('');
     setCurrentStep(1);
-    setProgressPercent(15);
+    setProgressPercent(20);
+    setActiveFrameIndex(0);
     setProgressText('사업계획서 문서의 기술 지표와 비즈니스 모델을 파싱 중입니다...');
 
-    // 0.6s - 35%
+    // 0.5s - Frame 2 (40%)
     setTimeout(() => {
-      setCurrentStep(2);
+      setCurrentStep(1);
       setProgressPercent(40);
-      setProgressText('T·E·M 3축 성숙도와 1순위 핵심 병목을 진단 중입니다...');
-    }, 650);
+      setActiveFrameIndex(1);
+      setProgressText('사업계획서의 주요 수치와 추진 계획을 추출 중입니다...');
+    }, 500);
 
-    // 1.3s - 65%
+    // 1.0s - Frame 3 (60%)
     setTimeout(() => {
       setCurrentStep(2);
-      setProgressPercent(65);
-      setProgressText('7종 공공 RAG 산업 리포트와 팩트체크를 교차 검증 중입니다...');
-    }, 1300);
+      setProgressPercent(60);
+      setActiveFrameIndex(2);
+      setProgressText('T·E·M 3축 성숙도와 1순위 핵심 병목을 진단 중입니다...');
+    }, 1000);
 
-    // 2.0s - 85%
+    // 1.6s - Frame 4 (80%)
     setTimeout(() => {
       setCurrentStep(3);
-      setProgressPercent(88);
-      setProgressText('경기도 맞춤 지원사업 DB 및 도내 파트너사를 매칭 중입니다...');
-    }, 2000);
+      setProgressPercent(80);
+      setActiveFrameIndex(3);
+      setProgressText('7종 공공 RAG 산업 리포트와 팩트체크를 교차 검증 중입니다...');
+    }, 1600);
 
-    // 2.6s - 100%
+    // 2.2s - Frame 5 (95%)
+    setTimeout(() => {
+      setCurrentStep(3);
+      setProgressPercent(95);
+      setActiveFrameIndex(4);
+      setProgressText('경기도 맞춤 지원사업 DB 및 도내 파트너사를 매칭 중입니다...');
+    }, 2200);
+
+    // 2.7s - Frame 6 (100% Goal Reached)
     setTimeout(() => {
       setCurrentStep(4);
       setProgressPercent(100);
+      setActiveFrameIndex(5);
       setProgressText('경영진 맞춤형 AI 성장진단 & 컨설팅 리포트를 완성했습니다!');
-    }, 2600);
+    }, 2700);
 
-    // 3.0s - Finish and show result
+    // 3.3s - Finish and show result
     setTimeout(() => {
       setIsLoading(false);
       onStartAnalysis(targetPayload);
-    }, 3100);
+    }, 3300);
   };
 
   const handleSampleSelect = (companyId: string) => {
@@ -141,7 +164,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
             <span className="font-label-md text-label-md text-secondary font-bold tracking-wide">기업의 성장, 진단부터 매칭까지</span>
           </div>
           <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-space-lg text-left">
-            <div className="min-h-[190px] p-space-xl rounded-3xl bg-surface-container-lowest shadow-lg border border-outline-variant/20 flex flex-col">
+            <div className="min-h-[190px] p-space-xl rounded-2xl bg-surface-container-lowest shadow-md border border-outline-variant/20 flex flex-col">
               <div className="w-12 h-12 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center mb-space-md">
                 <span className="material-symbols-outlined text-2xl">analytics</span>
               </div>
@@ -152,7 +175,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
                 핵심역량을 진단합니다.
               </p>
             </div>
-            <div className="min-h-[190px] p-space-xl rounded-3xl bg-surface-container-lowest shadow-lg border border-outline-variant/20 flex flex-col">
+            <div className="min-h-[190px] p-space-xl rounded-2xl bg-surface-container-lowest shadow-md border border-outline-variant/20 flex flex-col">
               <div className="w-12 h-12 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center mb-space-md">
                 <span className="material-symbols-outlined text-2xl">balance</span>
               </div>
@@ -163,7 +186,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
                 지원기회를 연결합니다.
               </p>
             </div>
-            <div className="min-h-[190px] p-space-xl rounded-3xl bg-surface-container-lowest shadow-lg border border-outline-variant/20 flex flex-col">
+            <div className="min-h-[190px] p-space-xl rounded-2xl bg-surface-container-lowest shadow-md border border-outline-variant/20 flex flex-col">
               <div className="w-12 h-12 rounded-xl bg-surface-container text-primary flex items-center justify-center mb-space-md">
                 <span className="material-symbols-outlined text-2xl">hub</span>
               </div>
@@ -178,7 +201,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
         </div>
 
         {/* Large Interaction Drag & Drop Card */}
-        <div className="w-full bg-surface-container-lowest rounded-[2.5rem] p-space-2xl shadow-2xl transition-all duration-300 relative group overflow-hidden border border-outline-variant/30">
+        <div className="w-full bg-surface-container-lowest rounded-2xl p-space-2xl shadow-md transition-all duration-300 relative group overflow-hidden border border-outline-variant/30">
           {/* Ambient Glow Effects */}
           <div className="absolute inset-x-0 top-0 h-1 bg-primary/80 pointer-events-none"></div>
 
@@ -255,44 +278,38 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
             <div className="fixed inset-0 z-[100] bg-slate-950/70 backdrop-blur-2xl flex items-center justify-center p-4 md:p-8 animate-fadeIn">
               <div className="relative w-full max-w-3xl bg-white/95 rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.35)] border border-white/60 overflow-hidden flex flex-col items-center p-6 md:p-8 text-center animate-scaleUp">
                 
-                {/* 1. Large Mascot Running Animation Banner */}
-                <div className="relative w-full h-56 md:h-72 rounded-2xl overflow-hidden bg-gradient-to-b from-sky-100/80 via-blue-50/50 to-emerald-50/80 border border-slate-200/80 shadow-inner mb-6 flex flex-col justify-between p-4">
+                {/* 1. Dynamic Animated Mascot Frame Sequence */}
+                <div className="relative w-full aspect-[16/9] max-h-[360px] rounded-2xl overflow-hidden bg-slate-900 border border-slate-200/80 shadow-lg mb-6 flex flex-col justify-end p-4 group">
                   
-                  {/* Background Landscape / Mascot Scene */}
-                  <div className="absolute inset-0 w-full h-full">
+                  {/* Dynamic Active Frame Image */}
+                  <div className="absolute inset-0 w-full h-full bg-slate-950 flex items-center justify-center">
                     <img
-                      src="/mascot_loading_banner.jpg"
-                      alt="경기도 G-브릿지 AI 캐릭터 달리기"
-                      className="w-full h-full object-cover object-bottom"
+                      key={activeFrameIndex}
+                      src={MASCOT_FRAMES[activeFrameIndex] || MASCOT_FRAMES[0]}
+                      alt={`경기도 AI 진단 애니메이션 프레임 ${progressPercent}%`}
+                      className="w-full h-full object-contain md:object-cover transition-all duration-200 ease-out animate-fadeIn"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
                   </div>
 
-                  {/* Top Gyeonggi-do Emblem & Goal Flag */}
-                  <div className="relative z-10 flex items-center justify-between w-full">
-                    <div className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md shadow-sm border border-emerald-200 flex items-center gap-1.5 text-xs font-black text-emerald-800">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-                      <span>경기도 AI 스마트 진단</span>
-                    </div>
-
-                    <div className="px-3 py-1 rounded-full bg-blue-600/90 backdrop-blur-md shadow-md text-white text-xs font-black flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm">flag</span>
-                      <span>목표 100% 매칭</span>
-                    </div>
+                  {/* Hidden prefetch for ultra-smooth instant frame switching */}
+                  <div className="hidden">
+                    {MASCOT_FRAMES.map((src) => (
+                      <img key={src} src={src} alt="preload" />
+                    ))}
                   </div>
 
-                  {/* Running Dynamic Progress Pill positioned on the track */}
-                  <div className="relative z-10 w-full bg-black/40 backdrop-blur-md rounded-2xl p-3 border border-white/30 text-left">
+                  {/* Running Dynamic Progress Pill positioned at bottom */}
+                  <div className="relative z-10 w-full bg-slate-950/80 backdrop-blur-md rounded-2xl p-3 border border-white/20 text-left shadow-xl">
                     <div className="flex items-center justify-between text-xs font-black text-white mb-1.5">
-                      <span className="flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+                      <span className="flex items-center gap-1.5 truncate">
+                        <span className="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
                         {progressText}
                       </span>
-                      <span className="text-base text-sky-300 font-extrabold">{progressPercent}%</span>
+                      <span className="text-base text-emerald-300 font-extrabold ml-2 shrink-0">{progressPercent}%</span>
                     </div>
 
                     {/* Gradient Progress Gauge Bar */}
-                    <div className="w-full bg-white/20 rounded-full h-3 overflow-hidden shadow-inner p-0.5 border border-white/20">
+                    <div className="w-full bg-white/20 rounded-full h-2.5 overflow-hidden shadow-inner p-0.5 border border-white/10">
                       <div
                         className="bg-gradient-to-r from-blue-500 via-sky-400 to-emerald-400 h-full rounded-full transition-all duration-300 ease-out shadow-lg"
                         style={{ width: `${progressPercent}%` }}

@@ -22,11 +22,11 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, hasAnal
               G
             </div>
             <span className="font-headline-md text-headline-md text-primary tracking-tight font-extrabold">
-              G-브릿지 AI
+              G-브릿지
             </span>
           </div>
           <span className="px-space-xs py-space-2xs rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold tracking-wide">
-            GBSA 기업지원 Intelligence
+            GBSA 기업지원 플랫폼
           </span>
         </div>
 
@@ -41,7 +41,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, hasAnal
                 : 'text-on-surface-variant border-transparent hover:text-on-surface'
             }`}
           >
-            1. 기업 성장진단 (AI Report)
+            1. 기업 성장진단
           </button>
           <button
             type="button"
@@ -68,7 +68,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, hasAnal
                 : 'text-on-surface-variant border-transparent hover:text-on-surface'
             }`}
           >
-            3. 기업 Discovery & 매칭
+            3. 기업 협력 매칭
             {hasAnalyzedCompany && (
               <span className="absolute -top-1 -right-3 px-1.5 py-0.2 rounded-full bg-primary text-white text-[10px] font-extrabold">
                 B2B
@@ -95,7 +95,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, hasAnal
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
             </span>
-            <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">Gemini RAG 실시간</span>
+            <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">데이터 연동 상태 양호</span>
           </div>
           <div className="w-8 h-8 rounded-full overflow-hidden bg-surface-container flex items-center justify-center border border-outline-variant/30">
             <span className="material-symbols-outlined text-primary text-xl">account_circle</span>

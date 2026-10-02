@@ -52,7 +52,7 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
         <div>
           <span className="font-label-md text-label-md text-secondary font-bold uppercase tracking-wider">
-            1. AI 기업 성장진단 & 컨설팅 종합 보고서
+            1. 기업 성장진단 & 컨설팅 보고서
           </span>
           <h2 className="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight mt-space-2xs">
             {company.name} 맞춤 성장진단 및 핵심 병목 처방
@@ -76,7 +76,7 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
       {/* 1. Executive Advisory & 3 Core Deep Diagnostic Cards */}
       {analysis.consultingInsights && (
         <section className="flex flex-col gap-space-lg">
-          <div className="rounded-3xl bg-gradient-to-br from-primary via-primary to-slate-900 text-white p-space-xl shadow-xl">
+          <div className="rounded-2xl bg-primary text-white p-space-xl shadow-md">
             <div className="flex flex-wrap items-center justify-between gap-space-sm mb-space-md">
               <span className="font-label-sm font-bold tracking-widest uppercase text-white/70">Executive Advisory</span>
               <div className="flex flex-wrap items-center gap-2">
