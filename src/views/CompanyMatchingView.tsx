@@ -57,6 +57,7 @@ export const CompanyMatchingView: React.FC<CompanyMatchingViewProps> = ({
             <p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
               공급 역량: <strong className="text-primary font-semibold">{profile.capabilities.join(' · ')}</strong> | 협력 니즈: <strong className="text-secondary font-semibold">{profile.needs.join(' · ')}</strong>
             </p>
+            <AnalysisKeywordTags company={company} analysis={analysis} profile={profile} label="매칭 기준 키워드" compact />
           </div>
         </div>
 
@@ -74,10 +75,6 @@ export const CompanyMatchingView: React.FC<CompanyMatchingViewProps> = ({
         </div>
       </div>
 
-      <div className="rounded-2xl border border-outline-variant/20 bg-surface-container-lowest px-space-lg py-space-md shadow-sm">
-        <AnalysisKeywordTags company={company} analysis={analysis} profile={profile} label="매칭 기준 키워드" />
-      </div>
-
       {/* Header & Semantic Search Bar */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
         <div>
@@ -85,7 +82,7 @@ export const CompanyMatchingView: React.FC<CompanyMatchingViewProps> = ({
             Track B · 기업 Discovery & B2B 협력 매칭 엔진
           </span>
           <h2 className="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight mt-space-2xs">
-            {company.name}과 시너지가 가장 높은 도내 파트너 & 수요기업
+            도내 파트너·수요기업 탐색
           </h2>
         </div>
       </div>

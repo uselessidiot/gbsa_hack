@@ -85,6 +85,7 @@ export const ProgramMatchingView: React.FC<ProgramMatchingViewProps> = ({
               핵심 병목: <strong className="text-error font-bold">{analysis.primaryBottleneck}</strong> (
               {analysis.temDiagnosis.technology.level}·{analysis.temDiagnosis.execution.level}·{analysis.temDiagnosis.market.level})
             </p>
+            <AnalysisKeywordTags company={company} analysis={analysis} label="진단 연계 키워드" compact />
           </div>
         </div>
 
@@ -102,10 +103,6 @@ export const ProgramMatchingView: React.FC<ProgramMatchingViewProps> = ({
         </div>
       </div>
 
-      <div className="rounded-2xl border border-outline-variant/20 bg-surface-container-lowest px-space-lg py-space-md shadow-sm">
-        <AnalysisKeywordTags company={company} analysis={analysis} label="진단 연계 키워드" />
-      </div>
-
       {/* Track A Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
         <div>
@@ -113,7 +110,7 @@ export const ProgramMatchingView: React.FC<ProgramMatchingViewProps> = ({
             Track A · GBSA 맞춤형 공공 지원사업 매칭 엔진
           </span>
           <h2 className="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight mt-space-2xs">
-            {company.name}의 {analysis.primaryBottleneck} 병목 해소를 위한 최적 지원사업
+            최적 지원사업 추천
           </h2>
         </div>
 
