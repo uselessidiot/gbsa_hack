@@ -134,6 +134,17 @@ export default async function handler(req: any, res: any) {
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
 
+    if (body.action === 'list-models') {
+      const pager = await ai.models.list();
+      const models: Array<{ name?: string; supportedActions?: string[] }> = [];
+      for await (const model of pager) {
+        if (model.supportedActions?.includes('generateContent')) {
+          models.push({ name: model.name, supportedActions: model.supportedActions });
+        }
+      }
+      return res.status(200).json({ models });
+    }
+
     if (body.action === 'analyze-company') {
       const raw = await generateDocument(ai, body, `
 당신은 GBSA 수석 기업전략 컨설턴트다. 첨부 사업계획서를 실사하듯 분석하라.
