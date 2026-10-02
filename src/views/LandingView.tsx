@@ -21,35 +21,42 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
     setIsLoading(true);
     setUploadError('');
     setCurrentStep(1);
-    setProgressPercent(18);
+    setProgressPercent(15);
     setProgressText('사업계획서 문서의 기술 지표와 비즈니스 모델을 파싱 중입니다...');
 
-    // Step 2
+    // 0.6s - 35%
     setTimeout(() => {
       setCurrentStep(2);
-      setProgressPercent(48);
-      setProgressText('T·E·M(기술·실행·시장) 3축 성숙도와 핵심 병목(Bottleneck)을 진단 중입니다...');
-    }, 850);
+      setProgressPercent(40);
+      setProgressText('T·E·M 3축 성숙도와 1순위 핵심 병목을 진단 중입니다...');
+    }, 650);
 
-    // Step 3
+    // 1.3s - 65%
+    setTimeout(() => {
+      setCurrentStep(2);
+      setProgressPercent(65);
+      setProgressText('7종 공공 RAG 산업 리포트와 팩트체크를 교차 검증 중입니다...');
+    }, 1300);
+
+    // 2.0s - 85%
     setTimeout(() => {
       setCurrentStep(3);
-      setProgressPercent(82);
-      setProgressText('경기도 120개 지원사업 DB 및 도내 B2B 협력 파트너를 매칭 중입니다...');
-    }, 1800);
+      setProgressPercent(88);
+      setProgressText('경기도 맞춤 지원사업 DB 및 도내 파트너사를 매칭 중입니다...');
+    }, 2000);
 
-    // Step 4
+    // 2.6s - 100%
     setTimeout(() => {
       setCurrentStep(4);
       setProgressPercent(100);
       setProgressText('경영진 맞춤형 AI 성장진단 & 컨설팅 리포트를 완성했습니다!');
-    }, 2650);
+    }, 2600);
 
-    // Final Completion
+    // 3.0s - Finish and show result
     setTimeout(() => {
       setIsLoading(false);
       onStartAnalysis(targetPayload);
-    }, 3200);
+    }, 3100);
   };
 
   const handleSampleSelect = (companyId: string) => {
@@ -243,69 +250,94 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
             </div>
           )}
 
-          {/* Loading Progress Overlay with Mascot Character */}
+          {/* Full-Screen Backdrop Blurred Mascot Loading Modal */}
           {isLoading && (
-            <div className="absolute inset-0 bg-surface-container-lowest/98 backdrop-blur-xl z-30 flex flex-col items-center justify-center p-space-lg md:p-space-xl animate-fadeIn">
-              {/* Mascot Character with Motion Glow */}
-              <div className="relative mb-space-md flex flex-col items-center">
-                <div className="absolute -inset-4 bg-gradient-to-r from-primary-fixed to-secondary-fixed rounded-full blur-2xl opacity-60 animate-pulse"></div>
-                <div className="relative w-28 h-28 md:w-36 md:h-36 rounded-3xl overflow-hidden bg-white shadow-2xl border-2 border-primary/20 flex items-center justify-center animate-bounce duration-1000">
-                  <img
-                    src="/mascot_running.jpg"
-                    alt="GBSA Mascot Ikom and Gyeongi"
-                    className="w-full h-full object-cover scale-105"
-                  />
-                </div>
-                <div className="mt-space-xs px-space-md py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold shadow-sm flex items-center gap-1.5 animate-pulse">
-                  <span className="w-2 h-2 rounded-full bg-secondary"></span>
-                  <span>이콤 & 경이가 사업계획서 탐색 중!</span>
-                </div>
-              </div>
+            <div className="fixed inset-0 z-[100] bg-slate-950/70 backdrop-blur-2xl flex items-center justify-center p-4 md:p-8 animate-fadeIn">
+              <div className="relative w-full max-w-3xl bg-white/95 rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.35)] border border-white/60 overflow-hidden flex flex-col items-center p-6 md:p-8 text-center animate-scaleUp">
+                
+                {/* 1. Large Mascot Running Animation Banner */}
+                <div className="relative w-full h-56 md:h-72 rounded-2xl overflow-hidden bg-gradient-to-b from-sky-100/80 via-blue-50/50 to-emerald-50/80 border border-slate-200/80 shadow-inner mb-6 flex flex-col justify-between p-4">
+                  
+                  {/* Background Landscape / Mascot Scene */}
+                  <div className="absolute inset-0 w-full h-full">
+                    <img
+                      src="/mascot_loading_banner.jpg"
+                      alt="경기도 G-브릿지 AI 캐릭터 달리기"
+                      className="w-full h-full object-cover object-bottom"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+                  </div>
 
-              {/* Title & Dynamic Status */}
-              <h4 className="font-headline-md text-headline-md font-extrabold text-primary mb-space-2xs text-center">
-                G-브릿지 AI 심층 분석 진행 중
-              </h4>
-              <p className="font-body-md text-body-md text-on-surface-variant font-medium text-center max-w-md h-12 flex items-center justify-center mb-space-md">
-                {progressText}
-              </p>
-
-              {/* Progress Gauge */}
-              <div className="w-full max-w-md bg-surface-container-high rounded-full h-3 overflow-hidden mb-space-md shadow-inner border border-outline-variant/30">
-                <div
-                  className="bg-gradient-to-r from-primary via-primary-container to-secondary h-full rounded-full transition-all duration-500 ease-out"
-                  style={{ width: `${progressPercent}%` }}
-                ></div>
-              </div>
-
-              {/* 4 Steps Indicator Pill Badges */}
-              <div className="w-full max-w-md grid grid-cols-2 gap-2 text-left">
-                {[
-                  { step: 1, label: '문서 핵심 지표 파싱', icon: 'description' },
-                  { step: 2, label: 'T·E·M 성숙도 & 병목 진단', icon: 'network_check' },
-                  { step: 3, label: '지원사업 & B2B 매칭', icon: 'hub' },
-                  { step: 4, label: '경영진 컨설팅 리포트', icon: 'insights' },
-                ].map((item) => {
-                  const isDone = currentStep > item.step;
-                  const isCurrent = currentStep === item.step;
-                  return (
-                    <div
-                      key={item.step}
-                      className={`flex items-center gap-2 p-2 rounded-xl text-xs font-semibold transition-all duration-300 ${
-                        isDone
-                          ? 'bg-secondary-container/40 text-on-secondary-container font-bold'
-                          : isCurrent
-                          ? 'bg-primary-container/20 text-primary border border-primary/30 shadow-sm animate-pulse'
-                          : 'bg-surface-container-low text-on-surface-variant/60'
-                      }`}
-                    >
-                      <span className="material-symbols-outlined text-sm">
-                        {isDone ? 'check_circle' : item.icon}
-                      </span>
-                      <span className="truncate">{item.label}</span>
+                  {/* Top Gyeonggi-do Emblem & Goal Flag */}
+                  <div className="relative z-10 flex items-center justify-between w-full">
+                    <div className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md shadow-sm border border-emerald-200 flex items-center gap-1.5 text-xs font-black text-emerald-800">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                      <span>경기도 AI 스마트 진단</span>
                     </div>
-                  );
-                })}
+
+                    <div className="px-3 py-1 rounded-full bg-blue-600/90 backdrop-blur-md shadow-md text-white text-xs font-black flex items-center gap-1">
+                      <span className="material-symbols-outlined text-sm">flag</span>
+                      <span>목표 100% 매칭</span>
+                    </div>
+                  </div>
+
+                  {/* Running Dynamic Progress Pill positioned on the track */}
+                  <div className="relative z-10 w-full bg-black/40 backdrop-blur-md rounded-2xl p-3 border border-white/30 text-left">
+                    <div className="flex items-center justify-between text-xs font-black text-white mb-1.5">
+                      <span className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+                        {progressText}
+                      </span>
+                      <span className="text-base text-sky-300 font-extrabold">{progressPercent}%</span>
+                    </div>
+
+                    {/* Gradient Progress Gauge Bar */}
+                    <div className="w-full bg-white/20 rounded-full h-3 overflow-hidden shadow-inner p-0.5 border border-white/20">
+                      <div
+                        className="bg-gradient-to-r from-blue-500 via-sky-400 to-emerald-400 h-full rounded-full transition-all duration-300 ease-out shadow-lg"
+                        style={{ width: `${progressPercent}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2. Headline & Mascot Description */}
+                <h3 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight mb-1">
+                  G-브릿지 AI가 사업계획서를 정밀 진단하고 있습니다
+                </h3>
+                <p className="text-xs md:text-sm text-slate-500 font-medium max-w-lg mb-6">
+                  봉공이와 함께 7종 공공 RAG 보고서를 교차 검증하고 최적의 지원사업을 매칭합니다.
+                </p>
+
+                {/* 3. 4-Stage Diagnostic Steps Checklist */}
+                <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2.5 text-left">
+                  {[
+                    { step: 1, label: '문서 핵심 지표 파싱', icon: 'description' },
+                    { step: 2, label: 'T·E·M 성숙도 & 병목 진단', icon: 'network_check' },
+                    { step: 3, label: '공공 RAG 교차 검증', icon: 'library_books' },
+                    { step: 4, label: '맞춤 지원사업 매칭 완료', icon: 'verified' },
+                  ].map((item) => {
+                    const isDone = currentStep > item.step || (currentStep === 4 && progressPercent >= 100);
+                    const isCurrent = currentStep === item.step && progressPercent < 100;
+                    return (
+                      <div
+                        key={item.step}
+                        className={`flex items-center gap-2 p-2.5 rounded-xl text-xs font-bold transition-all duration-300 border ${
+                          isDone
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                            : isCurrent
+                            ? 'bg-blue-50 text-blue-700 border-blue-300 shadow-sm animate-pulse'
+                            : 'bg-slate-50 text-slate-400 border-slate-200'
+                        }`}
+                      >
+                        <span className="material-symbols-outlined text-base">
+                          {isDone ? 'check_circle' : item.icon}
+                        </span>
+                        <span className="truncate">{item.label}</span>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           )}
