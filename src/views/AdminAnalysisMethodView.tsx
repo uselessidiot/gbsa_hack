@@ -138,6 +138,69 @@ export const AdminAnalysisMethodView: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <section className="rounded-2xl bg-white border border-slate-200 p-6 shadow-sm">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-2 border-b border-slate-100 pb-4">
+          <div>
+            <span className="text-[11px] font-bold text-blue-600">API TRANSPARENCY</span>
+            <h2 className="mt-1 text-lg font-extrabold text-slate-900">API 요청 프롬프트·응답 구조</h2>
+          </div>
+          <span className="text-xs text-slate-400">민감한 키와 원문 파일은 표시하지 않습니다.</span>
+        </div>
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 mt-5">
+          <div>
+            <div className="flex items-center justify-between mb-2"><h3 className="text-sm font-extrabold text-slate-800">분석 프롬프트 미리보기</h3><span className="px-2 py-1 rounded bg-blue-50 text-blue-700 text-[10px] font-bold">POST /api/gemini</span></div>
+            <pre className="h-80 overflow-auto rounded-xl bg-slate-950 p-4 text-[11px] leading-5 text-slate-200 whitespace-pre-wrap">{`당신은 GBSA 수석 기업전략 컨설턴트다.
+첨부 사업계획서를 실사하듯 분석하라.
+
+1. company: 기업 기본정보와 keywords[] 추출
+2. temDiagnosis: T·E·M 성장단계와 점수 산출
+3. primaryBottleneck / secondaryBottleneck 선정
+4. 지원사업 추천·요청사항·강점·약점 작성
+5. evidenceList 최소 4개와 90일 actionPlan 3개 작성
+6. consultingInsights에 시장·기술·사업모델 진단 포함
+7. futureStrategy는 NOW / NEXT / LATER 3단계 구성
+8. profile에 기술·제품·고객·역량·니즈·파트너 작성
+
+반드시 유효한 JSON 객체만 반환하세요.
+문서에 없는 사실·수치·출처는 만들지 마세요.
+불명확한 내용은 '확인 필요'로 표시하세요.`}</pre>
+          </div>
+          <div>
+            <div className="flex items-center justify-between mb-2"><h3 className="text-sm font-extrabold text-slate-800">응답 JSON 구조</h3><span className="px-2 py-1 rounded bg-emerald-50 text-emerald-700 text-[10px] font-bold">JSON</span></div>
+            <pre className="h-80 overflow-auto rounded-xl bg-slate-950 p-4 text-[11px] leading-5 text-emerald-200 whitespace-pre-wrap">{`{
+  "company": {
+    "name": "...", "industry": "...", "keywords": []
+  },
+  "temDiagnosis": {
+    "technology": { "level": "T1~T4", "score": 0 },
+    "execution": { "level": "E1~E4", "score": 0 },
+    "market": { "level": "M1~M4", "score": 0 },
+    "radarScores": {}
+  },
+  "primaryBottleneck": "PMF",
+  "bottlenecks": [],
+  "recommendedSupport": [],
+  "evidenceList": [],
+  "actionPlan90Days": [],
+  "consultingInsights": {
+    "executiveDiagnosis": "...",
+    "marketOutlook": {},
+    "technologyAssessment": {},
+    "businessModelAssessment": {},
+    "futureStrategy": [],
+    "keyRisks": []
+  },
+  "profile": {
+    "technologies": [], "products": [],
+    "capabilities": [], "needs": [],
+    "desiredPartners": []
+  }
+}`}</pre>
+          </div>
+        </div>
+        <div className="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-500"><span className="px-2 py-1 rounded bg-slate-100">temperature: 0.2</span><span className="px-2 py-1 rounded bg-slate-100">responseMimeType: application/json</span><span className="px-2 py-1 rounded bg-slate-100">문서 근거 우선</span><span className="px-2 py-1 rounded bg-slate-100">JSON 오류 보정·재시도</span></div>
+      </section>
     </div>
   );
 };
