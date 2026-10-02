@@ -77,14 +77,15 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, hasAnal
           </button>
           <button
             type="button"
-            onClick={() => setActiveTab('admin')}
-            className={`transition-colors py-2 px-1 border-b-2 font-label-lg text-label-lg ${
-              activeTab === 'admin'
-                ? 'text-primary font-bold border-primary'
-                : 'text-on-surface-variant border-transparent hover:text-on-surface'
-            }`}
+            onClick={() => {
+              window.open('?view=admin', '_blank');
+            }}
+            className="transition-all py-1.5 px-3 rounded-lg font-label-lg text-label-lg text-slate-700 bg-slate-100 hover:bg-blue-50 hover:text-blue-600 border border-slate-200 flex items-center gap-1.5 font-bold"
+            title="새 탭에서 관리자 페이지 열기"
           >
-            4. 관리자 Intelligence
+            <span className="material-symbols-outlined text-base text-blue-600">admin_panel_settings</span>
+            <span>관리자 콘솔</span>
+            <span className="material-symbols-outlined text-xs text-slate-400">open_in_new</span>
           </button>
         </nav>
 

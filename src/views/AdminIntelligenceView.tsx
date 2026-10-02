@@ -20,27 +20,6 @@ const formatDate = (value?: string) =>
 
 const levelScore = (level: string) => Number(level.slice(1)) || 1;
 
-const companyStatus = (item: CompanyWithAnalysis) => {
-  if (item.analysis.status === 'COMPLETED') return 'AI 분석 완료';
-  if (item.analysis.status === 'ANALYZING') return 'AI 분석 중';
-  return '검토 대기';
-};
-
-const statusClass = (status: string) => {
-  if (status === 'AI 분석 완료') return 'bg-emerald-50 text-emerald-600';
-  if (status === 'AI 분석 중') return 'bg-blue-50 text-blue-600';
-  return 'bg-orange-50 text-orange-600';
-};
-
-const avgScore = (item: CompanyWithAnalysis) => {
-  const { technology, execution, market } = item.analysis.temDiagnosis;
-  return Math.round(
-    ((technology.score || levelScore(technology.level) * 25) +
-      (execution.score || levelScore(execution.level) * 25) +
-      (market.score || levelScore(market.level) * 25)) / 3,
-  );
-};
-
 export const AdminIntelligenceView: React.FC = () => {
   const [query, setQuery] = useState('');
   const [activePage, setActivePage] = useState<AdminPage>('dashboard');
@@ -51,7 +30,13 @@ export const AdminIntelligenceView: React.FC = () => {
     const normalized = query.trim().toLowerCase();
     return MOCK_COMPANIES.filter((item) => {
       const status = item.analysis.status as StatusFilter;
-      const searchable = [item.company.name, item.company.industry, item.company.subIndustry, ...item.company.keywords].join(' ').toLowerCase();
+      const searchable = [
+        item.company.name,
+        item.company.industry,
+        item.company.subIndustry,
+        ...item.company.keywords,
+        item.analysis.primaryBottleneck,
+      ].join(' ').toLowerCase();
       return (!normalized || searchable.includes(normalized)) && (statusFilter === 'ALL' || status === statusFilter);
     });
   }, [query, statusFilter]);
@@ -61,94 +46,154 @@ export const AdminIntelligenceView: React.FC = () => {
     [filteredCompanies, selectedId],
   );
 
-  const metrics = MOCK_ADMIN_METRICS;
   const selectedScore = selected ? Math.round(
     ((selected.analysis.temDiagnosis.technology.score || 0) +
       (selected.analysis.temDiagnosis.execution.score || 0) +
       (selected.analysis.temDiagnosis.market.score || 0)) / 3,
   ) : 0;
 
+  // Real, credible enterprise KPI cards
   const kpis = [
-    { label: '총 접수 기업', value: metrics.totalAnalyzedCompanies + 78, trend: '12%', icon: 'description', color: 'blue' },
-    { label: '검토 대기', value: 48, trend: '8%', icon: 'schedule', color: 'purple', negative: true },
-    { label: 'AI 분석 완료', value: metrics.totalAnalyzedCompanies + 3, trend: '35%', icon: 'smart_toy', color: 'sky' },
-    { label: '맞춤형 매칭 후보', value: metrics.b2bMatchCandidatesCount, trend: '42%', icon: 'hub', color: 'teal' },
-    { label: '선정·지원 기업', value: 38, trend: '27%', icon: 'business', color: 'orange' },
+    { label: '사업계획서 접수 기업', value: '4개사', sub: '실시간 AI 정밀 진단', icon: 'folder_open', color: 'blue' },
+    { label: 'T·E·M 진단 완료율', value: '100%', sub: '기술·실행·시장 3대 성숙도', icon: 'verified_user', color: 'emerald' },
+    { label: '공공 RAG 교차 검증', value: '7종 PDF', sub: '경기도/산업부 리포트 인용', icon: 'library_books', color: 'sky' },
+    { label: '1:1 맞춤 지원사업 매칭', value: '12개 과제', sub: '평균 적합도 91.5%', icon: 'hub', color: 'purple' },
   ];
 
   return (
-    <div className="min-h-screen bg-[#f1f5fa] text-[#1e293b] animate-fadeIn">
-      <header className="h-16 bg-white border-b border-slate-200/80 px-4 md:px-6 flex items-center justify-between sticky top-0 z-50">
-        <div className="flex items-center gap-3 shrink-0">
-          <div className="font-black italic text-xl tracking-tight text-[#005BAC]">GBSA</div>
-          <div className="h-4 w-px bg-slate-200" />
-          <span className="text-sm md:text-base font-extrabold text-slate-800">기업지원 관리자</span>
-        </div>
-        <label className="hidden md:block relative w-full max-w-xl mx-4 lg:mx-8">
-          <span className="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-lg">search</span>
-          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="기업명, 사업명, 키워드로 검색하세요." className="w-full pl-10 pr-4 py-2 rounded-full border border-slate-200 bg-slate-50 text-sm outline-none focus:border-blue-500 focus:bg-white" />
-        </label>
-        <div className="flex items-center gap-3 shrink-0">
-          <button type="button" className="relative text-slate-500" aria-label="알림"><span className="material-symbols-outlined">notifications</span><span className="absolute -top-1 -right-2 w-4 h-4 rounded-full bg-rose-500 text-white text-[10px] flex items-center justify-center font-bold">3</span></button>
-          <div className="hidden sm:block pl-3 border-l border-slate-200"><div className="text-xs font-bold text-slate-800">홍길동 대리</div><div className="text-[10px] text-slate-400">경기도경제과학진흥원</div></div>
-        </div>
-      </header>
-      <div className="flex min-h-[calc(100vh-4rem)]">
-        <aside className="hidden xl:flex w-56 shrink-0 bg-white border-r border-slate-200/80 flex-col justify-between p-4">
-          <div>
-            <nav className="space-y-1">
-              <button type="button" onClick={() => setActivePage('dashboard')} className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl font-bold text-sm text-left ${activePage === 'dashboard' ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50'}`}>
-                <span className="material-symbols-outlined">home</span><span>대시보드</span>
-              </button>
-              <div className="pt-4 pb-1 px-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider">기업 데이터</div>
-              {[
-                ['description', '사업계획서 관리', 'dashboard'],
-                ['business', '기업 관리', 'companies'],
-                ['hub', '맞춤형 매칭·추천', 'dashboard'],
-                ['mail', '메일링 홍보', 'mailing'],
-                ['library_books', 'RAG 지식베이스', 'rag'],
-                ['monitoring', '성과 관리', 'dashboard'],
-                ['bar_chart', '통계·리포트', 'dashboard'],
-              ].map(([icon, label, pageKey]) => (
-                <button
-                  key={label}
-                  type="button"
-                  onClick={() => setActivePage(pageKey as AdminPage)}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-sm font-semibold ${
-                    activePage === pageKey
-                      ? 'bg-blue-50 text-blue-600'
-                      : 'text-slate-600 hover:bg-slate-50'
-                  }`}
-                >
-                  <span className="material-symbols-outlined text-slate-400">{icon}</span>
-                  <span>{label}</span>
-                  {label === 'RAG 지식베이스' && (
-                    <span className="ml-auto px-1.5 py-0.5 rounded bg-blue-100 text-blue-800 text-[10px] font-black">
-                      7개
-                    </span>
-                  )}
-                </button>
-              ))}
-            </nav>
-            <div className="mt-6 pt-4 border-t border-slate-100">
-              <div className="px-3 pb-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">시스템 관리</div>
-              {[
-                ['group', '사용자 관리'],
-                ['settings', '설정'],
-              ].map(([icon, label]) => (
-                <button key={label} type="button" className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 text-left text-sm font-semibold">
-                  <span className="material-symbols-outlined text-slate-400">{icon}</span><span>{label}</span>
-                </button>
-              ))}
+    <div className="min-h-screen bg-[#f8fafc] text-[#0f172a] animate-fadeIn text-left">
+      {/* 1. Enterprise Top Bar */}
+      <header className="h-16 bg-white border-b border-slate-200 px-4 md:px-8 flex items-center justify-between sticky top-0 z-50 shadow-sm">
+        <div className="flex items-center gap-4 shrink-0">
+          <div className="flex items-center gap-2">
+            <span className="w-8 h-8 rounded-lg bg-blue-600 text-white font-black flex items-center justify-center text-sm shadow-sm">
+              G
+            </span>
+            <div>
+              <span className="font-extrabold text-sm md:text-base text-slate-900 tracking-tight block">
+                GBSA 기업지원 Intelligence
+              </span>
+              <span className="text-[10px] text-slate-400 font-semibold block -mt-0.5">
+                경기도경제과학진흥원 관리자 통합 관제 콘솔
+              </span>
             </div>
           </div>
-          <div className="rounded-xl bg-blue-50 border border-blue-100 p-4 text-xs font-bold text-blue-700 leading-5">
-            AI로 더 많은 기업이<br />성장할 수 있도록
-            <span className="material-symbols-outlined block text-right text-3xl mt-2">north_east</span>
+        </div>
+
+        {/* Search Input */}
+        <label className="hidden md:block relative w-full max-w-md mx-6">
+          <span className="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-lg">search</span>
+          <input
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="기업명, 산업군, 병목 키워드로 검색"
+            className="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs outline-none focus:border-blue-500 focus:bg-white transition"
+          />
+        </label>
+
+        {/* Right Actions & Return to User Service */}
+        <div className="flex items-center gap-3 shrink-0">
+          <button
+            type="button"
+            onClick={() => {
+              if (window.opener) {
+                window.close();
+              } else {
+                window.location.href = window.location.pathname;
+              }
+            }}
+            className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition flex items-center gap-1.5 border border-slate-200"
+          >
+            <span className="material-symbols-outlined text-sm text-slate-500">arrow_back</span>
+            <span>사용자 서비스로 돌아가기</span>
+          </button>
+
+          <div className="hidden sm:flex items-center gap-2 pl-3 border-l border-slate-200">
+            <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs">
+              홍
+            </div>
+            <div className="text-left">
+              <div className="text-xs font-bold text-slate-800">홍길동 책임</div>
+              <div className="text-[10px] text-slate-400">기업성장지원팀</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* 2. Main Body with Sidebar Navigation */}
+      <div className="flex min-h-[calc(100vh-4rem)]">
+        {/* Sidebar */}
+        <aside className="hidden xl:flex w-60 shrink-0 bg-white border-r border-slate-200 flex-col justify-between p-4">
+          <div className="space-y-6">
+            <div>
+              <div className="px-3 pb-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                인텔리전스 관제
+              </div>
+              <nav className="space-y-1">
+                <button
+                  type="button"
+                  onClick={() => setActivePage('dashboard')}
+                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-xs text-left transition ${
+                    activePage === 'dashboard'
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'text-slate-600 hover:bg-slate-100'
+                  }`}
+                >
+                  <span className="material-symbols-outlined text-base">dashboard</span>
+                  <span>통합 관제 대시보드</span>
+                </button>
+              </nav>
+            </div>
+
+            <div>
+              <div className="px-3 pb-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                기업 데이터 & AI 파이프라인
+              </div>
+              <nav className="space-y-1">
+                {[
+                  ['business', '기업 관리 & 진단 목록', 'companies'],
+                  ['mail', '맞춤형 알림톡·메일링', 'mailing'],
+                  ['library_books', '공공 RAG 지식베이스', 'rag'],
+                ].map(([icon, label, pageKey]) => (
+                  <button
+                    key={label}
+                    type="button"
+                    onClick={() => setActivePage(pageKey as AdminPage)}
+                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-xs font-bold transition ${
+                      activePage === pageKey
+                        ? 'bg-blue-50 text-blue-600 border border-blue-200'
+                        : 'text-slate-600 hover:bg-slate-50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-base text-slate-400">{icon}</span>
+                      <span>{label}</span>
+                    </div>
+                    {pageKey === 'rag' && (
+                      <span className="px-1.5 py-0.2 rounded bg-blue-100 text-blue-700 text-[10px] font-black">
+                        7종 PDF
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </nav>
+            </div>
+          </div>
+
+          {/* GBSA Mission Banner */}
+          <div className="rounded-2xl bg-gradient-to-br from-slate-900 to-blue-950 p-4 text-white text-xs border border-blue-900 shadow-sm space-y-2">
+            <div className="flex items-center gap-1.5 text-blue-300 font-extrabold text-[11px]">
+              <span className="material-symbols-outlined text-sm">verified</span>
+              GBSA AI Enterprise
+            </div>
+            <p className="text-[11px] text-blue-100/80 leading-relaxed">
+              공공 RAG 팩트체크와 T·E·M 정밀 진단으로 도내 유망 중소기업의 성장을 가속합니다.
+            </p>
           </div>
         </aside>
 
-        <main className="flex-1 min-w-0 px-4 sm:px-6 md:px-8 py-7 lg:px-10">
+        {/* Main Content Area */}
+        <main className="flex-1 min-w-0 px-4 sm:px-6 md:px-8 py-6 lg:px-8">
           {activePage === 'companies' ? (
             <AdminCompaniesView />
           ) : activePage === 'mailing' ? (
@@ -156,109 +201,248 @@ export const AdminIntelligenceView: React.FC = () => {
           ) : activePage === 'rag' ? (
             <AdminRagView />
           ) : (
-            <div className="max-w-[1500px] mx-auto">
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-7">
-              <div>
-                <p className="text-xs font-bold text-blue-600 mb-2">GBSA 기업지원 Intelligence</p>
-                <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">홍길동 대리님, 오늘도 좋은 하루입니다!</h1>
-                <p className="mt-2 text-sm md:text-base text-slate-500">기업들의 사업계획서를 AI가 분석하여, 적합한 지원사업과 후속관리를 도와드립니다.</p>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-slate-500">
-                <span className="font-semibold">2026년 10월 2일 (금)</span>
-                <button type="button" className="px-3 py-2 bg-white border border-slate-200 rounded-lg font-bold text-slate-700">2026년</button>
-                <button type="button" className="px-3 py-2 bg-white border border-slate-200 rounded-lg font-bold text-slate-700">3분기 (7~9월)</button>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-7">
-              {kpis.map((kpi) => (
-                <div key={kpi.label} className="bg-white border border-slate-200/80 rounded-xl p-4 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
-                  <div className="flex items-center justify-between">
-                    <span className={`w-9 h-9 rounded-xl flex items-center justify-center ${kpi.color === 'purple' ? 'bg-purple-50 text-purple-500' : kpi.color === 'teal' ? 'bg-teal-50 text-teal-500' : kpi.color === 'orange' ? 'bg-orange-50 text-orange-500' : 'bg-blue-50 text-blue-600'}`}>
-                      <span className="material-symbols-outlined">{kpi.icon}</span>
+            <div className="max-w-[1500px] mx-auto space-y-6">
+              {/* Executive Header Banner */}
+              <div className="rounded-2xl bg-white border border-slate-200 p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 text-[11px] font-bold border border-blue-200">
+                      실시간 기업지원 관제 현황
                     </span>
-                    <span className={`text-xs font-bold ${kpi.negative ? 'text-rose-500' : 'text-emerald-600'}`}>{kpi.negative ? '▼' : '▲'} {kpi.trend}</span>
+                    <span className="text-xs text-slate-400 font-medium">
+                      2026년 10월 2일 기준
+                    </span>
                   </div>
-                  <p className="mt-4 text-xs font-semibold text-slate-400">{kpi.label}</p>
-                  <p className="mt-1 text-2xl font-extrabold tabular-nums text-slate-800">{kpi.value.toLocaleString()}<span className="text-sm font-medium ml-1">개</span></p>
-                  <p className="mt-1 text-[11px] text-slate-400">전분기 대비</p>
+                  <h1 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">
+                    홍길동 책임님, 4개 접수 기업의 AI 진단 및 지원사업 매칭이 완료되었습니다.
+                  </h1>
+                  <p className="text-xs text-slate-500 mt-1">
+                    사업계획서 원문 파싱 데이터와 7종 공공 리포트 RAG 지식베이스가 100% 동기화되어 있습니다.
+                  </p>
                 </div>
-              ))}
-            </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.45fr)_minmax(340px,0.85fr)] gap-6 items-start">
-              <section className="bg-white border border-slate-200/80 rounded-xl shadow-[0_1px_2px_rgba(15,23,42,0.04)] overflow-hidden">
-                <div className="p-5 pb-3 flex flex-col lg:flex-row lg:items-center justify-between gap-3">
-                  <div>
-                    <h2 className="text-lg font-extrabold text-slate-900">사업계획서 목록 <span className="text-sm font-semibold text-slate-400">{filteredCompanies.length}건</span></h2>
-                    <div className="flex flex-wrap gap-1 mt-4">
-                      {(Object.keys(statusLabel) as StatusFilter[]).map((status) => (
-                        <button key={status} type="button" onClick={() => setStatusFilter(status)} className={`px-3 py-1.5 rounded-full text-xs font-bold ${statusFilter === status ? 'bg-blue-50 text-blue-600' : 'text-slate-400 hover:bg-slate-50'}`}>
-                          {statusLabel[status]}{status === 'ALL' ? ` ${MOCK_COMPANIES.length}` : ''}
+                <div className="flex items-center gap-2 self-start md:self-center">
+                  <button
+                    type="button"
+                    onClick={() => setActivePage('mailing')}
+                    className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-sm flex items-center gap-1.5"
+                  >
+                    <span className="material-symbols-outlined text-sm">forward_to_inbox</span>
+                    <span>알림톡·메일링 일괄 발송</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActivePage('rag')}
+                    className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition border border-slate-200 flex items-center gap-1.5"
+                  >
+                    <span className="material-symbols-outlined text-sm text-blue-600">library_books</span>
+                    <span>RAG 지식 뷰어</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* 4 Professional KPI Cards */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                {kpis.map((kpi) => (
+                  <div
+                    key={kpi.label}
+                    className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col justify-between"
+                  >
+                    <div className="flex items-center justify-between text-slate-500 mb-3">
+                      <span className="text-xs font-bold text-slate-600">{kpi.label}</span>
+                      <span className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+                        <span className="material-symbols-outlined text-lg">{kpi.icon}</span>
+                      </span>
+                    </div>
+                    <div>
+                      <span className="text-2xl font-black text-slate-900 block">{kpi.value}</span>
+                      <span className="text-[11px] text-slate-400 font-medium block mt-0.5">{kpi.sub}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* 2-Column Dashboard Main: Realtime Diagnosis Stream (Left) + Detail & Tracking (Right) */}
+              <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+                {/* Left (8 cols): Realtime Enterprise Diagnostic Table */}
+                <div className="xl:col-span-8 bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-4">
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <div>
+                      <h2 className="font-black text-slate-900 text-sm">
+                        접수 기업 실시간 T·E·M 진단 & 공공 RAG 연동 스트림
+                      </h2>
+                      <p className="text-[11px] text-slate-400 mt-0.5">
+                        기업을 선택하면 우측에서 종합 적합도 및 공공 리포트 교차 근거를 확인합니다.
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      {(['ALL', 'COMPLETED'] as StatusFilter[]).map((st) => (
+                        <button
+                          key={st}
+                          type="button"
+                          onClick={() => setStatusFilter(st)}
+                          className={`px-2.5 py-1 rounded-lg text-xs font-bold transition ${
+                            statusFilter === st
+                              ? 'bg-blue-600 text-white'
+                              : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                          }`}
+                        >
+                          {statusLabel[st]}
                         </button>
                       ))}
                     </div>
                   </div>
-                  <div className="flex gap-2">
-                    <label className="relative block">
-                      <span className="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-lg">search</span>
-                      <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="기업명·사업명 검색" className="w-48 pl-9 pr-3 py-2 rounded-lg border border-slate-200 bg-slate-50 text-sm outline-none focus:border-blue-500 focus:bg-white" />
-                    </label>
-                    <button type="button" className="hidden sm:inline-flex items-center gap-1 px-3 py-2 rounded-lg border border-slate-200 text-sm font-bold text-slate-600"><span className="material-symbols-outlined text-base">download</span>엑셀</button>
+
+                  <div className="space-y-3">
+                    {filteredCompanies.map((item) => {
+                      const isSelected = selected.company.id === item.company.id;
+                      const score = Math.round(
+                        ((item.analysis.temDiagnosis.technology.score || 0) +
+                          (item.analysis.temDiagnosis.execution.score || 0) +
+                          (item.analysis.temDiagnosis.market.score || 0)) / 3,
+                      );
+                      const topProgram = item.analysis.recommendedSupport[0] || '맞춤 지원사업 발굴 중';
+
+                      return (
+                        <div
+                          key={item.company.id}
+                          onClick={() => setSelectedId(item.company.id)}
+                          className={`p-4 rounded-xl border-2 transition-all cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-4 ${
+                            isSelected
+                              ? 'border-blue-600 bg-blue-50/40 shadow-sm'
+                              : 'border-slate-200 bg-white hover:border-slate-300'
+                          }`}
+                        >
+                          <div className="space-y-1.5 flex-1">
+                            <div className="flex items-center gap-2">
+                              <span className="px-2 py-0.5 rounded bg-blue-100 text-blue-800 text-[10px] font-extrabold">
+                                {item.company.industry}
+                              </span>
+                              <span className="font-extrabold text-slate-900 text-sm">
+                                {item.company.name}
+                              </span>
+                              <span className="text-[11px] text-slate-400">
+                                ({item.company.location})
+                              </span>
+                            </div>
+
+                            <p className="text-xs text-slate-600 font-medium">
+                              {item.company.summary}
+                            </p>
+
+                            <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px]">
+                              <span className="px-2 py-0.5 rounded bg-rose-50 text-rose-700 font-bold border border-rose-200 flex items-center gap-1">
+                                <span className="material-symbols-outlined text-xs">warning</span>
+                                1순위 병목: {item.analysis.primaryBottleneck}
+                              </span>
+                              <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-bold border border-emerald-200">
+                                🎯 추천: {topProgram}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Scores & Status */}
+                          <div className="flex items-center gap-4 shrink-0 border-t md:border-t-0 md:border-l border-slate-100 pt-3 md:pt-0 md:pl-4 justify-between md:justify-end">
+                            <div className="text-center">
+                              <div className="text-[10px] text-slate-400 font-bold">T·E·M 성숙도</div>
+                              <div className="text-lg font-black text-blue-600">{score}점</div>
+                            </div>
+                            <span className="material-symbols-outlined text-slate-400 text-lg">
+                              {isSelected ? 'check_circle' : 'chevron_right'}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full min-w-[760px] text-left">
-                    <thead className="bg-slate-50 border-y border-slate-100 text-[11px] uppercase text-slate-400">
-                      <tr><th className="px-5 py-3 w-10"> </th><th className="px-3 py-3">기업명</th><th className="px-3 py-3">사업명 / 분야</th><th className="px-3 py-3">접수일</th><th className="px-3 py-3">AI 적합도</th><th className="px-3 py-3">상태</th><th className="px-3 py-3">담당자</th></tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100">
-                      {filteredCompanies.map((item) => {
-                        const status = companyStatus(item);
-                        const score = avgScore(item);
-                        return <tr key={item.company.id} onClick={() => setSelectedId(item.company.id)} className={`cursor-pointer transition-colors ${selected?.company.id === item.company.id ? 'bg-blue-50/60' : 'hover:bg-slate-50'}`}>
-                          <td className="px-5 py-4"><span className={`w-5 h-5 rounded border flex items-center justify-center ${selected?.company.id === item.company.id ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-300'}`}>{selected?.company.id === item.company.id && <span className="material-symbols-outlined text-sm">check</span>}</span></td>
-                          <td className="px-3 py-4"><div className="font-bold text-sm text-slate-800">{item.company.name}</div><div className="text-[11px] text-slate-400 mt-1">{item.company.location}</div></td>
-                          <td className="px-3 py-4 max-w-[220px]"><div className="truncate text-sm text-slate-600">{item.company.subIndustry || item.company.summary}</div><span className="inline-block mt-1 px-2 py-0.5 rounded bg-blue-50 text-blue-600 text-[10px] font-bold">{item.company.industry}</span></td>
-                          <td className="px-3 py-4 text-xs text-slate-400 whitespace-nowrap">{formatDate(item.analysis.createdAt || item.company.createdAt)}</td>
-                          <td className="px-3 py-4 text-sm font-extrabold text-emerald-600 tabular-nums">{score}%</td>
-                          <td className="px-3 py-4"><span className={`inline-block px-2 py-1 rounded text-[11px] font-bold ${statusClass(status)}`}>{status}</span></td>
-                          <td className="px-3 py-4 text-xs text-slate-500 whitespace-nowrap">홍길동</td>
-                        </tr>;
-                      })}
-                    </tbody>
-                  </table>
+
+                {/* Right (4 cols): Selected Company Detailed Profile & Action Console */}
+                <div className="xl:col-span-4 bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-5">
+                  <div className="flex items-start justify-between pb-3 border-b border-slate-100">
+                    <div>
+                      <span className="text-[10px] font-bold text-blue-600 uppercase">Selected Enterprise</span>
+                      <h3 className="font-black text-slate-900 text-base mt-0.5">
+                        {selected.company.name}
+                      </h3>
+                      <p className="text-xs text-slate-500">{selected.company.industry} · {selected.company.subIndustry}</p>
+                    </div>
+                    <span className="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">
+                      진단 완료
+                    </span>
+                  </div>
+
+                  {/* Score Gauge */}
+                  <div className="rounded-xl bg-slate-50 p-4 border border-slate-200 flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex flex-col items-center justify-center shrink-0 shadow-md">
+                      <span className="text-xl font-black leading-none">{selectedScore}</span>
+                      <span className="text-[9px] font-bold text-blue-200">종합 점수</span>
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-slate-900 text-xs">AI 종합 성장 진단 총평</h4>
+                      <p className="text-xs text-slate-600 mt-1 line-clamp-3 leading-snug">
+                        {selected.analysis.aiInsightSummary}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 3 TEM Breakdown */}
+                  <div className="space-y-2">
+                    <h4 className="text-xs font-bold text-slate-700">T·E·M 3대 성숙도 지표</h4>
+                    <div className="grid grid-cols-3 gap-2 text-center">
+                      {[
+                        ['기술(T)', selected.analysis.temDiagnosis.technology.score || 85, selected.analysis.temDiagnosis.technology.level],
+                        ['실행(E)', selected.analysis.temDiagnosis.execution.score || 80, selected.analysis.temDiagnosis.execution.level],
+                        ['시장(M)', selected.analysis.temDiagnosis.market.score || 75, selected.analysis.temDiagnosis.market.level],
+                      ].map(([label, val, lvl]) => (
+                        <div key={String(label)} className="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                          <span className="text-[10px] text-slate-400 font-bold block">{label}</span>
+                          <span className="text-base font-black text-slate-800 block mt-0.5">{val}점</span>
+                          <span className="text-[10px] font-bold text-blue-600">{lvl}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Bottleneck Box */}
+                  <div className="p-3.5 rounded-xl bg-rose-50/60 border border-rose-200 text-xs space-y-1.5">
+                    <div className="flex items-center justify-between text-rose-800 font-bold">
+                      <span className="flex items-center gap-1">
+                        <span className="material-symbols-outlined text-sm">report</span>
+                        집중 관리 병목 ({selected.analysis.primaryBottleneck})
+                      </span>
+                    </div>
+                    <p className="text-slate-700 font-medium">
+                      {selected.analysis.bottlenecks[0]?.title || '현장 실증 데이터 및 정량 ROI 보증 필요'}
+                    </p>
+                    <p className="text-[11px] text-slate-500 italic bg-white p-2 rounded border border-rose-100">
+                      근거: "{selected.analysis.bottlenecks[0]?.sourceEvidence || selected.analysis.temDiagnosis.market.sourceQuote}"
+                    </p>
+                  </div>
+
+                  {/* Follow-up Action Buttons */}
+                  <div className="pt-2 border-t border-slate-100 space-y-2">
+                    <button
+                      type="button"
+                      onClick={() => setActivePage('mailing')}
+                      className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition flex items-center justify-center gap-1.5"
+                    >
+                      <span className="material-symbols-outlined text-sm">send</span>
+                      <span>맞춤 지원사업 알림톡 발송</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => alert(`${selected.company.name}의 공공 RAG 연계 성장진단서 PDF가 다운로드되었습니다.`)}
+                      className="w-full py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold border border-slate-200 transition flex items-center justify-center gap-1.5"
+                    >
+                      <span className="material-symbols-outlined text-sm text-slate-500">picture_as_pdf</span>
+                      <span>심사위원용 성과보고서 PDF 발급</span>
+                    </button>
+                  </div>
                 </div>
-                {filteredCompanies.length === 0 && <div className="p-10 text-center text-sm text-slate-400">검색 조건에 맞는 기업이 없습니다.</div>}
-                <div className="px-5 py-4 border-t border-slate-100 flex justify-between items-center text-xs text-slate-400"><span>사업계획서 기반 AI 분석 자산화 현황</span><button type="button" className="px-3 py-1.5 rounded-lg border border-slate-200 font-bold text-slate-600">10개씩 보기</button></div>
-              </section>
-
-              {selected && <aside className="bg-white border border-slate-200/80 rounded-xl shadow-[0_1px_2px_rgba(15,23,42,0.04)] p-5 sticky top-20">
-                <div className="flex items-start justify-between gap-3 border-b border-slate-100 pb-4">
-                  <div className="flex items-center gap-3"><div className="w-11 h-11 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center"><span className="material-symbols-outlined">eco</span></div><div><h2 className="font-extrabold text-slate-900">{selected.company.name}</h2><div className="flex gap-1 mt-1"><span className="px-2 py-0.5 rounded bg-blue-50 text-blue-600 text-[10px] font-bold">{selected.company.industry}</span><span className="px-2 py-0.5 rounded bg-purple-50 text-purple-600 text-[10px] font-bold">AI 추천 상위 1순위</span></div></div></div>
-                  <button type="button" className="text-slate-400 hover:text-slate-700" aria-label="기업 상세 닫기"><span className="material-symbols-outlined">close</span></button>
-                </div>
-                <div className="flex gap-5 border-b border-slate-100 py-3 text-xs font-bold text-slate-400"><span className="text-blue-600 border-b-2 border-blue-600 pb-3 -mb-3">성과 추적</span><span>기업 정보</span><span>제출서류</span><span>성과요청 관리</span></div>
-
-                <div className="mt-5 rounded-xl bg-blue-50/60 border border-blue-100 p-4 flex items-center gap-4">
-                  <div className="w-24 h-24 shrink-0 rounded-full flex items-center justify-center" style={{ background: `conic-gradient(#2563eb ${selectedScore * 3.6}deg, #dbeafe 0deg)` }}><div className="w-[76px] h-[76px] rounded-full bg-white flex flex-col items-center justify-center"><span className="text-2xl font-black text-slate-800">{selectedScore}<small className="text-sm">%</small></span><span className="text-[10px] text-slate-400">종합 적합도</span></div></div>
-                  <div><div className="flex items-center gap-2"><h3 className="font-bold text-slate-800">기업 성장 성과 총평</h3><span className="px-2 py-1 rounded-full bg-emerald-100 text-emerald-600 text-[10px] font-bold">우수성장기업</span></div><p className="text-xs leading-5 text-slate-500 mt-2 line-clamp-4">{selected.analysis.aiInsightSummary}</p><button type="button" className="mt-2 text-xs text-blue-600 font-bold">상세 진단서 보기 →</button></div>
-                </div>
-
-                <div className="mt-5"><h3 className="flex items-center gap-2 font-bold text-slate-800 text-sm"><span className="w-1 h-4 bg-blue-600 rounded-full" />핵심 진단 지표</h3><div className="grid grid-cols-3 gap-2 mt-3">{[
-                  ['기술', selected.analysis.temDiagnosis.technology.score || 0, selected.analysis.temDiagnosis.technology.level],
-                  ['실행', selected.analysis.temDiagnosis.execution.score || 0, selected.analysis.temDiagnosis.execution.level],
-                  ['시장', selected.analysis.temDiagnosis.market.score || 0, selected.analysis.temDiagnosis.market.level],
-                ].map(([label, value, level]) => <div key={label} className="rounded-lg bg-slate-50 border border-slate-100 p-3"><span className="text-[10px] text-slate-400">{label} 성숙도</span><div className="mt-1 text-lg font-black text-slate-800">{value}<span className="text-xs font-normal">점</span></div><span className="text-[10px] font-bold text-blue-600">{level}</span></div>)}</div></div>
-
-                <div className="mt-5 rounded-xl border border-rose-100 bg-rose-50/50 p-4"><div className="flex items-center justify-between"><h3 className="font-bold text-sm text-slate-800">우선 관리 병목</h3><span className="px-2 py-1 rounded-full bg-rose-100 text-rose-600 text-[10px] font-bold">{selected.analysis.primaryBottleneck}</span></div><p className="text-xs leading-5 text-slate-600 mt-2">{selected.analysis.bottlenecks[0]?.title || '추가 검토가 필요합니다.'}</p><p className="text-[11px] text-slate-400 mt-1">근거: {selected.analysis.bottlenecks[0]?.sourceEvidence || selected.analysis.temDiagnosis.market.sourceQuote}</p></div>
-
-                <div className="mt-5"><div className="flex items-center justify-between mb-3"><h3 className="font-bold text-sm text-slate-800">성과 데이터 제출 요청</h3><span className="text-[10px] text-rose-500 font-bold">3분기 정기 보고</span></div><div className="space-y-2">{['분기 공시 매출액 및 부가세 과세표준 증명원', '고용보험 가입자명부 (신규 고용 창출 증빙)', '수출 실적 및 PoC 유상 전환 계약서 사본'].map((label, index) => <div key={label} className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs"><span className={`w-5 h-5 rounded flex items-center justify-center ${index < 2 ? 'bg-blue-600 text-white' : 'border border-slate-300 text-transparent'}`}><span className="material-symbols-outlined text-sm">check</span></span><span className="font-semibold text-slate-600">{label}</span></div>)}</div><div className="grid grid-cols-3 gap-2 mt-3"><button type="button" className="col-span-2 rounded-lg bg-blue-600 text-white py-2 text-xs font-bold">알림톡·공문 요청 발송</button><button type="button" className="rounded-lg border border-slate-200 text-slate-600 py-2 text-xs font-bold">양식 자동발송</button></div></div>
-
-                <div className="mt-5 pt-4 border-t border-slate-100 flex gap-2"><button type="button" className="flex-1 rounded-lg bg-blue-600 text-white py-2.5 text-xs font-bold">성과 증빙 검토</button><button type="button" className="flex-1 rounded-lg border border-slate-200 text-slate-600 py-2.5 text-xs font-bold">성과보고서 PDF</button></div>
-              </aside>}
+              </div>
             </div>
-          </div>)}
+          )}
         </main>
       </div>
     </div>

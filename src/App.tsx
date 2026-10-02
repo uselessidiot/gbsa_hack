@@ -10,7 +10,15 @@ import { Company, AnalysisResult, CompanyB2BProfile } from './types';
 import { MOCK_COMPANIES } from './data/mockCompanies';
 
 export function App() {
-  const [activeTab, setActiveTab] = useState<NavTab>('diagnosis');
+  const [activeTab, setActiveTab] = useState<NavTab>(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('view') === 'admin' || params.get('admin') === 'true' || window.location.hash.includes('admin')) {
+        return 'admin';
+      }
+    }
+    return 'diagnosis';
+  });
   const [analysisResult, setAnalysisResult] = useState<{
     company: Company;
     analysis: AnalysisResult;
