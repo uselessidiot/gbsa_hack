@@ -59,18 +59,6 @@ export const CompanyMatchingView: React.FC<CompanyMatchingViewProps> = ({
             <AnalysisKeywordTags company={company} analysis={analysis} profile={profile} label="매칭 기준 키워드" compact />
         </div>
 
-        <div className="flex items-center gap-space-xs shrink-0 lg:w-64">
-          {onNavigateToAdmin && (
-            <button
-              type="button"
-              onClick={onNavigateToAdmin}
-              className="w-full inline-flex items-center justify-center gap-space-xs px-space-md py-space-sm rounded-xl bg-surface-container hover:bg-surface-container-high text-primary font-label-md font-bold transition border border-outline-variant/30 text-center"
-            >
-              <span>다음: 관리자 Intelligence 확인하기</span>
-              <span className="material-symbols-outlined text-base">arrow_forward</span>
-            </button>
-          )}
-        </div>
       </div>
 
       {/* Header & Semantic Search Bar */}
