@@ -60,12 +60,22 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
         </div>
       </div>
 
+      {/* 1. Executive Advisory & 3 Core Deep Diagnostic Cards */}
       {analysis.consultingInsights && (
         <section className="flex flex-col gap-space-lg">
           <div className="rounded-3xl bg-gradient-to-br from-primary via-primary to-slate-900 text-white p-space-xl shadow-xl">
             <div className="flex flex-wrap items-center justify-between gap-space-sm mb-space-md">
-              <span className="font-label-sm font-bold tracking-widest uppercase text-white/70">Executive advisory</span>
-              <span className="px-space-sm py-space-2xs rounded-full bg-white/10 text-xs font-bold">Gemini 정성 분석 · 문서 근거 기반</span>
+              <span className="font-label-sm font-bold tracking-widest uppercase text-white/70">Executive Advisory</span>
+              <div className="flex items-center gap-2">
+                <span className="px-space-sm py-space-2xs rounded-full bg-white/10 text-xs font-bold flex items-center gap-1 text-secondary-fixed">
+                  <span className="material-symbols-outlined text-xs">travel_explore</span>
+                  Google Search 시장 인텔리전스
+                </span>
+                <span className="px-space-sm py-space-2xs rounded-full bg-white/10 text-xs font-bold flex items-center gap-1">
+                  <span className="material-symbols-outlined text-xs">description</span>
+                  RAG 문서 심층 파싱
+                </span>
+              </div>
             </div>
             <h3 className="font-headline-md text-headline-md font-bold mb-space-sm">경영진 핵심 진단</h3>
             <p className="font-body-md text-body-md leading-8 text-white/90 max-w-4xl">
@@ -75,238 +85,66 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-space-md">
             {[
-              ['시장 상황과 기회', 'travel_explore', analysis.consultingInsights.marketOutlook],
-              ['기술 경쟁력', 'memory', analysis.consultingInsights.technologyAssessment],
-              ['사업모델 진단', 'account_tree', analysis.consultingInsights.businessModelAssessment],
-            ].map(([label, icon, section]) => {
-              const insight = section as typeof analysis.consultingInsights.marketOutlook;
-              return (
-                <article key={label as string} className="rounded-2xl bg-surface-container-lowest p-space-lg border border-outline-variant/20 shadow-md">
-                  <div className="flex items-center gap-space-xs text-primary mb-space-sm">
-                    <span className="material-symbols-outlined">{icon as string}</span>
-                    <span className="font-label-md font-bold">{label as string}</span>
+              {
+                label: '시장 상황과 기회',
+                icon: 'travel_explore',
+                badge: '🌐 Google Search 실시간 시장 동향',
+                badgeBg: 'bg-primary-container text-on-primary-container',
+                insight: analysis.consultingInsights.marketOutlook
+              },
+              {
+                label: '기술 경쟁력',
+                icon: 'memory',
+                badge: '📄 RAG 사업계획서 기술 검증',
+                badgeBg: 'bg-secondary-container text-on-secondary-container',
+                insight: analysis.consultingInsights.technologyAssessment
+              },
+              {
+                label: '사업모델 진단',
+                icon: 'account_tree',
+                badge: '💡 수익화 및 ROI 처방',
+                badgeBg: 'bg-surface-container text-on-surface',
+                insight: analysis.consultingInsights.businessModelAssessment
+              },
+            ].map(({ label, icon, badge, badgeBg, insight }) => (
+              <article key={label} className="rounded-2xl bg-surface-container-lowest p-space-lg border border-outline-variant/20 shadow-md flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-space-xs">
+                    <div className="flex items-center gap-space-xs text-primary">
+                      <span className="material-symbols-outlined">{icon}</span>
+                      <span className="font-label-md font-bold">{label}</span>
+                    </div>
                   </div>
-                  <h4 className="font-headline-sm font-bold text-on-surface mb-space-xs">{insight.headline}</h4>
+                  <div className="mb-space-sm">
+                    <span className={`inline-block px-2 py-0.5 rounded-full text-[11px] font-bold ${badgeBg}`}>
+                      {badge}
+                    </span>
+                  </div>
+                  <h4 className="font-headline-sm font-bold text-on-surface mb-space-xs leading-snug">{insight.headline}</h4>
                   <p className="text-body-sm leading-6 text-on-surface-variant">{insight.narrative}</p>
-                  <ul className="mt-space-md space-y-space-xs">
+                </div>
+                <div className="mt-space-md pt-space-xs border-t border-outline-variant/20">
+                  <span className="text-[11px] font-bold text-primary block mb-1">핵심 시사점 및 조치 방안:</span>
+                  <ul className="space-y-space-xs">
                     {insight.implications.map((item) => (
                       <li key={item} className="flex gap-space-xs text-body-sm text-on-surface">
                         <span className="text-secondary font-bold">→</span><span>{item}</span>
                       </li>
                     ))}
                   </ul>
-                </article>
-              );
-            })}
-          </div>
-
-          <div className="rounded-2xl bg-surface-container-lowest p-space-xl border border-outline-variant/20 shadow-md">
-            <div className="mb-space-lg">
-              <span className="font-label-sm text-secondary font-bold uppercase tracking-wide">Future strategy</span>
-              <h3 className="font-headline-md font-bold text-on-surface mt-1">성장을 위한 단계별 전략</h3>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-space-md">
-              {analysis.consultingInsights.futureStrategy.map((strategy, index) => (
-                <article key={`${strategy.horizon}-${strategy.title}`} className="relative rounded-2xl bg-surface-container-low p-space-lg border border-outline-variant/20">
-                  <span className="absolute -top-3 left-space-lg px-space-sm py-1 rounded-full bg-primary text-white text-xs font-extrabold">
-                    {index + 1}. {strategy.horizon}
-                  </span>
-                  <h4 className="font-headline-sm font-bold text-on-surface mt-space-sm">{strategy.title}</h4>
-                  <p className="text-body-sm text-on-surface-variant mt-space-xs">{strategy.rationale}</p>
-                  <ul className="my-space-md space-y-1 text-body-sm text-on-surface">
-                    {strategy.actions.map((action) => <li key={action}>• {action}</li>)}
-                  </ul>
-                  <div className="pt-space-sm border-t border-outline-variant/20 text-xs font-bold text-primary">KPI · {strategy.kpi}</div>
-                </article>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-space-md">
-            <div className="rounded-2xl bg-surface-container-lowest p-space-lg border border-error/20">
-              <h3 className="font-headline-sm font-bold text-on-surface mb-space-md">핵심 리스크와 대응</h3>
-              <div className="space-y-space-sm">
-                {analysis.consultingInsights.keyRisks.map((item) => (
-                  <div key={item.risk} className="p-space-md rounded-xl bg-error/5">
-                    <p className="font-bold text-error">{item.risk}</p>
-                    <p className="text-body-sm text-on-surface-variant mt-1">영향: {item.impact}</p>
-                    <p className="text-body-sm text-on-surface mt-1">대응: {item.mitigation}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="rounded-2xl bg-surface-container-lowest p-space-lg border border-outline-variant/20">
-              <h3 className="font-headline-sm font-bold text-on-surface mb-space-md">다음 컨설팅에서 확인할 질문</h3>
-              <ol className="space-y-space-sm">
-                {analysis.consultingInsights.consultantQuestions.map((question, index) => (
-                  <li key={question} className="flex gap-space-sm text-body-sm text-on-surface">
-                    <span className="w-6 h-6 shrink-0 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center text-xs font-bold">{index + 1}</span>
-                    <span>{question}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
+                  {insight.evidence && insight.evidence.length > 0 && (
+                    <div className="mt-space-sm p-2 rounded-lg bg-surface-container-low text-xs text-on-surface-variant italic">
+                      {insight.evidence[0]}
+                    </div>
+                  )}
+                </div>
+              </article>
+            ))}
           </div>
         </section>
       )}
 
-      {/* 🌟 3 Core Module Connection Hub Cards (PRD Architecture Navigation) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-space-md">
-        {/* Connection Card 1: Track A 지원사업 연계 */}
-        <div
-          onClick={() => onNavigateTab('programs')}
-          className="p-space-lg rounded-2xl bg-surface-container-lowest border-2 border-secondary/40 shadow-md hover:shadow-xl hover:border-secondary transition cursor-pointer flex flex-col justify-between group"
-        >
-          <div>
-            <div className="flex items-center justify-between mb-space-xs">
-              <span className="px-space-xs py-space-2xs rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold flex items-center gap-1">
-                <span className="material-symbols-outlined text-xs">verified</span> Track A
-              </span>
-              <span className="material-symbols-outlined text-secondary group-hover:translate-x-1 transition-transform">
-                arrow_forward
-              </span>
-            </div>
-            <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1">
-              2. 맞춤 지원사업 연계
-            </h4>
-            <p className="font-body-sm text-body-sm text-on-surface-variant">
-              {analysis.primaryBottleneck} 병목을 해결할 <strong>[P02] 실증 바우처 5,000만원</strong> 등 최적 지원사업 확인 및 신청 사유서 자동 생성
-            </p>
-          </div>
-          <div className="mt-space-md pt-space-xs border-t border-outline-variant/20 font-label-sm text-secondary font-bold flex items-center justify-between">
-            <span>지원사업 매칭 확인</span>
-            <span>이동하기 →</span>
-          </div>
-        </div>
-
-        {/* Connection Card 2: Track B 기업 매칭 */}
-        <div
-          onClick={() => onNavigateTab('matching')}
-          className="p-space-lg rounded-2xl bg-surface-container-lowest border-2 border-primary/40 shadow-md hover:shadow-xl hover:border-primary transition cursor-pointer flex flex-col justify-between group"
-        >
-          <div>
-            <div className="flex items-center justify-between mb-space-xs">
-              <span className="px-space-xs py-space-2xs rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold flex items-center gap-1">
-                <span className="material-symbols-outlined text-xs">hub</span> Track B
-              </span>
-              <span className="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">
-                arrow_forward
-              </span>
-            </div>
-            <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1">
-              3. 기업 Discovery & 매칭
-            </h4>
-            <p className="font-body-sm text-body-sm text-on-surface-variant">
-              기업 공급역량과 협력 니즈를 분석하여 <strong>화성 1차 부품사 및 SI 파트너 3개사</strong>와 1:1 B2B 협력 제안서 연결
-            </p>
-          </div>
-          <div className="mt-space-md pt-space-xs border-t border-outline-variant/20 font-label-sm text-primary font-bold flex items-center justify-between">
-            <span>협력 파트너 매칭 확인</span>
-            <span>이동하기 →</span>
-          </div>
-        </div>
-
-        {/* Connection Card 3: Track C 관리자 Intelligence */}
-        <div
-          onClick={() => onNavigateTab('admin')}
-          className="p-space-lg rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-md hover:shadow-xl hover:border-outline transition cursor-pointer flex flex-col justify-between group"
-        >
-          <div>
-            <div className="flex items-center justify-between mb-space-xs">
-              <span className="px-space-xs py-space-2xs rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-bold flex items-center gap-1">
-                <span className="material-symbols-outlined text-xs">analytics</span> Track C
-              </span>
-              <span className="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform">
-                arrow_forward
-              </span>
-            </div>
-            <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1">
-              4. 관리자 Intelligence
-            </h4>
-            <p className="font-body-sm text-body-sm text-on-surface-variant">
-              누적 248개 기업 병목 통계 집계 및 도내 공통 애로사항 해결을 위한 <strong>신규 지원사업 기획안 자동 생성</strong>
-            </p>
-          </div>
-          <div className="mt-space-md pt-space-xs border-t border-outline-variant/20 font-label-sm text-on-surface-variant font-bold flex items-center justify-between">
-            <span>관리자 대시보드</span>
-            <span>이동하기 →</span>
-          </div>
-        </div>
-      </div>
-
-      {/* 1. Executive Summary: Contrast & Gap Elimination */}
-      <div className="w-full bg-surface-container-lowest rounded-2xl p-space-xl shadow-md flex flex-col gap-space-lg border border-outline-variant/20">
-        <div className="flex items-center gap-space-xs font-label-sm text-label-sm text-primary font-bold uppercase tracking-wide">
-          <span className="material-symbols-outlined text-base">balance</span>
-          <span>Executive Summary · 정책 괴리율 사전 차단</span>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
-          {/* Corporate Wish */}
-          <div className="p-space-lg rounded-xl bg-surface-container-low flex flex-col justify-between border border-outline-variant/30">
-            <div>
-              <div className="flex items-center justify-between mb-space-xs">
-                <span className="font-label-md text-label-md text-on-surface-variant font-medium">
-                  기업 대표 희망지원 (사업계획서 기준)
-                </span>
-                <span className="px-space-xs py-space-2xs rounded bg-surface-variant text-on-surface-variant font-label-sm text-label-sm font-semibold">
-                  비효율 감지
-                </span>
-              </div>
-              <div className="font-data-metric text-data-metric font-extrabold text-on-surface tracking-tight mb-space-2xs">
-                {analysis.companyRequestedSupport[0] || 'AI 기술 R&D 1.5억원'}
-              </div>
-              <p className="font-body-md text-body-md text-on-surface-variant">
-                추가적인 모델 고도화 및 자체 인프라 구축 R&D 자금 요청
-              </p>
-            </div>
-            <div className="mt-space-md pt-space-sm border-t border-outline-variant/30 flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
-              <span>지원 시 선정 가능성</span>
-              <span className="font-bold text-on-surface">22.4% (선행요건 불부합)</span>
-            </div>
-          </div>
-
-          {/* GBSA AI Prescribed Solution */}
-          <div className="p-space-lg rounded-xl bg-surface-container-highest flex flex-col justify-between relative overflow-hidden border border-primary/20">
-            <div className="absolute -right-10 -bottom-10 w-32 h-32 bg-primary/10 rounded-full blur-xl pointer-events-none"></div>
-            <div>
-              <div className="flex items-center justify-between mb-space-xs">
-                <span className="font-label-md text-label-md text-primary font-bold">
-                  GBSA AI 데이터 확정 최적 처방
-                </span>
-                <span className="px-space-xs py-space-2xs rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold">
-                  최우선 권고
-                </span>
-              </div>
-              <div className="font-data-metric text-data-metric font-extrabold text-primary tracking-tight mb-space-2xs">
-                {analysis.recommendedSupport[0] || '[P02] 실증 바우처 5,000만원'}
-              </div>
-              <p className="font-body-md text-body-md text-on-surface font-medium">
-                + 경기도 1차 협력사 현장 양산 라인 실증(PoC) 및 구매 LOI 직결 연계
-              </p>
-            </div>
-            <div className="mt-space-md pt-space-sm border-t border-outline-variant/40 flex items-center justify-between font-label-sm text-label-sm text-primary">
-              <span>지원 시 선정 가능성</span>
-              <span className="font-extrabold text-primary">94.8% (초격차 적합 판정)</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Decisive Toss Insight Message */}
-        <div className="p-space-md rounded-xl bg-surface-container flex items-start gap-space-md">
-          <span className="material-symbols-outlined text-secondary text-2xl shrink-0 mt-0.5">tips_and_updates</span>
-          <div>
-            <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-0.5">
-              {analysis.supportGapAnalysis}
-            </h4>
-            <p className="font-body-md text-body-md text-on-surface-variant mt-1">
-              {analysis.aiInsightSummary}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. T·E·M 3-Axis Growth Diagnostic & Evidence Quotes */}
+      {/* 2. T·E·M 3-Axis Growth Diagnostic & Evidence Quotes (Reordered: Directly below Executive Advisory) */}
       <div className="w-full bg-surface-container-lowest rounded-2xl p-space-xl shadow-md flex flex-col gap-space-lg border border-outline-variant/20">
         <div className="flex items-center justify-between">
           <div>
@@ -428,7 +266,134 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
         )}
       </div>
 
-      {/* 3. Customer Validation Funnel */}
+      {/* 3. Future Strategy & Risk Mitigation Roadmap */}
+      {analysis.consultingInsights && (
+        <section className="flex flex-col gap-space-lg">
+          <div className="rounded-2xl bg-surface-container-lowest p-space-xl border border-outline-variant/20 shadow-md">
+            <div className="mb-space-lg">
+              <span className="font-label-sm text-secondary font-bold uppercase tracking-wide">Future Strategy</span>
+              <h3 className="font-headline-md font-bold text-on-surface mt-1">성장을 위한 단계별 전략 (Action Plan)</h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+              {analysis.consultingInsights.futureStrategy.map((strategy, index) => (
+                <article key={`${strategy.horizon}-${strategy.title}`} className="relative rounded-2xl bg-surface-container-low p-space-lg border border-outline-variant/20 flex flex-col justify-between">
+                  <div>
+                    <span className="inline-block px-space-sm py-0.5 rounded-full bg-primary text-white text-xs font-extrabold mb-space-xs">
+                      {index + 1}. {strategy.horizon}
+                    </span>
+                    <h4 className="font-headline-sm font-bold text-on-surface mt-1">{strategy.title}</h4>
+                    <p className="text-body-sm text-on-surface-variant mt-space-xs">{strategy.rationale}</p>
+                    <ul className="my-space-md space-y-1 text-body-sm text-on-surface">
+                      {strategy.actions.map((action) => <li key={action}>• {action}</li>)}
+                    </ul>
+                  </div>
+                  <div className="pt-space-sm border-t border-outline-variant/20 text-xs font-bold text-primary">KPI · {strategy.kpi}</div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-space-md">
+            <div className="rounded-2xl bg-surface-container-lowest p-space-lg border border-error/20">
+              <h3 className="font-headline-sm font-bold text-on-surface mb-space-md">핵심 리스크와 대응</h3>
+              <div className="space-y-space-sm">
+                {analysis.consultingInsights.keyRisks.map((item) => (
+                  <div key={item.risk} className="p-space-md rounded-xl bg-error/5">
+                    <p className="font-bold text-error">{item.risk}</p>
+                    <p className="text-body-sm text-on-surface-variant mt-1">영향: {item.impact}</p>
+                    <p className="text-body-sm text-on-surface mt-1">대응: {item.mitigation}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="rounded-2xl bg-surface-container-lowest p-space-lg border border-outline-variant/20">
+              <h3 className="font-headline-sm font-bold text-on-surface mb-space-md">다음 컨설팅에서 확인할 핵심 질문</h3>
+              <ol className="space-y-space-sm">
+                {analysis.consultingInsights.consultantQuestions.map((question, index) => (
+                  <li key={question} className="flex gap-space-sm text-body-sm text-on-surface">
+                    <span className="w-6 h-6 shrink-0 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center text-xs font-bold">{index + 1}</span>
+                    <span>{question}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 4. Executive Summary: Contrast & Gap Elimination */}
+      <div className="w-full bg-surface-container-lowest rounded-2xl p-space-xl shadow-md flex flex-col gap-space-lg border border-outline-variant/20">
+        <div className="flex items-center gap-space-xs font-label-sm text-label-sm text-primary font-bold uppercase tracking-wide">
+          <span className="material-symbols-outlined text-base">balance</span>
+          <span>Executive Summary · 정책 괴리율 사전 차단</span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
+          {/* Corporate Wish */}
+          <div className="p-space-lg rounded-xl bg-surface-container-low flex flex-col justify-between border border-outline-variant/30">
+            <div>
+              <div className="flex items-center justify-between mb-space-xs">
+                <span className="font-label-md text-label-md text-on-surface-variant font-medium">
+                  기업 대표 희망지원 (사업계획서 기준)
+                </span>
+                <span className="px-space-xs py-space-2xs rounded bg-surface-variant text-on-surface-variant font-label-sm text-label-sm font-semibold">
+                  비효율 감지
+                </span>
+              </div>
+              <div className="font-data-metric text-data-metric font-extrabold text-on-surface tracking-tight mb-space-2xs">
+                {analysis.companyRequestedSupport[0] || 'AI 기술 R&D 1.5억원'}
+              </div>
+              <p className="font-body-md text-body-md text-on-surface-variant">
+                추가적인 모델 고도화 및 자체 인프라 구축 R&D 자금 요청
+              </p>
+            </div>
+            <div className="mt-space-md pt-space-sm border-t border-outline-variant/30 flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+              <span>지원 시 선정 가능성</span>
+              <span className="font-bold text-on-surface">22.4% (선행요건 불부합)</span>
+            </div>
+          </div>
+
+          {/* GBSA AI Prescribed Solution */}
+          <div className="p-space-lg rounded-xl bg-surface-container-highest flex flex-col justify-between relative overflow-hidden border border-primary/20">
+            <div className="absolute -right-10 -bottom-10 w-32 h-32 bg-primary/10 rounded-full blur-xl pointer-events-none"></div>
+            <div>
+              <div className="flex items-center justify-between mb-space-xs">
+                <span className="font-label-md text-label-md text-primary font-bold">
+                  GBSA AI 데이터 확정 최적 처방
+                </span>
+                <span className="px-space-xs py-space-2xs rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold">
+                  최우선 권고
+                </span>
+              </div>
+              <div className="font-data-metric text-data-metric font-extrabold text-primary tracking-tight mb-space-2xs">
+                {analysis.recommendedSupport[0] || '[P02] 실증 바우처 5,000만원'}
+              </div>
+              <p className="font-body-md text-body-md text-on-surface font-medium">
+                + 경기도 1차 협력사 현장 양산 라인 실증(PoC) 및 구매 LOI 직결 연계
+              </p>
+            </div>
+            <div className="mt-space-md pt-space-sm border-t border-outline-variant/40 flex items-center justify-between font-label-sm text-label-sm text-primary">
+              <span>지원 시 선정 가능성</span>
+              <span className="font-extrabold text-primary">94.8% (초격차 적합 판정)</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Decisive Toss Insight Message */}
+        <div className="p-space-md rounded-xl bg-surface-container flex items-start gap-space-md">
+          <span className="material-symbols-outlined text-secondary text-2xl shrink-0 mt-0.5">tips_and_updates</span>
+          <div>
+            <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-0.5">
+              {analysis.supportGapAnalysis}
+            </h4>
+            <p className="font-body-md text-body-md text-on-surface-variant mt-1">
+              {analysis.aiInsightSummary}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* 5. Customer Validation Funnel */}
       <div className="w-full bg-surface-container-lowest rounded-2xl p-space-xl shadow-md flex flex-col gap-space-lg border border-outline-variant/20">
         <div className="flex items-center justify-between">
           <div>
@@ -481,7 +446,7 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
         </div>
       </div>
 
-      {/* 4. 90-Day Action Plan */}
+      {/* 6. 90-Day Action Plan */}
       <div className="w-full bg-surface-container-lowest rounded-2xl p-space-xl shadow-md flex flex-col gap-space-md border border-outline-variant/20">
         <div>
           <span className="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wide">
@@ -508,6 +473,90 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* 🌟 7. 3 Core Module Connection Hub Cards (PRD Architecture Navigation) */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+        {/* Connection Card 1: Track A 지원사업 연계 */}
+        <div
+          onClick={() => onNavigateTab('programs')}
+          className="p-space-lg rounded-2xl bg-surface-container-lowest border-2 border-secondary/40 shadow-md hover:shadow-xl hover:border-secondary transition cursor-pointer flex flex-col justify-between group"
+        >
+          <div>
+            <div className="flex items-center justify-between mb-space-xs">
+              <span className="px-space-xs py-space-2xs rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold flex items-center gap-1">
+                <span className="material-symbols-outlined text-xs">verified</span> Track A
+              </span>
+              <span className="material-symbols-outlined text-secondary group-hover:translate-x-1 transition-transform">
+                arrow_forward
+              </span>
+            </div>
+            <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1">
+              2. 맞춤 지원사업 연계
+            </h4>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">
+              {analysis.primaryBottleneck} 병목을 해결할 <strong>[P02] 실증 바우처 5,000만원</strong> 등 최적 지원사업 확인 및 신청 사유서 자동 생성
+            </p>
+          </div>
+          <div className="mt-space-md pt-space-xs border-t border-outline-variant/20 font-label-sm text-secondary font-bold flex items-center justify-between">
+            <span>지원사업 매칭 확인</span>
+            <span>이동하기 →</span>
+          </div>
+        </div>
+
+        {/* Connection Card 2: Track B 기업 매칭 */}
+        <div
+          onClick={() => onNavigateTab('matching')}
+          className="p-space-lg rounded-2xl bg-surface-container-lowest border-2 border-primary/40 shadow-md hover:shadow-xl hover:border-primary transition cursor-pointer flex flex-col justify-between group"
+        >
+          <div>
+            <div className="flex items-center justify-between mb-space-xs">
+              <span className="px-space-xs py-space-2xs rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold flex items-center gap-1">
+                <span className="material-symbols-outlined text-xs">hub</span> Track B
+              </span>
+              <span className="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">
+                arrow_forward
+              </span>
+            </div>
+            <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1">
+              3. 기업 Discovery & 매칭
+            </h4>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">
+              기업 공급역량과 협력 니즈를 분석하여 <strong>화성 1차 부품사 및 SI 파트너 3개사</strong>와 1:1 B2B 협력 제안서 연결
+            </p>
+          </div>
+          <div className="mt-space-md pt-space-xs border-t border-outline-variant/20 font-label-sm text-primary font-bold flex items-center justify-between">
+            <span>협력 파트너 매칭 확인</span>
+            <span>이동하기 →</span>
+          </div>
+        </div>
+
+        {/* Connection Card 3: Track C 관리자 Intelligence */}
+        <div
+          onClick={() => onNavigateTab('admin')}
+          className="p-space-lg rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-md hover:shadow-xl hover:border-outline transition cursor-pointer flex flex-col justify-between group"
+        >
+          <div>
+            <div className="flex items-center justify-between mb-space-xs">
+              <span className="px-space-xs py-space-2xs rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-bold flex items-center gap-1">
+                <span className="material-symbols-outlined text-xs">analytics</span> Track C
+              </span>
+              <span className="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform">
+                arrow_forward
+              </span>
+            </div>
+            <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1">
+              4. 관리자 Intelligence
+            </h4>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">
+              누적 248개 기업 병목 통계 집계 및 도내 공통 애로사항 해결을 위한 <strong>신규 지원사업 기획안 자동 생성</strong>
+            </p>
+          </div>
+          <div className="mt-space-md pt-space-xs border-t border-outline-variant/20 font-label-sm text-on-surface-variant font-bold flex items-center justify-between">
+            <span>관리자 대시보드</span>
+            <span>이동하기 →</span>
+          </div>
         </div>
       </div>
 

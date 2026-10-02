@@ -1,0 +1,623 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>GBSA 기업지원 관리자</title>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Pretendard/Noto Sans KR -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans KR"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+              gbsa: '#005bac',
+            },
+            status: {
+              greenBg: '#e6f8f0',
+              greenText: '#10b981',
+              orangeBg: '#fff4eb',
+              orangeText: '#f97316',
+              blueBg: '#eef6ff',
+              blueText: '#2563eb',
+              purpleBg: '#f6f0fe',
+              purpleText: '#8b5cf6',
+              pinkBg: '#fef2f2',
+              pinkText: '#ef4444',
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-scrollbars-and-resets">
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #f1f5fa;
+      color: #1e293b;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#f0f4fa]">
+<!-- BEGIN: TopHeader -->
+<header class="h-16 bg-white border-b border-slate-200/80 px-6 flex items-center justify-between sticky top-0 z-50">
+<!-- Left Logo & System Selector -->
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<!-- GBSA Logo Emblem -->
+<div class="flex items-baseline font-black italic text-xl tracking-tight text-[#005BAC]">
+<span class="">GBSA</span>
+</div>
+<div class="h-4 w-[1px] bg-slate-200"></div>
+<button class="flex items-center gap-1.5 text-slate-800 font-bold text-sm tracking-tight hover:text-blue-600 transition-colors">
+<span class="">기업지원 관리자</span>
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+</div>
+<!-- Center Search Bar -->
+<div class="flex-1 max-w-xl mx-8">
+<div class="relative">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</span>
+<input class="w-full pl-10 pr-4 py-2 bg-[#f4f7fc] text-slate-700 text-xs sm:text-sm rounded-full border border-slate-200 focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100 transition-all placeholder:text-slate-400" placeholder="기업명, 사업명, 키워드로 검색하세요." type="text">
+</div>
+</div>
+<!-- Right Profile and Notifications -->
+<div class="flex items-center gap-4">
+<!-- Notification Icon -->
+<button aria-label="알림" class="relative p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-colors">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+<span class="absolute top-1 right-1 w-4 h-4 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white">3</span>
+</button>
+<!-- User Profile Badge -->
+<div class="flex items-center gap-3 pl-2 border-l border-slate-200">
+<div class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden ring-1 ring-slate-300">
+<img alt="홍길동 대리 아바타" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVJVBys_sBCfZYYzEZzDqTWvnEQB0ghsZF6S4C2htY4BvhQDdnBUeyDkCy9aWnr_uDwbOzhorwS-5m6EJXfbNk-KUna2bG8aq4DfTS6-yalPVwsJvghzUVDAg84A7QQ2zm-nbsWzz_yyfv5IZomu6lWlgCDPK1xVJGBbo-rTbymfw4mO5B5iVbi8A_1XxHlFKs-sh6wXh2BhbYXTq_GJF-9WRCj5vXXSvCXeZdmrUnDE7i7O-v8AMz">
+</div>
+<div class="text-left hidden sm:block leading-tight">
+<div class="text-xs font-bold text-slate-800">홍길동 대리</div>
+<div class="text-[11px] text-slate-400">경기도경제과학진흥원</div>
+</div>
+</div>
+</div>
+</header>
+<!-- END: TopHeader -->
+<!-- BEGIN: MainContainerLayout -->
+<div class="flex-1 flex overflow-hidden">
+<!-- BEGIN: LeftSidebar -->
+<aside class="w-56 bg-white border-r border-slate-200/80 flex flex-col justify-between p-4 shrink-0 overflow-y-auto">
+<div class="space-y-6">
+<!-- Main Navigation Links -->
+<nav class="space-y-1">
+<!-- Active Tab: 대시보드 -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-blue-50 text-blue-600 font-bold text-sm" href="#">
+<svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+<path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+</svg>
+<span class="">대시보드</span>
+</a>
+<!-- Accordion Menu: 사업계획서 관리 -->
+<div class="pt-2">
+<button class="w-full flex items-center justify-between px-3 py-2 text-slate-700 font-semibold text-sm hover:bg-slate-50 rounded-lg">
+<div class="flex items-center gap-3">
+<svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+<span class="">사업계획서 관리</span>
+</div>
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<!-- Submenu Items -->
+<div class="mt-1 pl-9 pr-2 space-y-1">
+<a class="block px-3 py-1.5 rounded-md bg-blue-50 text-blue-600 font-semibold text-xs" href="#">전체 조회</a>
+<a class="block px-3 py-1.5 rounded-md text-slate-500 hover:text-slate-800 text-xs font-medium" href="#">검토 대기</a>
+<a class="block px-3 py-1.5 rounded-md text-slate-500 hover:text-slate-800 text-xs font-medium" href="#">AI 분석 완료</a>
+<a class="block px-3 py-1.5 rounded-md text-slate-500 hover:text-slate-800 text-xs font-medium" href="#">선정 관리</a>
+<a class="block px-3 py-1.5 rounded-md text-slate-500 hover:text-slate-800 text-xs font-medium" href="#">반려/보완 요청</a>
+</div>
+</div>
+<!-- Other Main Menus -->
+<div class="pt-2 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 text-sm font-medium" href="#">
+<svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+<span class="">기업 관리</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 text-sm font-medium" href="#">
+<svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+<span class="">맞춤형 매칭·추천</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 text-sm font-medium" href="#">
+<svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+<span class="">메일링 홍보</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 text-sm font-medium" href="#">
+<svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+<span class="">성과 관리</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 text-sm font-medium" href="#">
+<svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+<span class="">통계·리포트</span>
+</a>
+</div>
+</nav>
+<!-- System Settings Section -->
+<div class="pt-4 border-t border-slate-100">
+<div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 mb-2">시스템 관리</div>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 text-sm font-medium" href="#">
+<svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+<span class="">사용자 관리</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 text-sm font-medium" href="#">
+<svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+<span class="">설정</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Bottom Mini Promo Banner -->
+<div class="mt-6 p-3 bg-gradient-to-br from-blue-50 to-indigo-50/60 rounded-xl border border-blue-100 flex items-center justify-between">
+<div class="text-[11px] leading-snug font-bold text-slate-700">
+          AI로 더 많은 기업이<br><span class="text-blue-600">성장할 수 있도록</span>
+</div>
+<div class="w-8 h-8 text-blue-500 shrink-0">
+<svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+</div>
+</div>
+</aside>
+<!-- END: LeftSidebar -->
+<!-- BEGIN: MainContent -->
+<main class="flex-1 overflow-y-auto p-6 space-y-6">
+<!-- Welcome Header & Date Selector -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h1 class="text-2xl font-black text-slate-800 tracking-tight">홍길동 대리님, 오늘도 좋은 하루입니다!</h1>
+<p class="text-xs sm:text-sm text-slate-500 mt-1">기업들의 사업계획서를 AI가 분석하여, 적합한 지원사업과 후속관리를 도와드립니다.</p>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 self-start md:self-auto">
+<span class="text-xs font-semibold text-slate-500 self-end sm:self-auto">2026년 10월 2일 (금)</span>
+<div class="flex items-center gap-2">
+<select class="text-xs font-semibold bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-700 shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+<option>2026년</option>
+</select>
+<select class="text-xs font-semibold bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-700 shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+<option>3분기 (7~9월)</option>
+</select>
+</div>
+</div>
+</div>
+<!-- BEGIN: KpiMetricsSection -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
+<!-- KPI 1 -->
+<div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center shrink-0">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<div class="text-[11px] font-medium text-slate-400">총 접수 기업</div>
+<div class="text-xl font-extrabold text-slate-800">326<span class="text-sm font-bold text-slate-600">개</span></div>
+</div>
+</div>
+<div class="mt-2.5 flex items-center gap-1 text-[11px] font-bold text-emerald-600">
+<span class="">▲ 12%</span>
+<span class="text-slate-400 font-normal">전분기 대비</span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-500 flex items-center justify-center shrink-0">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<div class="text-[11px] font-medium text-slate-400">검토 대기</div>
+<div class="text-xl font-extrabold text-slate-800">48<span class="text-sm font-bold text-slate-600">개</span></div>
+</div>
+</div>
+<div class="mt-2.5 flex items-center gap-1 text-[11px] font-bold text-rose-500">
+<span class="">▲ 8%</span>
+<span class="text-slate-400 font-normal">전분기 대비</span>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center shrink-0 font-black text-sm">
+              Ai
+            </div>
+<div>
+<div class="text-[11px] font-medium text-slate-400">AI 분석 완료</div>
+<div class="text-xl font-extrabold text-slate-800">251<span class="text-sm font-bold text-slate-600">개</span></div>
+</div>
+</div>
+<div class="mt-2.5 flex items-center gap-1 text-[11px] font-bold text-emerald-600">
+<span class="">▲ 35%</span>
+<span class="text-slate-400 font-normal">전분기 대비</span>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-teal-50 text-teal-500 flex items-center justify-center shrink-0">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<div class="text-[11px] font-medium text-slate-400">맞춤형 메일 발송</div>
+<div class="text-xl font-extrabold text-slate-800">1,923<span class="text-sm font-bold text-slate-600">건</span></div>
+</div>
+</div>
+<div class="mt-2.5 flex items-center gap-1 text-[11px] font-bold text-emerald-600">
+<span class="">▲ 42%</span>
+<span class="text-slate-400 font-normal">전분기 대비</span>
+</div>
+</div>
+<!-- KPI 5 -->
+<div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center shrink-0">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<div class="text-[11px] font-medium text-slate-400">선정 기업</div>
+<div class="text-xl font-extrabold text-slate-800">38<span class="text-sm font-bold text-slate-600">개</span></div>
+</div>
+</div>
+<div class="mt-2.5 flex items-center gap-1 text-[11px] font-bold text-emerald-600">
+<span class="">▲ 27%</span>
+<span class="text-slate-400 font-normal">전분기</span>
+</div>
+</div>
+</div>
+<!-- END: KpiMetricsSection -->
+<!-- BEGIN: ContentGridSplit -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Left Table Container (7 cols in 12-col grid) -->
+<div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm space-y-4">
+<!-- Table Title & Action Buttons -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+<div class="flex items-center gap-2">
+<h2 class="text-base font-extrabold text-slate-800">사업계획서 목록</h2>
+<span class="text-xs font-semibold text-slate-400">326건</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs font-bold hover:bg-blue-100 transition-colors">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="">사업계획서 수동 등록</span>
+</button>
+<button class="inline-flex items-center gap-1 px-2.5 py-1.5 border border-slate-200 text-slate-600 rounded-lg text-xs font-medium hover:bg-slate-50 transition-colors">
+<svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="">필터</span>
+</button>
+<button class="inline-flex items-center gap-1 px-2.5 py-1.5 border border-slate-200 text-slate-600 rounded-lg text-xs font-medium hover:bg-slate-50 transition-colors">
+<svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="">엑셀 다운로드</span>
+</button>
+</div>
+</div>
+<!-- Filter Pills -->
+<div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs border-b border-slate-100">
+<button class="px-3 py-1.5 rounded-full bg-blue-50 text-blue-600 font-bold flex items-center gap-1.5 shrink-0">
+              전체 <span class="bg-blue-600 text-white rounded-full px-1.5 py-0.2 text-[10px]">326</span>
+</button>
+<button class="px-3 py-1.5 rounded-full text-slate-500 hover:bg-slate-100 font-medium flex items-center gap-1 shrink-0">
+              검토 대기 <span class="text-slate-400 text-[10px]">48</span>
+</button>
+<button class="px-3 py-1.5 rounded-full text-slate-500 hover:bg-slate-100 font-medium flex items-center gap-1 shrink-0">
+              AI 분석중 <span class="text-slate-400 text-[10px]">62</span>
+</button>
+<button class="px-3 py-1.5 rounded-full text-slate-500 hover:bg-slate-100 font-medium flex items-center gap-1 shrink-0">
+              분석 완료 <span class="text-slate-400 text-[10px]">185</span>
+</button>
+<button class="px-3 py-1.5 rounded-full text-slate-500 hover:bg-slate-100 font-medium flex items-center gap-1 shrink-0">
+              선정 <span class="text-slate-400 text-[10px]">24</span>
+</button>
+<button class="px-3 py-1.5 rounded-full text-slate-500 hover:bg-slate-100 font-medium flex items-center gap-1 shrink-0">
+              반려 <span class="text-slate-400 text-[10px]">7</span>
+</button>
+</div>
+<!-- Table Container -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse text-xs">
+<thead>
+<tr class="text-slate-400 font-semibold border-b border-slate-100">
+<th class="py-2.5 px-2 w-8"><input class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" type="checkbox"></th>
+<th class="py-2.5 px-2">기업명</th>
+<th class="py-2.5 px-2">사업명</th>
+<th class="py-2.5 px-2">산업분야</th>
+<th class="py-2.5 px-2">접수일</th>
+<th class="py-2.5 px-2">AI 적합도</th>
+<th class="py-2.5 px-2 text-center">상태</th>
+<th class="py-2.5 px-2">담당자</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-50 text-slate-700 font-normal">
+<!-- Row 1: Selected / Highlighted -->
+<tr class="bg-blue-50/40 hover:bg-blue-50/70 transition-colors cursor-pointer">
+<td class="py-2.5 px-2"><input checked="" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" type="checkbox"></td>
+<td class="py-2.5 px-2 font-bold text-slate-900 flex items-center gap-1.5">
+<span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px]">🌱</span>
+                    (주)그린바이오
+                  </td>
+<td class="py-2.5 px-2 truncate max-w-[130px]" title="스마트농업 데이터 기반 최적 생육 플랫폼">스마트농업 데이터 기반 ...</td>
+<td class="py-2.5 px-2"><span class="px-2 py-0.5 rounded bg-blue-50 text-blue-600 text-[11px] font-medium">바이오·헬스</span></td>
+<td class="py-2.5 px-2 text-slate-400 font-mono text-[11px]">2026.10.02</td>
+<td class="py-2.5 px-2 font-extrabold text-emerald-600">92%</td>
+<td class="py-2.5 px-2 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-bold">AI 분석 완료</span></td>
+<td class="py-2.5 px-2 text-slate-600 font-medium">홍길동</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50 transition-colors cursor-pointer">
+<td class="py-2.5 px-2"><input class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" type="checkbox"></td>
+<td class="py-2.5 px-2 font-semibold text-slate-800 flex items-center gap-1.5">
+<span class="w-4 h-4 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px]">⚙️</span>
+                    (주)테크비전
+                  </td>
+<td class="py-2.5 px-2 truncate max-w-[130px]" title="제조 공정 AI 비전 검사 시스템">제조 공정 AI 비전 검사 ...</td>
+<td class="py-2.5 px-2"><span class="px-2 py-0.5 rounded bg-blue-50 text-blue-600 text-[11px] font-medium">제조·AI</span></td>
+<td class="py-2.5 px-2 text-slate-400 font-mono text-[11px]">2026.10.01</td>
+<td class="py-2.5 px-2 font-extrabold text-emerald-600">88%</td>
+<td class="py-2.5 px-2 text-center"><span class="px-2 py-0.5 rounded-full bg-orange-50 text-orange-500 text-[10px] font-bold">검토 대기</span></td>
+<td class="py-2.5 px-2 text-slate-600 font-medium">김지은</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50 transition-colors cursor-pointer">
+<td class="py-2.5 px-2"><input class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" type="checkbox"></td>
+<td class="py-2.5 px-2 font-semibold text-slate-800 flex items-center gap-1.5">
+<span class="w-4 h-4 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center text-[10px]">🚙</span>
+                    (주)모빌리티케어
+                  </td>
+<td class="py-2.5 px-2 truncate max-w-[130px]">자율주행 센서 융합 플랫...</td>
+<td class="py-2.5 px-2"><span class="px-2 py-0.5 rounded bg-orange-50 text-orange-600 text-[11px] font-medium">모빌리티</span></td>
+<td class="py-2.5 px-2 text-slate-400 font-mono text-[11px]">2026.09.30</td>
+<td class="py-2.5 px-2 font-extrabold text-emerald-600">85%</td>
+<td class="py-2.5 px-2 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-bold">AI 분석 완료</span></td>
+<td class="py-2.5 px-2 text-slate-600 font-medium">이준호</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-50 transition-colors cursor-pointer">
+<td class="py-2.5 px-2"><input class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" type="checkbox"></td>
+<td class="py-2.5 px-2 font-semibold text-slate-800 flex items-center gap-1.5">
+<span class="w-4 h-4 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-[10px]">⚡</span>
+                    (주)에너지솔루션
+                  </td>
+<td class="py-2.5 px-2 truncate max-w-[130px]">ESS 기반 에너지 최적화 ...</td>
+<td class="py-2.5 px-2"><span class="px-2 py-0.5 rounded bg-purple-50 text-purple-600 text-[11px] font-medium">에너지·환경</span></td>
+<td class="py-2.5 px-2 text-slate-400 font-mono text-[11px]">2026.09.29</td>
+<td class="py-2.5 px-2 font-extrabold text-emerald-600">82%</td>
+<td class="py-2.5 px-2 text-center"><span class="px-2 py-0.5 rounded-full bg-orange-50 text-orange-500 text-[10px] font-bold">검토 대기</span></td>
+<td class="py-2.5 px-2 text-slate-600 font-medium">홍길동</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-slate-50 transition-colors cursor-pointer">
+<td class="py-2.5 px-2"><input class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" type="checkbox"></td>
+<td class="py-2.5 px-2 font-semibold text-slate-800 flex items-center gap-1.5">
+<span class="w-4 h-4 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center text-[10px]">💊</span>
+                    (주)헬스케어랩
+                  </td>
+<td class="py-2.5 px-2 truncate max-w-[130px]">디지털 헬스케어 플랫폼 ...</td>
+<td class="py-2.5 px-2"><span class="px-2 py-0.5 rounded bg-blue-50 text-blue-600 text-[11px] font-medium">바이오·헬스</span></td>
+<td class="py-2.5 px-2 text-slate-400 font-mono text-[11px]">2026.09.28</td>
+<td class="py-2.5 px-2 font-extrabold text-blue-600">78%</td>
+<td class="py-2.5 px-2 text-center"><span class="px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 text-[10px] font-bold">검토중</span></td>
+<td class="py-2.5 px-2 text-slate-600 font-medium">박수현</td>
+</tr>
+<!-- Row 6 -->
+<tr class="hover:bg-slate-50 transition-colors cursor-pointer">
+<td class="py-2.5 px-2"><input class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" type="checkbox"></td>
+<td class="py-2.5 px-2 font-semibold text-slate-800 flex items-center gap-1.5">
+<span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] font-black">AI</span>
+                    (주)스마트팩토리
+                  </td>
+<td class="py-2.5 px-2 truncate max-w-[130px]">중소기업 제조DX 솔루션 ...</td>
+<td class="py-2.5 px-2"><span class="px-2 py-0.5 rounded bg-blue-50 text-blue-600 text-[11px] font-medium">제조·AI</span></td>
+<td class="py-2.5 px-2 text-slate-400 font-mono text-[11px]">2026.09.27</td>
+<td class="py-2.5 px-2 font-extrabold text-blue-600">76%</td>
+<td class="py-2.5 px-2 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-bold">AI 분석 완료</span></td>
+<td class="py-2.5 px-2 text-slate-600 font-medium">이준호</td>
+</tr>
+<!-- Row 7 -->
+<tr class="hover:bg-slate-50 transition-colors cursor-pointer">
+<td class="py-2.5 px-2"><input class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" type="checkbox"></td>
+<td class="py-2.5 px-2 font-semibold text-slate-800 flex items-center gap-1.5">
+<span class="w-4 h-4 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-[10px]">🥗</span>
+                    (주)퓨처푸드
+                  </td>
+<td class="py-2.5 px-2 truncate max-w-[130px]">대체식품 소재 개발 사업...</td>
+<td class="py-2.5 px-2"><span class="px-2 py-0.5 rounded bg-blue-50 text-blue-600 text-[11px] font-medium">바이오·헬스</span></td>
+<td class="py-2.5 px-2 text-slate-400 font-mono text-[11px]">2026.09.26</td>
+<td class="py-2.5 px-2 font-extrabold text-blue-600">71%</td>
+<td class="py-2.5 px-2 text-center"><span class="px-2 py-0.5 rounded-full bg-rose-50 text-rose-500 text-[10px] font-bold">보완 요청</span></td>
+<td class="py-2.5 px-2 text-slate-600 font-medium">김지은</td>
+</tr>
+<!-- Row 8 -->
+<tr class="hover:bg-slate-50 transition-colors cursor-pointer">
+<td class="py-2.5 px-2"><input class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" type="checkbox"></td>
+<td class="py-2.5 px-2 font-semibold text-slate-800 flex items-center gap-1.5">
+<span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px]">♻️</span>
+                    (주)클린테크
+                  </td>
+<td class="py-2.5 px-2 truncate max-w-[130px]">탄소저감 공정 기술 개발...</td>
+<td class="py-2.5 px-2"><span class="px-2 py-0.5 rounded bg-purple-50 text-purple-600 text-[11px] font-medium">에너지·환경</span></td>
+<td class="py-2.5 px-2 text-slate-400 font-mono text-[11px]">2026.09.25</td>
+<td class="py-2.5 px-2 font-extrabold text-blue-600">68%</td>
+<td class="py-2.5 px-2 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-bold">AI 분석 완료</span></td>
+<td class="py-2.5 px-2 text-slate-600 font-medium">홍길동</td>
+</tr>
+<!-- Row 9 -->
+<tr class="hover:bg-slate-50 transition-colors cursor-pointer">
+<td class="py-2.5 px-2"><input class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" type="checkbox"></td>
+<td class="py-2.5 px-2 font-semibold text-slate-800 flex items-center gap-1.5">
+<span class="w-4 h-4 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center text-[10px]">☁️</span>
+                    (주)데이터웨이브
+                  </td>
+<td class="py-2.5 px-2 truncate max-w-[130px]">데이터센터 냉각 효율화 ...</td>
+<td class="py-2.5 px-2"><span class="px-2 py-0.5 rounded bg-sky-50 text-sky-600 text-[11px] font-medium">데이터·클라우드</span></td>
+<td class="py-2.5 px-2 text-slate-400 font-mono text-[11px]">2026.09.24</td>
+<td class="py-2.5 px-2 font-extrabold text-slate-600">65%</td>
+<td class="py-2.5 px-2 text-center"><span class="px-2 py-0.5 rounded-full bg-orange-50 text-orange-500 text-[10px] font-bold">검토 대기</span></td>
+<td class="py-2.5 px-2 text-slate-600 font-medium">박수현</td>
+</tr>
+<!-- Row 10 -->
+<tr class="hover:bg-slate-50 transition-colors cursor-pointer">
+<td class="py-2.5 px-2"><input class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" type="checkbox"></td>
+<td class="py-2.5 px-2 font-semibold text-slate-800 flex items-center gap-1.5">
+<span class="w-4 h-4 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-[10px]">🛡️</span>
+                    (주)세이프티아이
+                  </td>
+<td class="py-2.5 px-2 truncate max-w-[130px]">산업안전 AI 모니터링 시...</td>
+<td class="py-2.5 px-2"><span class="px-2 py-0.5 rounded bg-blue-50 text-blue-600 text-[11px] font-medium">AI·안전</span></td>
+<td class="py-2.5 px-2 text-slate-400 font-mono text-[11px]">2026.09.23</td>
+<td class="py-2.5 px-2 font-extrabold text-slate-600">62%</td>
+<td class="py-2.5 px-2 text-center"><span class="px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 text-[10px] font-bold">검토중</span></td>
+<td class="py-2.5 px-2 text-slate-600 font-medium">이준호</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Bar -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-slate-100">
+<div class="flex items-center gap-1 text-xs">
+<button class="w-7 h-7 flex items-center justify-center rounded border border-slate-200 text-slate-400 hover:bg-slate-50">‹</button>
+<button class="w-7 h-7 flex items-center justify-center rounded bg-blue-600 text-white font-bold">1</button>
+<button class="w-7 h-7 flex items-center justify-center rounded hover:bg-slate-100 text-slate-600">2</button>
+<button class="w-7 h-7 flex items-center justify-center rounded hover:bg-slate-100 text-slate-600">3</button>
+<button class="w-7 h-7 flex items-center justify-center rounded hover:bg-slate-100 text-slate-600">4</button>
+<button class="w-7 h-7 flex items-center justify-center rounded hover:bg-slate-100 text-slate-600">5</button>
+<span class="px-1 text-slate-400">...</span>
+<button class="w-7 h-7 flex items-center justify-center rounded hover:bg-slate-100 text-slate-600">33</button>
+<button class="w-7 h-7 flex items-center justify-center rounded border border-slate-200 text-slate-400 hover:bg-slate-50">›</button>
+</div>
+<div class="flex items-center gap-2">
+<select class="text-xs bg-white border border-slate-200 rounded-lg px-2.5 py-1 text-slate-600 focus:outline-none focus:ring-1 focus:ring-blue-500">
+<option>10개씩 보기</option>
+<option>20개씩 보기</option>
+<option>50개씩 보기</option>
+</select>
+</div>
+</div>
+</div>
+<!-- BEGIN: RightDetailPanel (5 cols in 12-col grid) -->
+<div class="lg:col-span-5 bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm space-y-4">
+<!-- Selected Company Header -->
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl shrink-0">
+                🌱
+              </div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="text-base font-extrabold text-slate-900">(주)그린바이오</h3>
+</div>
+<div class="flex items-center gap-1.5 mt-1">
+<span class="px-2 py-0.5 rounded bg-blue-50 text-blue-600 text-[10px] font-semibold">바이오·헬스</span>
+<span class="px-2 py-0.5 rounded bg-purple-50 text-purple-600 text-[10px] font-semibold">AI 추천 상위 1순위</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 text-[11px] font-medium flex items-center gap-1">
+<svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="">기업 상세보기</span>
+</button>
+<button class="text-slate-400 hover:text-slate-600 p-1">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+</div>
+<!-- Drawer Navigation Tabs -->
+<div class="flex items-center gap-5 border-b border-slate-100 text-xs font-semibold pt-1"><button class="pb-2 text-blue-600 border-b-2 border-blue-600 font-bold flex items-center gap-1.5"><span class="">성과 추적</span><span class="px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[10px]">D-7</span></button><button class="pb-2 text-slate-500 hover:text-slate-800 transition-colors">기업 정보</button><button class="pb-2 text-slate-500 hover:text-slate-800 transition-colors">제출서류</button><button class="pb-2 text-slate-500 hover:text-slate-800 transition-colors">성과요청 관리</button></div>
+<!-- Circular Score & Summary Box -->
+<div class="flex items-center gap-4 bg-[#f8fbff] rounded-2xl p-4 border border-blue-50"><div class="relative w-20 h-20 shrink-0 flex items-center justify-center"><svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36"><path class="text-slate-100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path><path class="text-blue-600" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="92, 100" stroke-linecap="round" stroke-width="3.5"></path></svg><div class="absolute flex flex-col items-center justify-center"><span class="text-base font-black text-slate-800 leading-none">92<span class="text-xs font-bold text-blue-600">%</span></span><span class="text-[9px] text-slate-400 font-medium scale-90">목표달성도</span></div></div><div class="space-y-1"><div class="text-xs font-bold text-slate-800 flex items-center gap-1.5"><span class="">기업 성장 성과 총평</span><span class="px-1.5 py-0.2 rounded bg-emerald-50 text-emerald-600 text-[10px] font-bold">우수성장기업</span></div><p class="text-[11px] text-slate-600 leading-relaxed font-normal">지원사업 협약 대비 매출 목표 115% 초과 달성 및 고용창출 12명 순증. 3분기 결산 지표 검증을 위한 정기 성과 데이터 제출 안내 필요.</p><div class="flex items-center gap-2 pt-0.5"><span class="text-[10px] text-slate-400 font-medium">최종 실태조사: 2026.08.15</span><span class="text-slate-300">·</span><button class="text-[10px] font-bold text-blue-600 hover:underline">상세 진단서 보기 →</button></div></div></div>
+<!-- Detailed Evaluation Bar Charts -->
+
+<!-- Recommended Support Programs TOP 3 -->
+<div class="space-y-4 pt-1"><!-- Performance Snapshot KPI Grid --><div class="space-y-2"><div class="flex items-center justify-between"><h4 class="text-xs font-extrabold text-slate-800 flex items-center gap-1.5"><span class="w-1.5 h-3.5 bg-blue-600 rounded-full"></span>주요 성과 지표 현황 (3개년 추이)</h4><span class="text-[11px] text-blue-600 font-bold bg-blue-50 px-2 py-0.5 rounded-full">협약 성과 모니터링중</span></div><div class="grid grid-cols-3 gap-2 text-left"><div class="p-2.5 bg-slate-50 border border-slate-100 rounded-xl"><div class="text-[10px] text-slate-400 font-medium">매출액 추이 (24~26E)</div><div class="text-sm font-black text-slate-800 mt-0.5">54.0<span class="text-[10px] font-bold text-slate-600">억원</span></div><div class="text-[10px] font-bold text-emerald-600 mt-0.5">▲ 64.6% <span class="text-slate-400 font-normal">(18.4억→)</span></div></div><div class="p-2.5 bg-slate-50 border border-slate-100 rounded-xl"><div class="text-[10px] text-slate-400 font-medium">신규 고용 창출</div><div class="text-sm font-black text-slate-800 mt-0.5">26<span class="text-[10px] font-bold text-slate-600">명</span></div><div class="text-[10px] font-bold text-emerald-600 mt-0.5">▲ +12명 <span class="text-slate-400 font-normal">(14명→)</span></div></div><div class="p-2.5 bg-slate-50 border border-slate-100 rounded-xl"><div class="text-[10px] text-slate-400 font-medium">투자·R&amp;D 수혜 누적</div><div class="text-sm font-black text-slate-800 mt-0.5">25.0<span class="text-[10px] font-bold text-slate-600">억원</span></div><div class="text-[10px] font-semibold text-blue-600 mt-0.5">시리즈A · 지원 2건</div></div></div></div><!-- Submission Request & Collection Box --><div class="bg-blue-50/50 border border-blue-100 rounded-2xl p-3.5 space-y-3"><div class="flex items-center justify-between"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span><span class="text-xs font-bold text-slate-800">기업 성과 데이터 제출 요청</span></div><span class="px-2 py-0.5 rounded-full bg-rose-50 text-rose-500 text-[10px] font-bold border border-rose-100">3분기 정기 보고 (D-7)</span></div><div class="space-y-1.5"><div class="text-[11px] text-slate-600 font-medium flex items-center justify-between"><span class="">요청 제출 증빙 서류 선택 (3종)</span><span class="text-[10px] text-slate-400">선택 3건</span></div><div class="space-y-1.5 text-xs"><label class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer hover:border-blue-400 transition-colors"><input checked="" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" type="checkbox"><span class="text-[11px] font-semibold text-slate-700 flex-1">분기 공시 매출액 및 부가세 과세표준 증명원</span><span class="text-[10px] text-slate-400 font-medium">재무증빙</span></label><label class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer hover:border-blue-400 transition-colors"><input checked="" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" type="checkbox"><span class="text-[11px] font-semibold text-slate-700 flex-1">4대보험 가입자명부 (신규 고용 창출 증빙)</span><span class="text-[10px] text-slate-400 font-medium">인력증빙</span></label><label class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer hover:border-blue-400 transition-colors"><input checked="" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" type="checkbox"><span class="text-[11px] font-semibold text-slate-700 flex-1">수출 실적 및 PoC 유상 전환 계약서 사본</span><span class="text-[10px] text-slate-400 font-medium">사업화</span></label></div></div><!-- Request Trigger Actions --><div class="flex items-center gap-1.5 pt-1"><button class="flex-1 py-1.5 px-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-[11px] font-bold shadow-sm transition-colors flex items-center justify-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">알림톡·공문 요청 발송</span></button><button class="py-1.5 px-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-lg text-[11px] font-medium transition-colors">양식 자동발송</button><button class="py-1.5 px-2.5 bg-white border border-rose-200 text-rose-600 hover:bg-rose-50 rounded-lg text-[11px] font-medium transition-colors">미제출 독촉 SMS</button></div></div><!-- Historical Log Section --><div class="space-y-2"><div class="flex items-center justify-between"><h4 class="text-xs font-bold text-slate-800">최근 성과 보고 제출 현황</h4><button class="text-[10px] text-slate-400 hover:text-slate-600 font-medium">전체 이력 보기 &gt;</button></div><div class="space-y-1.5"><div class="p-2 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between text-xs"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span><span class="font-medium text-slate-700 text-[11px]">2026.06 · 2분기 정기 성과보고</span></div><span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-bold">제출완료 · 검증완료</span></div><div class="p-2 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between text-xs"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-orange-400"></span><span class="font-medium text-slate-700 text-[11px]">2026.09 · 3분기 중간 실적보고</span></div><span class="px-2 py-0.5 rounded-full bg-orange-50 text-orange-500 text-[10px] font-bold">제출요청 발송완료 · 확인대기</span></div></div></div></div>
+<!-- Bottom Action Buttons in Detail Panel -->
+<div class="pt-3 border-t border-slate-100 flex items-center gap-2"><button class="flex-1 py-2 px-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-sm shadow-blue-200 flex items-center justify-center gap-1.5 transition-colors"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">성과 증빙 검증</span></button><button class="py-2 px-2.5 border border-slate-200 rounded-xl text-slate-700 text-xs font-bold hover:bg-slate-50 flex items-center justify-center gap-1.5 transition-colors"><svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">실태조사 메모</span></button><button class="py-2 px-2.5 border border-slate-200 rounded-xl text-slate-700 text-xs font-bold hover:bg-slate-50 flex items-center justify-center gap-1.5 transition-colors"><svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span class="">성과보고서 PDF</span></button><button class="p-2 border border-slate-200 rounded-xl text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-colors" title="추적 데이터 갱신 요청"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button></div>
+</div>
+<!-- END: RightDetailPanel -->
+</div>
+<!-- END: ContentGridSplit -->
+</main>
+<!-- END: MainContent -->
+</div>
+<!-- END: MainContainerLayout -->
+
+
+</body></html>

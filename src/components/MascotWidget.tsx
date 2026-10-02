@@ -63,9 +63,9 @@ export const MascotWidget: React.FC<MascotWidgetProps> = ({ customMessage }) => 
           title="손인사 하기"
         >
           <img
-            className="w-full h-full object-cover"
-            alt="Official 3D rendered anime mascot characters of GBSA named Ikom and Gyeongi"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCV7B44YjBj03EcmHsA1EH7JUU-zWJXgmxfLZaewc8kd3WWmCPMxanBdorrllWOZYgkRoX5X3aNjnTblVoQcyfas3JKLsjK6ivzSDW3p67pSPxyOrEoCt97aWQHH2xYYIJ7uGp3q0Y8HfyrhnCaXkBe-NgJxaCtzm8-UOEWLsCupAOKQ7XOwdImEnmfBMDIcMSkvQSESh8vwpu3QfSNA7njRCOGlYhYNrMpQUrOzTZ0KQWLEg-NGIY3"
+            className="w-full h-full object-cover scale-110"
+            alt="Official 3D rendered mascot characters of GBSA named Ikom and Gyeongi"
+            src="/mascot_running.jpg"
           />
         </div>
 

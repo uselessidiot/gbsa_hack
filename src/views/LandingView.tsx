@@ -13,38 +13,70 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
   const [uploadError, setUploadError] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleSampleSelect = (companyId: string) => {
-    const found = MOCK_COMPANIES.find(c => c.company.id === companyId) || MOCK_COMPANIES[0];
+  const [currentStep, setCurrentStep] = useState<number>(1);
+  const [progressPercent, setProgressPercent] = useState<number>(15);
+
+  const startAnalysisSequence = (targetPayload: { company: Company; analysis: AnalysisResult; profile: CompanyB2BProfile }) => {
     setIsLoading(true);
-    setProgressText('선택하신 사업계획서 셋을 자연어 RAG로 파싱 중입니다 (42%)...');
+    setCurrentStep(1);
+    setProgressPercent(18);
+    setProgressText('사업계획서 문서의 기술 지표와 비즈니스 모델을 파싱 중입니다...');
 
+    // Step 2
     setTimeout(() => {
-      setProgressText('World Bank MVA 지표 및 도내 바우처 적합도 매칭 중 (89%)...');
-    }, 400);
+      setCurrentStep(2);
+      setProgressPercent(48);
+      setProgressText('T·E·M(기술·실행·시장) 3축 성숙도와 핵심 병목(Bottleneck)을 진단 중입니다...');
+    }, 850);
 
+    // Step 3
+    setTimeout(() => {
+      setCurrentStep(3);
+      setProgressPercent(82);
+      setProgressText('경기도 120개 지원사업 DB 및 도내 B2B 협력 파트너를 매칭 중입니다...');
+    }, 1800);
+
+    // Step 4
+    setTimeout(() => {
+      setCurrentStep(4);
+      setProgressPercent(100);
+      setProgressText('경영진 맞춤형 AI 성장진단 & 컨설팅 리포트를 완성했습니다!');
+    }, 2650);
+
+    // Final Completion
     setTimeout(() => {
       setIsLoading(false);
-      onStartAnalysis({
-        ...found,
-        analysis: {
-          ...found.analysis,
-          consultingInsights: found.analysis.consultingInsights || buildFallbackConsulting(found.company, found.analysis),
-        },
-      });
-    }, 700);
+      onStartAnalysis(targetPayload);
+    }, 3200);
+  };
+
+  const handleSampleSelect = (companyId: string) => {
+    const found = MOCK_COMPANIES.find(c => c.company.id === companyId) || MOCK_COMPANIES[0];
+    const targetPayload = {
+      ...found,
+      analysis: {
+        ...found.analysis,
+        consultingInsights: found.analysis.consultingInsights || buildFallbackConsulting(found.company, found.analysis),
+      },
+    };
+    startAnalysisSequence(targetPayload);
   };
 
   const handleFileUpload = async (file: File) => {
     setIsLoading(true);
     setUploadError('');
-    setProgressText('사업계획서 PDF 분석을 시작합니다...');
+    setCurrentStep(1);
+    setProgressPercent(15);
+    setProgressText('사업계획서 PDF 문서를 읽고 있습니다...');
+
     try {
-      const result = await analyzeBusinessPlanPdf(file, (msg) => setProgressText(msg));
-      onStartAnalysis(result);
+      const result = await analyzeBusinessPlanPdf(file, (msg) => {
+        setProgressText(msg);
+      });
+      startAnalysisSequence(result);
     } catch (error) {
-      setUploadError(error instanceof Error ? error.message : '파일 분석에 실패했습니다.');
-    } finally {
       setIsLoading(false);
+      setUploadError(error instanceof Error ? error.message : '파일 분석에 실패했습니다.');
     }
   };
 
@@ -133,16 +165,70 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
             </div>
           )}
 
-          {/* Loading Progress Overlay */}
+          {/* Loading Progress Overlay with Mascot Character */}
           {isLoading && (
-            <div className="absolute inset-0 bg-surface-container-lowest/95 backdrop-blur-md z-30 flex flex-col items-center justify-center p-space-xl">
-              <div className="w-16 h-16 rounded-full border-4 border-surface-container-highest border-t-primary animate-spin mb-space-md"></div>
-              <h4 className="font-headline-sm text-headline-sm font-bold text-primary mb-space-2xs">
-                G-브릿지 AI가 사업계획서를 분석하고 있어요
+            <div className="absolute inset-0 bg-surface-container-lowest/98 backdrop-blur-xl z-30 flex flex-col items-center justify-center p-space-lg md:p-space-xl animate-fadeIn">
+              {/* Mascot Character with Motion Glow */}
+              <div className="relative mb-space-md flex flex-col items-center">
+                <div className="absolute -inset-4 bg-gradient-to-r from-primary-fixed to-secondary-fixed rounded-full blur-2xl opacity-60 animate-pulse"></div>
+                <div className="relative w-28 h-28 md:w-36 md:h-36 rounded-3xl overflow-hidden bg-white shadow-2xl border-2 border-primary/20 flex items-center justify-center animate-bounce duration-1000">
+                  <img
+                    src="/mascot_running.jpg"
+                    alt="GBSA Mascot Ikom and Gyeongi"
+                    className="w-full h-full object-cover scale-105"
+                  />
+                </div>
+                <div className="mt-space-xs px-space-md py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold shadow-sm flex items-center gap-1.5 animate-pulse">
+                  <span className="w-2 h-2 rounded-full bg-secondary"></span>
+                  <span>이콤 & 경이가 사업계획서 탐색 중!</span>
+                </div>
+              </div>
+
+              {/* Title & Dynamic Status */}
+              <h4 className="font-headline-md text-headline-md font-extrabold text-primary mb-space-2xs text-center">
+                G-브릿지 AI 심층 분석 진행 중
               </h4>
-              <p className="font-body-md text-body-md text-on-surface-variant animate-pulse">
+              <p className="font-body-md text-body-md text-on-surface-variant font-medium text-center max-w-md h-12 flex items-center justify-center mb-space-md">
                 {progressText}
               </p>
+
+              {/* Progress Gauge */}
+              <div className="w-full max-w-md bg-surface-container-high rounded-full h-3 overflow-hidden mb-space-md shadow-inner border border-outline-variant/30">
+                <div
+                  className="bg-gradient-to-r from-primary via-primary-container to-secondary h-full rounded-full transition-all duration-500 ease-out"
+                  style={{ width: `${progressPercent}%` }}
+                ></div>
+              </div>
+
+              {/* 4 Steps Indicator Pill Badges */}
+              <div className="w-full max-w-md grid grid-cols-2 gap-2 text-left">
+                {[
+                  { step: 1, label: '문서 핵심 지표 파싱', icon: 'description' },
+                  { step: 2, label: 'T·E·M 성숙도 & 병목 진단', icon: 'network_check' },
+                  { step: 3, label: '지원사업 & B2B 매칭', icon: 'hub' },
+                  { step: 4, label: '경영진 컨설팅 리포트', icon: 'insights' },
+                ].map((item) => {
+                  const isDone = currentStep > item.step;
+                  const isCurrent = currentStep === item.step;
+                  return (
+                    <div
+                      key={item.step}
+                      className={`flex items-center gap-2 p-2 rounded-xl text-xs font-semibold transition-all duration-300 ${
+                        isDone
+                          ? 'bg-secondary-container/40 text-on-secondary-container font-bold'
+                          : isCurrent
+                          ? 'bg-primary-container/20 text-primary border border-primary/30 shadow-sm animate-pulse'
+                          : 'bg-surface-container-low text-on-surface-variant/60'
+                      }`}
+                    >
+                      <span className="material-symbols-outlined text-sm">
+                        {isDone ? 'check_circle' : item.icon}
+                      </span>
+                      <span className="truncate">{item.label}</span>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           )}
         </div>
