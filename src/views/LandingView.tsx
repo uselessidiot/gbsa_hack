@@ -113,23 +113,26 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
         <div className="inline-flex items-center gap-space-xs px-space-md py-space-2xs rounded-full bg-surface-container mb-space-lg border border-outline-variant/20 shadow-sm">
           <span className="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></span>
           <span className="font-label-md text-label-md text-primary font-bold tracking-wide">
-            경기도경제과학진흥원 AI 진단 엔진 v2.4
+            GBSA 기업지원 플랫폼
           </span>
         </div>
 
         {/* Main Bold Headlines (Toss Style) */}
         <h1 className="font-display text-[42px] leading-[1.2] text-primary tracking-tight font-extrabold max-w-2xl mb-space-md">
-          사업계획서 한 장이면 충분해요.
+          <>
+            <span className="block">지원사업을 찾지 마세요.</span>
+            <span className="block text-on-surface">G-BRIDGE가 당신의 기회를 찾습니다.</span>
+          </>
         </h1>
         <p className="font-headline-sm text-headline-sm text-on-surface-variant font-normal max-w-xl mb-space-2xl leading-relaxed">
-          PDF를 끌어다 놓으면 10초 만에 T·E·M 성장 진단과 공공 지원사업 맞춤 처방이 완성됩니다.
+          사업계획서 하나만 올리면<br />
+          AI가 기업을 진단하고, 필요한 지원을 연결하고, 새로운 성장기회까지 찾아드립니다.
         </p>
 
         {/* Large Interaction Drag & Drop Card */}
         <div className="w-full bg-surface-container-lowest rounded-[2.5rem] p-space-2xl shadow-2xl transition-all duration-300 relative group overflow-hidden border border-outline-variant/30">
           {/* Ambient Glow Effects */}
-          <div className="absolute -top-24 -left-24 w-64 h-64 bg-primary-fixed/40 rounded-full blur-3xl pointer-events-none group-hover:bg-primary-fixed/60 transition-all"></div>
-          <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-secondary-fixed/40 rounded-full blur-3xl pointer-events-none group-hover:bg-secondary-fixed/60 transition-all"></div>
+          <div className="absolute inset-x-0 top-0 h-1 bg-primary/80 pointer-events-none"></div>
 
           {/* Interactive Dropzone */}
           <div
@@ -163,7 +166,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
             </div>
 
             <h3 className="font-headline-md text-headline-md font-bold text-on-surface mb-space-2xs">
-              PDF 사업계획서 끌어다 놓기
+              사업계획서를 업로드하세요
             </h3>
             <p className="font-body-md text-body-md text-on-surface-variant mb-space-xl">
               파일을 마우스로 끌어오거나 버튼을 눌러 선택해주세요
@@ -318,17 +321,22 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
         </div>
       </div>
 
-      {/* Toss Style 3 Key Feature Cards Below */}
+        <div className="w-full max-w-4xl mx-auto mt-space-2xl mb-space-md text-center">
+          <span className="font-label-md text-label-md text-secondary font-bold tracking-wide">기업의 성장, 진단부터 매칭까지</span>
+        </div>
+
+        {/* 3-Step Service Cards */}
       <div className="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-space-md mt-space-2xl">
         <div className="p-space-lg rounded-2xl bg-surface-container-lowest shadow-md border border-outline-variant/20 flex flex-col text-left">
           <div className="w-10 h-10 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center mb-space-sm">
             <span className="material-symbols-outlined text-xl">analytics</span>
           </div>
           <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1">
-            T·E·M 3축 성숙도 진단
+            01 기업 성장진단
           </h4>
           <p className="font-body-sm text-body-sm text-on-surface-variant">
-            기술(T), 실증(E), 시장(M) 단계를 객관적 사실에 기반하여 10초 만에 진단합니다.
+            <strong className="block text-on-surface mb-1">가능성을 발견합니다</strong>
+            AI가 사업계획서를 분석해 기업의 성장단계와 핵심역량을 진단합니다.
           </p>
         </div>
 
@@ -337,10 +345,11 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
             <span className="material-symbols-outlined text-xl">balance</span>
           </div>
           <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1">
-            지원사업 맞춤 처방
+            02 맞춤 지원 연계
           </h4>
           <p className="font-body-sm text-body-sm text-on-surface-variant">
-            기업 희망 지원과 실제 선행되어야 할 지원사업의 차이를 사전 파악하여 서류 낭비를 차단합니다.
+            <strong className="block text-on-surface mb-1">필요한 지원을 연결합니다</strong>
+            기업에 맞는 공공지원사업을 찾아 맞춤형 지원기회를 연결합니다.
           </p>
         </div>
 
@@ -349,10 +358,11 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
             <span className="material-symbols-outlined text-xl">hub</span>
           </div>
           <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1">
-            공공 RAG & 기업 매칭
+            03 기업 Discovery & 매칭
           </h4>
           <p className="font-body-sm text-body-sm text-on-surface-variant">
-            분석 데이터가 누적되어 B2B 협력기업 매칭 및 GBSA 신규 지원사업 기획으로 재사용됩니다.
+            <strong className="block text-on-surface mb-1">새로운 기회를 만듭니다</strong>
+            기업·파트너·비즈니스 기회를 발굴해 다음 성장으로 연결합니다.
           </p>
         </div>
       </div>
