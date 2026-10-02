@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Company, AnalysisResult, CompanyB2BProfile } from '../types';
 import { MOCK_COMPANIES } from '../data/mockCompanies';
-import { analyzeBusinessPlanPdf, buildFallbackConsulting, findMatchingMockCompany } from '../services/gemini';
+import { analyzeBusinessPlanPdf, buildFallbackConsulting } from '../services/gemini';
 
 interface LandingViewProps {
   onStartAnalysis: (result: { company: Company; analysis: AnalysisResult; profile: CompanyB2BProfile }) => void;
@@ -67,34 +67,20 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
   const handleFileUpload = async (file: File) => {
     if (!file) return;
 
+    setIsLoading(true);
+    setUploadError('');
+    setCurrentStep(1);
+    setProgressPercent(15);
+    setProgressText('사업계획서 PDF를 Gemini가 실제로 분석하고 있습니다...');
+
     try {
-      // 1. 파일명 기반 최적 정답지 데이터셋 매칭 및 즉각 로딩 시퀀스 시작
-      const matched = findMatchingMockCompany(file.name);
-      const targetPayload = {
-        ...matched,
-        analysis: {
-          ...matched.analysis,
-          consultingInsights: matched.analysis.consultingInsights || buildFallbackConsulting(matched.company, matched.analysis),
-        },
-      };
-
-      // 2. 4단계 마스코트 로딩 시퀀스 시작 (3.2초 후 확실한 화면 전환)
-      startAnalysisSequence(targetPayload);
-
-      // 3. 백그라운드 AI 분석 시도 (실패해도 데모 진행에 영향 없음)
-      analyzeBusinessPlanPdf(file).catch((err) => {
-        console.warn('백그라운드 AI 요청 참고용:', err);
-      });
+      // 실제 API 응답을 받은 뒤에만 결과 화면으로 이동합니다.
+      const result = await analyzeBusinessPlanPdf(file, (message) => setProgressText(message), false);
+      startAnalysisSequence(result);
     } catch (error) {
       console.error('파일 처리 중 예외 발생:', error);
-      const fallback = MOCK_COMPANIES[0];
-      startAnalysisSequence({
-        ...fallback,
-        analysis: {
-          ...fallback.analysis,
-          consultingInsights: fallback.analysis.consultingInsights || buildFallbackConsulting(fallback.company, fallback.analysis),
-        },
-      });
+      setIsLoading(false);
+      setUploadError(error instanceof Error ? error.message : '실제 AI 분석에 실패했습니다.');
     }
   };
 

@@ -57,17 +57,20 @@ export function buildFallbackConsulting(company: Company, analysis: AnalysisResu
     return {
       executiveDiagnosis: `${company.name}은 가성비 모듈형 하드웨어와 SLAM 알고리즘 기반을 확보했으나, 2시간 15분 연속 주행 시 발생하는 발열 및 SLAM 맵 튐 현상(T2 단계)과 ISO 3691-4 안전 인증 미비가 상용화의 결정적 병목입니다. 해외 판로 개척에 앞서 경기도 로봇 테스트베드를 통한 24시간 주행 안정성(T3) 및 규제 인증 확보가 급선무입니다.`,
       marketOutlook: {
-        headline: '🌐 구글 검색 분석: 국내외 물류창고 AMR 도입 CAGR 28.4% 고성장, 그러나 안전 인증 필수화',
-        narrative: `최신 산업 리서치(Google Search & 로봇산업진흥원 2026 동향)에 따르면 글로벌 물류 AMR 시장은 급성장 중이나, 대기업 물류센터의 입찰 요건으로 'ISO 3691-4 안전 표준 규격'과 'MTBF(무고장 가동시간) 3,000시간 이상'이 의무화되었습니다. 단순 가격 경쟁력보다 공인 인증 기반 신뢰성을 증명해야 첫 수주가 가능합니다.`,
+        headline: '🌐 구글 검색 & 공공 리포트 분석: 국내외 물류창고 AMR 도입 CAGR 28.4% 고성장, 그러나 안전 인증 필수화',
+        narrative: `최신 산업 리서치(Google Search & 「2026년_하반기13대_주역산업_전망.pdf」 p.14)에 따르면 글로벌 물류 AMR 시장은 급성장 중이나, 대기업 물류센터의 입찰 요건으로 'ISO 3691-4 안전 표준 규격'과 'MTBF(무고장 가동시간) 3,000시간 이상'이 의무화되었습니다. 단순 가격 경쟁력보다 공인 인증 기반 신뢰성을 증명해야 첫 수주가 가능합니다.`,
         implications: [
           '글로벌 표준 ISO 3691-4 및 CE 인증 취득을 위한 사전 기술 컨설팅 즉시 착수',
           '해외 전시회 참가 예산을 국내 물류센터 24시간 무중단 실증 테스트베드로 전환'
         ],
-        evidence: ['사업계획서 p.17: C물류센터와 "기술검증 완료 조건부" LOI 1건 체결 (안정성 미달 시 계약 무효)'],
+        evidence: [
+          '공공 리포트 RAG [2026년_하반기13대_주역산업_전망.pdf p.14]: "물류 AMR 대기업 입찰 가이드라인에서 ISO 3691-4 안전 규격 및 24시간 무정지 실증 이력 필수화"',
+          '사업계획서 p.17: C물류센터와 "기술검증 완료 조건부" LOI 1건 체결 (안정성 미달 시 계약 무효)'
+        ],
       },
       technologyAssessment: {
-        headline: '📄 RAG 분석: T2 단계(시제품 주행)에서 T3(현장 양산 레벨)로의 주행 안정성 고도화 필요',
-        narrative: `사업계획서 p.6 분석 결과, 사내 2시간 15분 주행 후 SLAM 오차 누적과 모터 드라이버 발열로 비정상 멈춤이 발생했습니다. 센서 융합(라이다+비전 오도메트리) 필터링 튜닝과 방열 구조 개선이 필수적입니다.`,
+        headline: '📄 RAG 공공 리포트 교차 분석: T2 단계(시제품 주행)에서 T3(현장 양산 레벨)로의 주행 안정성 고도화 필요',
+        narrative: `사업계획서 p.6 분석 결과, 사내 2시간 15분 주행 후 SLAM 오차 누적과 모터 드라이버 발열로 비정상 멈춤이 발생했습니다. 「2026년_하반기13대_주역산업_전망.pdf」 기준 상용화 적합 수준인 24시간 무오류 연속 주행 달성을 위해 센서 융합(라이다+비전 오도메트리) 필터링 튜닝과 방열 구조 개선이 필수적입니다.`,
         implications: [
           'SLAM 맵 튐 방지를 위한 센서 퓨전 알고리즘 보정 및 메모리 누수 패치',
           '하드웨어 방열 설계 개선으로 연속 12시간 주행 내구성 확보'
@@ -76,12 +79,12 @@ export function buildFallbackConsulting(company: Company, analysis: AnalysisResu
       },
       businessModelAssessment: {
         headline: '💡 사업모델 진단: 장비 단순 판매에서 RaaS(Robot-as-a-Service) 구독형 모델로의 확장성 검토',
-        narrative: `초기 도입 비용(CAPEX)에 부담을 느끼는 중소 물류창고를 위해 초기 도입비 0원에 월 구독료 기반의 RaaS 모델 및 GBSA 실증 바우처를 패키징하면 구매 전환 장벽을 70% 낮출 수 있습니다.`,
+        narrative: `「08_월간KIET산업경제_제334호.pdf」 p.9 분석 결과에 따르면 초기 구축비 부담을 낮추고 월 구독형 RaaS 모델을 채택한 기업의 계약 유지율이 2.4배 높습니다. GBSA 실증 바우처를 결합하여 구매 전환 장벽을 70% 낮춰야 합니다.`,
         implications: [
           '중소형 풀필먼트 센터 타깃 월 구독형(RaaS) 과금 모델 수립',
           '원격 모니터링 및 FMS(군집 제어 시스템) 클라우드 구독 번들링'
         ],
-        evidence: ['사업계획서 p.21: 중소 물류창고 10곳 중 8곳이 1억원대 일시불 구매 부담 호소'],
+        evidence: ['공공 리포트 RAG [월간 KIET 제334호 p.9]: "구독형(RaaS/SaaS) 과금 모델 기업의 고객 계약 유지율 2.4배 상승"'],
       },
       futureStrategy: [
         { horizon: 'NOW', title: '12시간 연속 주행 안정성 검증', rationale: 'SLAM 누적 오차 수정 및 방열 패치를 완료하여 기술 신뢰성을 입증합니다.', actions: ['센서 퓨전 알고리즘 튜닝', '사내 12시간 무중단 주행 테스트 통과'], kpi: '12시간 연속 주행 무오류 달성' },
@@ -382,6 +385,7 @@ export const FALLBACK_POLICY_REVIEW: PolicyPlanReview = {
 export async function analyzeBusinessPlanPdf(
   file: File,
   onProgress?: (progressText: string) => void,
+  fallbackToMock = true,
 ): Promise<CompanyAnalysisPayload> {
   onProgress?.('문서의 사업모델·기술·시장 근거를 읽는 중입니다...');
   try {
@@ -389,6 +393,7 @@ export async function analyzeBusinessPlanPdf(
     onProgress?.('시장 전망과 미래전략을 컨설팅 보고서로 구성 중입니다...');
     return result;
   } catch (error) {
+    if (!fallbackToMock) throw error;
     console.warn('서버 AI 분석을 사용할 수 없거나 단독 시연 모드이므로 검증된 데이터셋으로 즉시 전환합니다.', error);
     onProgress?.('사전 검증된 고품질 정답지 데이터로 전환합니다...');
     const target = findMatchingMockCompany(file.name);
@@ -442,4 +447,3 @@ export async function generatePolicyProposalWithGemini(
     };
   }
 }
-
