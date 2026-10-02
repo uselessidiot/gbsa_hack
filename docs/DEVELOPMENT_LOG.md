@@ -181,7 +181,7 @@ Vercel 환경변수:
 
 ```text
 GEMINI_API_KEY=<server-only key>
-GEMINI_MODEL=gemini-2.5-flash
+GEMINI_MODEL=gemini-3.8-flash
 ```
 
 실제 비밀값이 들어 있는 `.env`, `.env.local` 파일은 Git에 올리지 않습니다.

@@ -1,6 +1,11 @@
 import { GoogleGenAI } from '@google/genai';
 
-const MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+const configuredModel = process.env.GEMINI_MODEL;
+// Gemini 2.5 Flash is retired for newly provisioned API users. Keep older
+// Vercel environments working by transparently upgrading that legacy value.
+const MODEL = !configuredModel || configuredModel === 'gemini-2.5-flash'
+  ? 'gemini-3.8-flash'
+  : configuredModel;
 
 const jsonPrompt = (task: string) => `${task}\n\n반드시 유효한 JSON 객체만 반환하세요. 문서에 없는 사실·수치·출처는 만들지 말고, 불명확하면 '확인 필요'라고 표시하세요. 모든 서술은 전문적인 한국어로 작성하세요.`;
 

@@ -29,6 +29,8 @@ API 키와 같은 비밀 정보는 `.env` 파일에만 저장하고 Git에 커�
 Gemini 호출은 브라우저가 아닌 `/api/gemini` Vercel Function에서 실행됩니다.
 Vercel 프로젝트 환경 변수에 `GEMINI_API_KEY`를 등록해야 실제 문서 분석이
 활성화되며, 키가 없거나 호출에 실패하면 검증된 데모 데이터로 전환됩니다.
+기본 모델은 `gemini-3.8-flash`이며, 과거 `gemini-2.5-flash` 환경값은 서버에서
+자동으로 현재 모델로 전환합니다.
 
 ## 현재 상태
 
