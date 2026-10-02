@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { MOCK_COMPANIES } from '../data/mockCompanies';
 import { MOCK_SUPPORT_PROGRAMS } from '../data/mockPrograms';
+import { AnalysisKeywordTags } from '../components/AnalysisKeywordTags';
 
 export const AdminMailingView: React.FC = () => {
   const [selectedCompanyId, setSelectedCompanyId] = useState('COMP-001');
@@ -300,6 +301,11 @@ export const AdminMailingView: React.FC = () => {
                 </div>
               </div>
 
+              <div className="mt-3 pt-3 border-t border-outline-variant/20">
+                <AnalysisKeywordTags company={activeCompany} label="AI 타겟팅 기준 키워드" compact />
+                <p className="mt-2 text-[10px] text-on-surface-variant">기업 진단 키워드가 추천 공고와 발송 대상 선별에 계속 연결됩니다.</p>
+              </div>
+
               <p className="text-[11px] text-on-surface-variant mt-3 text-center">
                 {sent ? '✅ 발송 테스트가 성공적으로 처리되었습니다.' : '기업별 사업계획서 분석 데이터에 맞춰 자동 생성된 메시지입니다.'}
               </p>
@@ -414,4 +420,3 @@ export const AdminMailingView: React.FC = () => {
     </div>
   );
 };
-

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Company, AnalysisResult, SupportProgram } from '../types';
 import { MOCK_SUPPORT_PROGRAMS } from '../data/mockPrograms';
 import { MOCK_COMPANIES } from '../data/mockCompanies';
+import { AnalysisKeywordTags } from '../components/AnalysisKeywordTags';
 
 interface ProgramMatchingViewProps {
   currentCompany?: {
@@ -99,6 +100,10 @@ export const ProgramMatchingView: React.FC<ProgramMatchingViewProps> = ({
             </button>
           )}
         </div>
+      </div>
+
+      <div className="rounded-2xl border border-outline-variant/20 bg-surface-container-lowest px-space-lg py-space-md shadow-sm">
+        <AnalysisKeywordTags company={company} analysis={analysis} label="진단 연계 키워드" />
       </div>
 
       {/* Track A Header */}

@@ -3,9 +3,10 @@ import { MOCK_ADMIN_METRICS } from '../data/mockInsights';
 import { MOCK_COMPANIES, CompanyWithAnalysis } from '../data/mockCompanies';
 import { AdminCompaniesView } from './AdminCompaniesView';
 import { AdminMailingView } from './AdminMailingView';
+import { AdminRagView } from './AdminRagView';
 
 type StatusFilter = 'ALL' | 'PENDING' | 'ANALYZING' | 'COMPLETED';
-type AdminPage = 'dashboard' | 'companies' | 'mailing';
+type AdminPage = 'dashboard' | 'companies' | 'mailing' | 'rag';
 
 const statusLabel: Record<StatusFilter, string> = {
   ALL: '전체',
@@ -105,11 +106,27 @@ export const AdminIntelligenceView: React.FC = () => {
                 ['business', '기업 관리', 'companies'],
                 ['hub', '맞춤형 매칭·추천', 'dashboard'],
                 ['mail', '메일링 홍보', 'mailing'],
+                ['library_books', 'RAG 지식베이스', 'rag'],
                 ['monitoring', '성과 관리', 'dashboard'],
                 ['bar_chart', '통계·리포트', 'dashboard'],
-              ].map(([icon, label]) => (
-                <button key={label} type="button" onClick={() => setActivePage((label === '기업 관리' ? 'companies' : label === '메일링 홍보' ? 'mailing' : 'dashboard') as AdminPage)} className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-sm font-semibold ${activePage === label || (activePage === 'companies' && label === '기업 관리') || (activePage === 'mailing' && label === '메일링 홍보') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50'}`}>
-                  <span className="material-symbols-outlined text-slate-400">{icon}</span><span>{label}</span>
+              ].map(([icon, label, pageKey]) => (
+                <button
+                  key={label}
+                  type="button"
+                  onClick={() => setActivePage(pageKey as AdminPage)}
+                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-sm font-semibold ${
+                    activePage === pageKey
+                      ? 'bg-blue-50 text-blue-600'
+                      : 'text-slate-600 hover:bg-slate-50'
+                  }`}
+                >
+                  <span className="material-symbols-outlined text-slate-400">{icon}</span>
+                  <span>{label}</span>
+                  {label === 'RAG 지식베이스' && (
+                    <span className="ml-auto px-1.5 py-0.5 rounded bg-blue-100 text-blue-800 text-[10px] font-black">
+                      7개
+                    </span>
+                  )}
                 </button>
               ))}
             </nav>
@@ -132,7 +149,14 @@ export const AdminIntelligenceView: React.FC = () => {
         </aside>
 
         <main className="flex-1 min-w-0 px-4 sm:px-6 md:px-8 py-7 lg:px-10">
-          {activePage === 'companies' ? <AdminCompaniesView /> : activePage === 'mailing' ? <AdminMailingView /> : <div className="max-w-[1500px] mx-auto">
+          {activePage === 'companies' ? (
+            <AdminCompaniesView />
+          ) : activePage === 'mailing' ? (
+            <AdminMailingView />
+          ) : activePage === 'rag' ? (
+            <AdminRagView />
+          ) : (
+            <div className="max-w-[1500px] mx-auto">
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-7">
               <div>
                 <p className="text-xs font-bold text-blue-600 mb-2">GBSA 기업지원 Intelligence</p>
@@ -234,7 +258,7 @@ export const AdminIntelligenceView: React.FC = () => {
                 <div className="mt-5 pt-4 border-t border-slate-100 flex gap-2"><button type="button" className="flex-1 rounded-lg bg-blue-600 text-white py-2.5 text-xs font-bold">성과 증빙 검토</button><button type="button" className="flex-1 rounded-lg border border-slate-200 text-slate-600 py-2.5 text-xs font-bold">성과보고서 PDF</button></div>
               </aside>}
             </div>
-          </div>}
+          </div>)}
         </main>
       </div>
     </div>

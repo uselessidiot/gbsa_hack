@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Company, AnalysisResult, CompanyB2BProfile } from '../types';
 import { MOCK_COMPANIES, MOCK_B2B_MATCHES } from '../data/mockCompanies';
+import { AnalysisKeywordTags } from '../components/AnalysisKeywordTags';
 
 interface CompanyMatchingViewProps {
   currentCompany?: {
@@ -16,7 +17,7 @@ export const CompanyMatchingView: React.FC<CompanyMatchingViewProps> = ({
   onNavigateToAdmin
 }) => {
   const activeTarget = currentCompany || MOCK_COMPANIES[0];
-  const { company, profile } = activeTarget;
+  const { company, analysis, profile } = activeTarget;
   const matches = MOCK_B2B_MATCHES[company.id] || MOCK_B2B_MATCHES['COMP-001'] || [];
 
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -71,6 +72,10 @@ export const CompanyMatchingView: React.FC<CompanyMatchingViewProps> = ({
             </button>
           )}
         </div>
+      </div>
+
+      <div className="rounded-2xl border border-outline-variant/20 bg-surface-container-lowest px-space-lg py-space-md shadow-sm">
+        <AnalysisKeywordTags company={company} analysis={analysis} profile={profile} label="매칭 기준 키워드" />
       </div>
 
       {/* Header & Semantic Search Bar */}

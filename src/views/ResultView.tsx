@@ -1,5 +1,6 @@
 import React from 'react';
 import { Company, AnalysisResult, CompanyB2BProfile } from '../types';
+import { AnalysisKeywordTags } from '../components/AnalysisKeywordTags';
 
 interface ResultViewProps {
   data: {
@@ -60,13 +61,18 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
         </div>
       </div>
 
+      <div className="rounded-2xl border border-outline-variant/20 bg-surface-container-lowest px-space-lg py-space-md shadow-sm">
+        <AnalysisKeywordTags company={company} analysis={analysis} profile={profile} />
+        <p className="mt-2 text-xs text-on-surface-variant">사업계획서 분석에서 추출한 기준이며, 아래 지원사업·기업 매칭·메일링 단계에 동일하게 적용됩니다.</p>
+      </div>
+
       {/* 1. Executive Advisory & 3 Core Deep Diagnostic Cards */}
       {analysis.consultingInsights && (
         <section className="flex flex-col gap-space-lg">
           <div className="rounded-3xl bg-gradient-to-br from-primary via-primary to-slate-900 text-white p-space-xl shadow-xl">
             <div className="flex flex-wrap items-center justify-between gap-space-sm mb-space-md">
               <span className="font-label-sm font-bold tracking-widest uppercase text-white/70">Executive Advisory</span>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <span className="px-space-sm py-space-2xs rounded-full bg-white/10 text-xs font-bold flex items-center gap-1 text-secondary-fixed">
                   <span className="material-symbols-outlined text-xs">travel_explore</span>
                   Google Search 시장 인텔리전스
@@ -74,6 +80,10 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
                 <span className="px-space-sm py-space-2xs rounded-full bg-white/10 text-xs font-bold flex items-center gap-1">
                   <span className="material-symbols-outlined text-xs">description</span>
                   RAG 문서 심층 파싱
+                </span>
+                <span className="px-space-sm py-space-2xs rounded-full bg-blue-500/30 border border-blue-400/40 text-xs font-bold flex items-center gap-1 text-blue-200">
+                  <span className="material-symbols-outlined text-xs">library_books</span>
+                  🏛️ 공공 리포트 7종 교차 검증
                 </span>
               </div>
             </div>
@@ -152,12 +162,36 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
                     </p>
 
                     {insight.evidence && insight.evidence.length > 0 && (
-                      <div className="mt-space-xs p-space-sm rounded-xl bg-surface-container-low border border-outline-variant/30 flex items-start gap-2">
-                        <span className="material-symbols-outlined text-primary text-base shrink-0 mt-0.5">find_in_page</span>
-                        <div className="text-xs text-on-surface font-medium leading-relaxed">
-                          <span className="font-bold text-primary block mb-0.5">근거 데이터 / 문서 발췌:</span>
-                          <span className="italic text-on-surface-variant">"{insight.evidence[0]}"</span>
-                        </div>
+                      <div className="mt-space-xs space-y-1.5">
+                        {insight.evidence.map((evi, eIdx) => {
+                          const isPublic = evi.includes('공공 리포트 RAG') || evi.includes('.pdf');
+                          return (
+                            <div
+                              key={eIdx}
+                              className={`p-space-sm rounded-xl border flex items-start gap-2 ${
+                                isPublic
+                                  ? 'bg-primary-container/20 border-primary/40'
+                                  : 'bg-surface-container-low border-outline-variant/30'
+                              }`}
+                            >
+                              <span className={`material-symbols-outlined text-base shrink-0 mt-0.5 ${
+                                isPublic ? 'text-primary' : 'text-secondary'
+                              }`}>
+                                {isPublic ? 'library_books' : 'find_in_page'}
+                              </span>
+                              <div className="text-xs text-on-surface font-medium leading-relaxed">
+                                <div className="flex items-center gap-2 mb-0.5">
+                                  <span className={`px-2 py-0.2 rounded text-[10px] font-extrabold ${
+                                    isPublic ? 'bg-primary text-white' : 'bg-secondary-container text-on-secondary-container'
+                                  }`}>
+                                    {isPublic ? '🏛️ 공공 RAG 원문 인용' : '📑 기업 사업계획서'}
+                                  </span>
+                                </div>
+                                <span className="italic text-on-surface-variant block">"{evi}"</span>
+                              </div>
+                            </div>
+                          );
+                        })}
                       </div>
                     )}
                   </div>
