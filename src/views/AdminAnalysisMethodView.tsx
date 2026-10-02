@@ -111,7 +111,33 @@ export const AdminAnalysisMethodView: React.FC = () => {
           <button type="button" className="w-full mt-4 rounded-xl bg-blue-600 text-white py-2.5 text-xs font-bold">설정 변경 이력 보기</button>
         </aside>
       </section>
+
+      <section className="rounded-2xl bg-white border border-slate-200 p-6 shadow-sm">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-2 border-b border-slate-100 pb-4">
+          <div>
+            <span className="text-[11px] font-bold text-blue-600">REPORT DESIGN RULES</span>
+            <h2 className="mt-1 text-lg font-extrabold text-slate-900">진단 보고서 구성 관리</h2>
+          </div>
+          <span className="text-xs text-slate-400">분석 결과에 공통 적용되는 기준</span>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-5">
+          <div className="rounded-xl border border-slate-200 p-4">
+            <div className="flex items-center gap-2"><span className="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center"><span className="material-symbols-outlined text-base">insights</span></span><h3 className="text-sm font-extrabold text-slate-900">T·E·M 성장진단</h3></div>
+            <p className="mt-3 text-xs leading-5 text-slate-500">기술 성숙도(T), 실행 역량(E), 시장 검증(M)을 각각 평가하고 평균 점수와 주요 근거를 함께 표시합니다.</p>
+            <div className="mt-3 flex flex-wrap gap-1.5"><span className="px-2 py-1 rounded bg-blue-50 text-blue-700 text-[10px] font-bold">기술 수준</span><span className="px-2 py-1 rounded bg-blue-50 text-blue-700 text-[10px] font-bold">실행 역량</span><span className="px-2 py-1 rounded bg-blue-50 text-blue-700 text-[10px] font-bold">시장 검증</span></div>
+          </div>
+          <div className="rounded-xl border border-slate-200 p-4">
+            <div className="flex items-center gap-2"><span className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center"><span className="material-symbols-outlined text-base">route</span></span><h3 className="text-sm font-extrabold text-slate-900">90일 실행 로드맵</h3></div>
+            <p className="mt-3 text-xs leading-5 text-slate-500">핵심 병목을 기준으로 단기·중기·장기 실행과제와 목표 KPI, 연계 지원사업을 단계별로 구성합니다.</p>
+            <div className="mt-3 flex items-center gap-1 text-[10px] font-bold text-emerald-700"><span>진단</span><span>→</span><span>실증</span><span>→</span><span>상용화</span></div>
+          </div>
+          <div className="rounded-xl border border-slate-200 p-4">
+            <div className="flex items-center gap-2"><span className="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center"><span className="material-symbols-outlined text-base">fact_check</span></span><h3 className="text-sm font-extrabold text-slate-900">근거·자료 구성</h3></div>
+            <p className="mt-3 text-xs leading-5 text-slate-500">사업계획서 원문, 공공 자료, 산업 리포트의 근거를 분리해 인용 카드와 추천 사유에 연결합니다.</p>
+            <div className="mt-3 flex flex-wrap gap-1.5"><span className="px-2 py-1 rounded bg-slate-100 text-slate-600 text-[10px] font-bold">사업계획서</span><span className="px-2 py-1 rounded bg-slate-100 text-slate-600 text-[10px] font-bold">공공 자료</span><span className="px-2 py-1 rounded bg-slate-100 text-slate-600 text-[10px] font-bold">산업 동향</span></div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
-
