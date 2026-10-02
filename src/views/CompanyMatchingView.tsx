@@ -40,13 +40,12 @@ export const CompanyMatchingView: React.FC<CompanyMatchingViewProps> = ({
   return (
     <div className="w-full px-margin-desktop py-space-xl flex flex-col gap-space-xl max-w-6xl mx-auto animate-fadeIn">
       {/* Target Company Banner */}
-      <div className="bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm border border-outline-variant/30 flex flex-col md:flex-row md:items-center justify-between gap-space-md">
-        <div className="flex items-center gap-space-md">
-          <div className="w-12 h-12 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xl">
+      <div className="bg-surface-container-lowest p-space-lg md:p-space-xl rounded-2xl shadow-sm border border-outline-variant/30 flex flex-col lg:flex-row lg:items-center gap-space-lg">
+        <div className="w-12 h-12 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xl shrink-0">
             <span className="material-symbols-outlined text-2xl">hub</span>
-          </div>
-          <div>
-            <div className="flex items-center gap-space-xs">
+        </div>
+        <div className="flex-1 min-w-0">
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
               <span className="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-bold">
                 B2B 프로필
               </span>
@@ -54,19 +53,18 @@ export const CompanyMatchingView: React.FC<CompanyMatchingViewProps> = ({
                 {company.name}
               </h3>
             </div>
-            <p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            <p className="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">
               공급 역량: <strong className="text-primary font-semibold">{profile.capabilities.join(' · ')}</strong> | 협력 니즈: <strong className="text-secondary font-semibold">{profile.needs.join(' · ')}</strong>
             </p>
             <AnalysisKeywordTags company={company} analysis={analysis} profile={profile} label="매칭 기준 키워드" compact />
-          </div>
         </div>
 
-        <div className="flex items-center gap-space-xs">
+        <div className="flex items-center gap-space-xs shrink-0 lg:w-64">
           {onNavigateToAdmin && (
             <button
               type="button"
               onClick={onNavigateToAdmin}
-              className="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-xl bg-surface-container hover:bg-surface-container-high text-primary font-label-md font-bold transition border border-outline-variant/30"
+              className="w-full inline-flex items-center justify-center gap-space-xs px-space-md py-space-sm rounded-xl bg-surface-container hover:bg-surface-container-high text-primary font-label-md font-bold transition border border-outline-variant/30 text-center"
             >
               <span>다음: 관리자 Intelligence 확인하기</span>
               <span className="material-symbols-outlined text-base">arrow_forward</span>

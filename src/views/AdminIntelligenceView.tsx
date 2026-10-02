@@ -116,7 +116,7 @@ export const AdminIntelligenceView: React.FC = () => {
             </div>
             <div className="text-left">
               <div className="text-xs font-bold text-slate-800">홍길동 책임</div>
-              <div className="text-[10px] text-slate-400">기업성장지원팀</div>
+              <div className="text-[10px] text-slate-400">AI실증지원팀</div>
             </div>
           </div>
         </div>
@@ -227,7 +227,7 @@ export const AdminIntelligenceView: React.FC = () => {
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <span className="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 text-[11px] font-bold border border-blue-200">
-                      실시간 기업지원 관제 현황
+                      AI실증지원팀 지원사업 대시보드
                     </span>
                     <span className="text-xs text-slate-400 font-medium">
                       2026년 10월 2일 기준
