@@ -4,9 +4,10 @@ import { MOCK_COMPANIES, CompanyWithAnalysis } from '../data/mockCompanies';
 import { AdminCompaniesView } from './AdminCompaniesView';
 import { AdminMailingView } from './AdminMailingView';
 import { AdminRagView } from './AdminRagView';
+import { AdminPerformanceView } from './AdminPerformanceView';
 
 type StatusFilter = 'ALL' | 'PENDING' | 'ANALYZING' | 'COMPLETED';
-type AdminPage = 'dashboard' | 'companies' | 'mailing' | 'rag';
+type AdminPage = 'dashboard' | 'companies' | 'mailing' | 'performance' | 'rag';
 
 const statusLabel: Record<StatusFilter, string> = {
   ALL: '전체',
@@ -152,6 +153,7 @@ export const AdminIntelligenceView: React.FC = () => {
               <nav className="space-y-1">
                 {[
                   ['business', '기업 관리 & 진단 목록', 'companies'],
+                  ['monitoring', '개별 기업 성과 상세', 'performance'],
                   ['mail', '맞춤형 알림톡·메일링', 'mailing'],
                   ['library_books', '공공 RAG 지식베이스', 'rag'],
                 ].map(([icon, label, pageKey]) => {
@@ -178,6 +180,13 @@ export const AdminIntelligenceView: React.FC = () => {
                           7종 PDF
                         </span>
                       )}
+                      {pageKey === 'performance' && (
+                        <span className={`px-1.5 py-0.2 rounded text-[10px] font-black ${
+                          isActive ? 'bg-white/20 text-white' : 'bg-emerald-100 text-emerald-700'
+                        }`}>
+                          D-7
+                        </span>
+                      )}
                     </button>
                   );
                 })}
@@ -201,6 +210,8 @@ export const AdminIntelligenceView: React.FC = () => {
         <main className="flex-1 min-w-0 px-4 sm:px-6 md:px-8 py-6 lg:px-8">
           {activePage === 'companies' ? (
             <AdminCompaniesView />
+          ) : activePage === 'performance' ? (
+            <AdminPerformanceView />
           ) : activePage === 'mailing' ? (
             <AdminMailingView />
           ) : activePage === 'rag' ? (
@@ -437,11 +448,11 @@ export const AdminIntelligenceView: React.FC = () => {
                     </button>
                     <button
                       type="button"
-                      onClick={() => alert(`${selected.company.name}의 공공 RAG 연계 성장진단서 PDF가 다운로드되었습니다.`)}
+                      onClick={() => setActivePage('performance')}
                       className="w-full py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold border border-slate-200 transition flex items-center justify-center gap-1.5"
                     >
-                      <span className="material-symbols-outlined text-sm text-slate-500">picture_as_pdf</span>
-                      <span>심사위원용 성과보고서 PDF 발급</span>
+                      <span className="material-symbols-outlined text-sm text-slate-500">monitoring</span>
+                      <span>개별 기업 성과 상세 리포트 열기 →</span>
                     </button>
                   </div>
                 </div>
