@@ -85,14 +85,18 @@ export const AdminAnalysisMethodView: React.FC = () => {
         <div className="rounded-2xl bg-white border border-slate-200 p-6 shadow-sm">
           <div className="flex items-center justify-between border-b border-slate-100 pb-4">
             <div>
-              <span className="text-[11px] font-bold text-blue-600">선택한 분석 모듈</span>
-              <h2 className="mt-1 text-lg font-extrabold text-slate-900">{active.title}</h2>
+              <span className="text-[11px] font-bold text-blue-600">API TRANSPARENCY</span>
+              <h2 className="mt-1 text-lg font-extrabold text-slate-900">프롬프트·JSON 구조</h2>
             </div>
-            <span className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold">v2.4</span>
+            <span className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold">{active.title}</span>
           </div>
           <div className="mt-5 rounded-xl bg-slate-50 border border-slate-200 p-4">
             <span className="text-xs font-extrabold text-slate-700">분석 처리 순서</span>
             <p className="mt-2 text-sm leading-6 text-slate-600">{active.detail}</p>
+          </div>
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div><div className="flex items-center justify-between mb-1"><span className="text-[11px] font-extrabold text-slate-700">요청 프롬프트</span><span className="text-[10px] text-blue-600 font-bold">POST /api/gemini</span></div><pre className="h-44 overflow-auto rounded-xl bg-slate-950 p-3 text-[10px] leading-5 text-slate-200 whitespace-pre-wrap">{'// 역할: GBSA 기업전략 컨설턴트\n// 입력: 사업계획서 PDF\n// 생성: 기업정보·T/E/M·병목·추천사업·근거·로드맵\n// 규칙: 유효한 JSON만 반환\n// 불명확한 내용은 "확인 필요"'}</pre></div>
+            <div><div className="flex items-center justify-between mb-1"><span className="text-[11px] font-extrabold text-slate-700">응답 JSON 구조</span><span className="text-[10px] text-emerald-600 font-bold">application/json</span></div><pre className="h-44 overflow-auto rounded-xl bg-slate-950 p-3 text-[10px] leading-5 text-emerald-200 whitespace-pre-wrap">{'{\n  "company": { "keywords": [] },\n  "temDiagnosis": {},\n  "primaryBottleneck": "PMF",\n  "evidenceList": [],\n  "actionPlan90Days": [],\n  "consultingInsights": {},\n  "profile": {}\n}'}</pre></div>
           </div>
           <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
@@ -139,7 +143,7 @@ export const AdminAnalysisMethodView: React.FC = () => {
         </div>
       </section>
 
-      <section className="rounded-2xl bg-white border border-slate-200 p-6 shadow-sm">
+      <section className="hidden rounded-2xl bg-white border border-slate-200 p-6 shadow-sm">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-2 border-b border-slate-100 pb-4">
           <div>
             <span className="text-[11px] font-bold text-blue-600">API TRANSPARENCY</span>
