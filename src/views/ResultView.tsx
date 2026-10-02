@@ -150,10 +150,9 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
                   </span>
                 </div>
 
-                {/* 2-Column Responsive Body: Left (Analysis & Narrative) + Right (Actionable Implications) */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
-                  {/* Left Column: Deep Narrative & Citations (7 cols) */}
-                  <div className="lg:col-span-7 flex flex-col gap-space-sm">
+                {/* Analysis first, then compact evidence and action plan */}
+                <div className="flex flex-col gap-space-md">
+                  <div className="flex flex-col gap-space-sm">
                     <h5 className="font-headline-sm text-headline-sm font-extrabold text-on-surface leading-snug">
                       {insight.headline}
                     </h5>
@@ -162,13 +161,13 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
                     </p>
 
                     {insight.evidence && insight.evidence.length > 0 && (
-                      <div className="mt-space-xs space-y-1.5">
+                      <div className="mt-space-xs grid grid-cols-1 md:grid-cols-2 gap-2">
                         {insight.evidence.map((evi, eIdx) => {
                           const isPublic = evi.includes('공공 리포트 RAG') || evi.includes('.pdf');
                           return (
                             <div
                               key={eIdx}
-                              className={`p-space-sm rounded-xl border flex items-start gap-2 ${
+                              className={`p-3 rounded-xl border flex items-start gap-2 ${
                                 isPublic
                                   ? 'bg-primary-container/20 border-primary/40'
                                   : 'bg-surface-container-low border-outline-variant/30'
@@ -187,7 +186,7 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
                                     {isPublic ? '🏛️ 공공 RAG 원문 인용' : '📑 기업 사업계획서'}
                                   </span>
                                 </div>
-                                <span className="italic text-on-surface-variant block">"{evi}"</span>
+                                <span className="italic text-on-surface-variant block line-clamp-2">"{evi}"</span>
                               </div>
                             </div>
                           );
@@ -196,8 +195,8 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
                     )}
                   </div>
 
-                  {/* Right Column: Strategic Action Items Box (5 cols) */}
-                  <div className="lg:col-span-5 rounded-xl bg-surface-container-low p-space-md border border-outline-variant/30 flex flex-col justify-between">
+                  {/* Strategic Action Items: full width below the analysis and evidence */}
+                  <div className="rounded-xl bg-surface-container-low p-space-lg border border-outline-variant/30 flex flex-col justify-between">
                     <div>
                       <div className="flex items-center gap-1.5 text-primary mb-space-sm">
                         <span className="material-symbols-outlined text-base">checklist</span>
