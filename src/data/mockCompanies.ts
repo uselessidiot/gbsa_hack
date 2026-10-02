@@ -111,6 +111,14 @@ export const MOCK_COMPANIES: CompanyWithAnalysis[] = [
           page: 19,
           excerpt: '2025년 하반기 A 부품사와 B 부품사 라인에서 총 3개월간 무상 PoC를 진행하였습니다.',
           interpretation: 'PoC 경험은 존재하나 유상 전환 매출이 발생하지 않아 M1 단계에 머물러 있음 (PMF 병목).'
+        },
+        {
+          id: 'EVI-003',
+          category: 'M',
+          source: '2026 경기도 중소기업 동향 보고서.pdf (공공 RAG)',
+          page: 18,
+          excerpt: '도내 제조 1·2차 협력사의 78.4%는 정량적 ROI(원가 25% 절감 또는 불량 검출 30% 개선) 보증 없이는 유상 도입 전환을 유보하는 양상을 보임.',
+          interpretation: '공공 산업 리포트 교차 검증: 비전웍스AI의 핵심 과제는 알고리즘 추가 개발이 아닌 3개월 내 30% 원가 절감 정량 ROI 보증서 확보임.'
         }
       ],
       actionPlan90Days: [
@@ -275,6 +283,14 @@ export const MOCK_COMPANIES: CompanyWithAnalysis[] = [
           page: 6,
           excerpt: '사내 가상 물류 트랙 2시간 15분 연속 주행 테스트 완주 (SLAM 맵 튐 현상 보정 중)',
           interpretation: '연속 작동 한계 및 주행 안정성 부족으로 T2 단계로 진단됨.'
+        },
+        {
+          id: 'EVI-004',
+          category: 'T',
+          source: '2026년_하반기13대_주역산업_전망.pdf (공공 RAG)',
+          page: 14,
+          excerpt: '자율주행 물류 AMR 대기업 입찰 가이드라인에서 ISO 3691-4 안전 표준 규격 및 24시간 무정지 실증 이력이 필수 제출 요건으로 채택됨.',
+          interpretation: '공공 리포트 교차 검증: 해외 판로 마케팅 이전 경기도 로봇 테스트베드에서 24시간 무오류 주행 및 ISO 안전 인증 획득이 선행되어야 함.'
         }
       ],
       actionPlan90Days: [
@@ -390,7 +406,8 @@ export const MOCK_COMPANIES: CompanyWithAnalysis[] = [
       strengths: ['높은 예측 정확도(94%) 및 GMP 인증 시설 보유'],
       weaknesses: ['규제 허가에 종속된 비즈니스 구조'],
       evidenceList: [
-        { id: 'EVI-004', category: 'M', source: '사업계획서.pdf', page: 22, excerpt: '식약처 의료기기 2등급 허가 절차 진행 중', interpretation: '규제 병목으로 시장 진입 불가' }
+        { id: 'EVI-004', category: 'M', source: '03_바이오_메디헬스_사업계획서.pdf', page: 22, excerpt: '식약처 의료기기 2등급 허가 절차 진행 중 (임상 보완 요청)', interpretation: '규제 병목으로 시장 진입 불가' },
+        { id: 'EVI-004-RAG', category: 'M', source: '2026 경기도 창업생태계 동향 보고서.pdf (공공 RAG)', page: 22, excerpt: '도내 바이오·의료기기 스타트업의 83%가 식약처 품목허가 심사 지연(평균 8.4개월)으로 매출 공백을 겪음.', interpretation: '공공 리포트 교차 검증: GBSA 바이오센터 전담 RA 심사관 매칭을 통해 보완 서류를 1개월 내 완결해야 함.' }
       ],
       actionPlan90Days: [
         {
@@ -551,6 +568,14 @@ export const MOCK_COMPANIES: CompanyWithAnalysis[] = [
           page: 15,
           excerpt: '10cm 소형 셀 광전효율 24.2% 달성 완료, 1m² 롤투롤 대면적 양산 라인 설비 투자 30억원 필요',
           interpretation: '기술성은 T3 단계이나 대면적 양산을 위한 설비 자금(FINANCE)이 핵심 병목임.'
+        },
+        {
+          id: 'EVI-006-RAG',
+          category: 'M',
+          source: '2026년_하반기13대_주역산업_전망.pdf (공공 RAG)',
+          page: 27,
+          excerpt: '글로벌 BIPV 시장은 제로에너지빌딩 의무화로 급성장 중이나, 건축 외장재 KS C 8577 내화·내풍압 인증 미보유 시 신축 건물 시공 불가.',
+          interpretation: '공공 리포트 교차 검증: 대면적 파일럿 양산 라인 설비 투자와 KS 내화 인증 시험을 동시에 추진해야 도내 대형 건설사 납품 가능.'
         }
       ],
       actionPlan90Days: [

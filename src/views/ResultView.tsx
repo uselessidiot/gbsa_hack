@@ -290,26 +290,52 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
         {/* Evidence Cards Quote Excerpt Section */}
         {analysis.evidenceList && analysis.evidenceList.length > 0 && (
           <div className="mt-space-md pt-space-md border-t border-outline-variant/20">
-            <span className="font-label-sm text-label-sm text-primary font-bold block mb-space-xs">
-              📄 사업계획서 원문 발췌 근거 (File Search Citations):
-            </span>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
-              {analysis.evidenceList.map((evi) => (
-                <div key={evi.id} className="p-space-md rounded-xl bg-surface-container-low border border-outline-variant/20">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="px-2 py-0.5 rounded bg-primary-container text-on-primary-container text-[11px] font-bold">
-                      [{evi.category} 근거] p.{evi.page}
-                    </span>
-                    <span className="text-xs text-on-surface-variant truncate max-w-[200px]">{evi.source}</span>
+            <div className="flex items-center justify-between mb-space-xs">
+              <span className="font-label-sm text-label-sm text-primary font-bold flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-base">find_in_page</span>
+                AI 진단 근거 교차 검증 (File Search & Public Report RAG Citations):
+              </span>
+              <span className="text-[11px] font-extrabold text-secondary px-2 py-0.5 rounded-full bg-secondary/10 border border-secondary/20">
+                원문 팩트체크 완료
+              </span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-sm mt-2">
+              {analysis.evidenceList.map((evi) => {
+                const isPublicRag = evi.source.includes('공공 RAG') || evi.source.includes('보고서') || evi.source.includes('전망');
+                return (
+                  <div
+                    key={evi.id}
+                    className={`p-space-md rounded-xl border flex flex-col justify-between ${
+                      isPublicRag
+                        ? 'bg-primary-container/15 border-primary/30'
+                        : 'bg-surface-container-low border-outline-variant/20'
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span
+                          className={`px-2 py-0.5 rounded text-[10px] font-extrabold ${
+                            isPublicRag
+                              ? 'bg-primary text-white'
+                              : 'bg-secondary-container text-on-secondary-container'
+                          }`}
+                        >
+                          {isPublicRag ? '🏛️ 공공 리포트 RAG' : `📑 ${evi.category} 사업계획서`} p.{evi.page}
+                        </span>
+                        <span className="text-[11px] font-semibold text-on-surface-variant truncate max-w-[150px]">
+                          {evi.source.replace(' (공공 RAG)', '')}
+                        </span>
+                      </div>
+                      <p className="font-body-sm text-body-sm text-on-surface italic my-1 leading-snug">
+                        "{evi.excerpt}"
+                      </p>
+                    </div>
+                    <p className="text-xs text-primary font-semibold mt-2 pt-1 border-t border-outline-variant/20">
+                      → AI 해석: {evi.interpretation}
+                    </p>
                   </div>
-                  <p className="font-body-sm text-body-sm text-on-surface italic my-1">
-                    "{evi.excerpt}"
-                  </p>
-                  <p className="text-xs text-primary font-semibold">
-                    → AI 해석: {evi.interpretation}
-                  </p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}
