@@ -141,7 +141,8 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
               <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1">01 기업 성장진단</h4>
               <p className="font-body-sm text-body-sm text-on-surface-variant">
                 <strong className="block text-on-surface mb-1">가능성을 발견합니다</strong>
-                AI가 사업계획서를 분석해 기업의 성장단계와 핵심역량을 진단합니다.
+                AI가 사업계획서를 분석해 기업의 성장단계와<br />
+                핵심역량을 진단합니다.
               </p>
             </div>
             <div className="min-h-[190px] p-space-xl rounded-3xl bg-surface-container-lowest shadow-lg border border-outline-variant/20 flex flex-col">
@@ -151,7 +152,8 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
               <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1">02 맞춤 지원 연계</h4>
               <p className="font-body-sm text-body-sm text-on-surface-variant">
                 <strong className="block text-on-surface mb-1">필요한 지원을 연결합니다</strong>
-                기업에 맞는 공공지원사업을 찾아 맞춤형 지원기회를 연결합니다.
+                기업에 맞는 공공지원사업을 찾아 맞춤형<br />
+                지원기회를 연결합니다.
               </p>
             </div>
             <div className="min-h-[190px] p-space-xl rounded-3xl bg-surface-container-lowest shadow-lg border border-outline-variant/20 flex flex-col">
@@ -161,7 +163,8 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
               <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1 whitespace-nowrap">03 기업 Discovery & 매칭</h4>
               <p className="font-body-sm text-body-sm text-on-surface-variant">
                 <strong className="block text-on-surface mb-1">새로운 기회를 만듭니다</strong>
-                기업·파트너·비즈니스 기회를 발굴해 다음 성장으로 연결합니다.
+                기업·파트너·비즈니스 기회를 발굴해<br />
+                다음 성장으로 연결합니다.
               </p>
             </div>
           </div>
