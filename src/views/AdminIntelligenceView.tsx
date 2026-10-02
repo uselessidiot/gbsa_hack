@@ -154,28 +154,33 @@ export const AdminIntelligenceView: React.FC = () => {
                   ['business', '기업 관리 & 진단 목록', 'companies'],
                   ['mail', '맞춤형 알림톡·메일링', 'mailing'],
                   ['library_books', '공공 RAG 지식베이스', 'rag'],
-                ].map(([icon, label, pageKey]) => (
-                  <button
-                    key={label}
-                    type="button"
-                    onClick={() => setActivePage(pageKey as AdminPage)}
-                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-xs font-bold transition ${
-                      activePage === pageKey
-                        ? 'bg-blue-50 text-blue-600 border border-blue-200'
-                        : 'text-slate-600 hover:bg-slate-50'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <span className="material-symbols-outlined text-base text-slate-400">{icon}</span>
-                      <span>{label}</span>
-                    </div>
-                    {pageKey === 'rag' && (
-                      <span className="px-1.5 py-0.2 rounded bg-blue-100 text-blue-700 text-[10px] font-black">
-                        7종 PDF
-                      </span>
-                    )}
-                  </button>
-                ))}
+                ].map(([icon, label, pageKey]) => {
+                  const isActive = activePage === pageKey;
+                  return (
+                    <button
+                      key={label}
+                      type="button"
+                      onClick={() => setActivePage(pageKey as AdminPage)}
+                      className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-xs font-bold transition-all ${
+                        isActive
+                          ? 'bg-blue-600 text-white shadow-sm'
+                          : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <span className={`material-symbols-outlined text-base ${isActive ? 'text-white' : 'text-slate-400'}`}>{icon}</span>
+                        <span>{label}</span>
+                      </div>
+                      {pageKey === 'rag' && (
+                        <span className={`px-1.5 py-0.2 rounded text-[10px] font-black ${
+                          isActive ? 'bg-white/20 text-white' : 'bg-blue-100 text-blue-700'
+                        }`}>
+                          7종 PDF
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
               </nav>
             </div>
           </div>
