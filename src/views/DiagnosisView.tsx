@@ -379,55 +379,78 @@ export const DiagnosisView: React.FC<DiagnosisViewProps> = ({ onAnalysisComplete
           </div>
         </div>
 
-        {/* 3. Customer Validation Funnel */}
-        <div className="w-full bg-surface-container-lowest rounded-2xl p-space-xl shadow-md flex flex-col gap-space-lg border border-outline-variant/20">
-          <div className="flex items-center justify-between">
+        {/* 3. Commercialization Roadmap & Support Prescription Flow */}
+        <div className="w-full bg-white rounded-2xl p-space-xl shadow-sm flex flex-col gap-space-lg border border-slate-200">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 pb-3 border-b border-slate-100">
             <div>
-              <span className="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wide">
-                수요처 파이프라인 분석
+              <span className="font-label-sm text-label-sm text-blue-600 font-bold uppercase tracking-wider">
+                사업화 실행 로드맵
               </span>
-              <h3 className="font-headline-md text-headline-md font-bold text-on-surface mt-space-2xs">
-                6단계 고객 검증 퍼널
+              <h3 className="font-headline-md text-headline-md font-black text-slate-900 mt-0.5">
+                단계별 병목 돌파 & 성장 마일스톤 로드맵
               </h3>
             </div>
-            <span className="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-space-sm py-space-2xs rounded-full">
-              무상 PoC에서 유상 전환 지체 중
+            <span className="px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200 self-start md:self-auto">
+              GBSA 맞춤 처방 지원사업 연동 중
             </span>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-space-xs">
-            <div className="p-space-md rounded-xl bg-surface-container-low flex flex-col">
-              <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">1. 잠재고객</span>
-              <span className="font-headline-md text-headline-md font-black text-primary mt-space-2xs">40</span>
-              <span className="font-label-sm text-label-sm text-on-surface-variant mt-auto pt-space-xs">아웃바운드 접촉</span>
-            </div>
-            <div className="p-space-md rounded-xl bg-surface-container-low flex flex-col">
-              <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">2. 심층상담</span>
-              <span className="font-headline-md text-headline-md font-black text-primary mt-space-2xs">9</span>
-              <span className="font-label-sm text-label-sm text-on-surface-variant mt-auto pt-space-xs">기술 사양 미팅</span>
-            </div>
-            <div className="p-space-md rounded-xl bg-surface-container-low flex flex-col border border-secondary/30">
-              <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">3. 무상 PoC</span>
-              <span className="font-headline-md text-headline-md font-black text-secondary mt-space-2xs">2</span>
-              <span className="font-label-sm text-label-sm text-on-surface-variant mt-auto pt-space-xs">도내 단지 현장 테스트</span>
-            </div>
-            <div className="p-space-md rounded-xl bg-surface-container flex flex-col border border-error/30">
-              <div className="flex items-center justify-between">
-                <span className="font-label-sm text-label-sm text-error font-bold">4. LOI 의향서</span>
-                <span className="w-2 h-2 rounded-full bg-error animate-ping"></span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Stage 1 */}
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-3 relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-blue-500"></div>
+              <div>
+                <div className="flex items-center justify-between text-xs mb-1">
+                  <span className="font-bold text-blue-700">STEP 01 (현재 단계)</span>
+                  <span className="px-2 py-0.5 rounded bg-blue-100 text-blue-800 text-[10px] font-bold">진행 중</span>
+                </div>
+                <h4 className="font-bold text-slate-900 text-sm">현장 실증 & PoC 데이터 확보</h4>
+                <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                  도내 수요기업 현장 무상 테스트베드를 통해 오검출률 0.1% 이하 및 공인 시험성적서 획득
+                </p>
               </div>
-              <span className="font-headline-md text-headline-md font-black text-error mt-space-2xs">0</span>
-              <span className="font-label-sm text-label-sm text-error font-semibold mt-auto pt-space-xs">계약 전환 정체</span>
+              <div className="pt-2 border-t border-slate-200 text-[11px] text-slate-500 flex items-center justify-between">
+                <span>핵심 목표: <strong>기술 안정성 검증</strong></span>
+                <span className="text-blue-600 font-bold">달성도 85%</span>
+              </div>
             </div>
-            <div className="p-space-md rounded-xl bg-surface-container flex flex-col opacity-60">
-              <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">5. 유상계약</span>
-              <span className="font-headline-md text-headline-md font-black text-on-surface-variant mt-space-2xs">0</span>
-              <span className="font-label-sm text-label-sm text-on-surface-variant mt-auto pt-space-xs">목표 매출액 0원</span>
+
+            {/* Stage 2 */}
+            <div className="p-4 rounded-xl bg-blue-50/50 border-2 border-blue-400 flex flex-col justify-between space-y-3 relative overflow-hidden shadow-sm">
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-blue-600"></div>
+              <div>
+                <div className="flex items-center justify-between text-xs mb-1">
+                  <span className="font-black text-blue-800">STEP 02 (집중 처방 구간)</span>
+                  <span className="px-2 py-0.5 rounded bg-blue-600 text-white text-[10px] font-black">1순위 병목 돌파</span>
+                </div>
+                <h4 className="font-black text-slate-900 text-sm">유상 계약 전환 & 첫 레퍼런스</h4>
+                <p className="text-xs text-slate-700 mt-1.5 leading-relaxed font-medium">
+                  GBSA 맞춤 실증 지원사업(최대 5,115만원)을 매칭하여 수요기업의 도입 비용 부담 해소 및 본계약 체결
+                </p>
+              </div>
+              <div className="pt-2 border-t border-blue-200 text-[11px] text-blue-900 flex items-center justify-between font-bold">
+                <span>연계 처방: <strong>{analysis.recommendedSupport[0] || '맞춤형 AI 실증 지원'}</strong></span>
+                <span className="text-blue-700">우선 지원</span>
+              </div>
             </div>
-            <div className="p-space-md rounded-xl bg-surface-container flex flex-col opacity-60">
-              <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">6. 반복매출</span>
-              <span className="font-headline-md text-headline-md font-black text-on-surface-variant mt-space-2xs">0</span>
-              <span className="font-label-sm text-label-sm text-on-surface-variant mt-auto pt-space-xs">구독/유지보수</span>
+
+            {/* Stage 3 */}
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-3 relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-slate-300"></div>
+              <div>
+                <div className="flex items-center justify-between text-xs mb-1">
+                  <span className="font-bold text-slate-400">STEP 03 (목표 단계)</span>
+                  <span className="px-2 py-0.5 rounded bg-slate-200 text-slate-600 text-[10px] font-bold">스케일업</span>
+                </div>
+                <h4 className="font-bold text-slate-900 text-sm">구독형 SaaS & 글로벌 판로 확장</h4>
+                <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                  동남아·북미 현장 라이선스 공급 및 GBSA 수출바우처 연계를 통한 연간 반복 매출(ARR) 극대화
+                </p>
+              </div>
+              <div className="pt-2 border-t border-slate-200 text-[11px] text-slate-500 flex items-center justify-between">
+                <span>기대 성과: <strong>해외 직수출 12억원+</strong></span>
+                <span className="text-emerald-600 font-bold">성장 목표</span>
+              </div>
             </div>
           </div>
         </div>
