@@ -114,9 +114,48 @@ export const MOCK_COMPANIES: CompanyWithAnalysis[] = [
         }
       ],
       actionPlan90Days: [
-        { step: 1, action: '기존 무상 PoC 2개사에 대해 유상 도입 제안서 제출 및 할인 조건 협상', targetMetric: '유상 계약 1건 이상 체결', timeframe: 'Day 1-30' },
-        { step: 2, action: 'GBSA 수요기업 실증 지원사업 신청 및 제조 SI 파트너 2곳과 협력 MOU 체결', targetMetric: '실증 지원사업 선정 및 파트너십 구축', timeframe: 'Day 31-60' },
-        { step: 3, action: '제품 표준화 가격표 작성 및 B2B 데모 데이 참가', targetMetric: '수요기업 미팅 5회 이상 달성', timeframe: 'Day 61-90' }
+        {
+          step: 1,
+          phaseTitle: '1단계: 유상 실증 전환 (단기)',
+          timeframe: '단기 (1~3개월)',
+          action: '기존 무상 PoC 2개사에 불량 감소 정량 ROI 리포트 제출 및 유상 전환 도입 계약 체결',
+          targetMetric: '첫 유상 레퍼런스 계약 1건 (매출 3,000만원)',
+          recommendedProgram: {
+            id: 'PROG-AI-001',
+            organization: 'GBSA / 경기테크노파크',
+            title: '산업데이터 표준 확산 기반 구축 - AI 솔루션 실증 지원',
+            budget: '최대 5,115만원',
+            fitReason: '수요기업 자부담 경감 및 현장 PoC 실증비 100% 보조'
+          }
+        },
+        {
+          step: 2,
+          phaseTitle: '2단계: 표준 패키징 & SI 채널 구축 (중기)',
+          timeframe: '중기 (4~6개월)',
+          action: '도내 스마트공장 SI 전문기업 2곳과 공급 총판 MOU 체결 및 오토 캘리브레이션 모듈 표준화',
+          targetMetric: 'B2B 유통 채널 2곳 확보 및 5개사 도입 상담',
+          recommendedProgram: {
+            id: 'PROG-AI-002',
+            organization: '경기도 / 경기테크노파크',
+            title: '2026년 스마트공장 구축·컨설팅·제조AI 지원사업',
+            budget: '최대 1억원',
+            fitReason: '도내 중소·중견 제조 현장에 비전웍스AI 모듈 패키지 일괄 공급'
+          }
+        },
+        {
+          step: 3,
+          phaseTitle: '3단계: 도내 확산 & 스케일업 펀드 유치 (장기)',
+          timeframe: '장기 (7~12개월+)',
+          action: '경기도 화성·평택 자동차 1차 협력사 5개 라인 공급 확대 및 시리즈 A 투자 유치',
+          targetMetric: '연간 반복매출(ARR) 3억원 & 투자 15억원 유치',
+          recommendedProgram: {
+            id: 'PROG-AI-007',
+            organization: '경기도경제과학진흥원',
+            title: '경기도 AI 글로벌 챌린지 & 혁신성장 스케일업 펀드 연계',
+            budget: '최대 100억원 펀드 매칭',
+            fitReason: '도내 1차 레퍼런스를 발판으로 스케일업 자금 및 해외 오픈이노베이션 지원'
+          }
+        }
       ],
       verificationNeeded: [
         '무상 PoC 진행 시 고객사 만족도 및 불량율 감소 데이터 원본 확인',
@@ -239,9 +278,48 @@ export const MOCK_COMPANIES: CompanyWithAnalysis[] = [
         }
       ],
       actionPlan90Days: [
-        { step: 1, action: 'SLAM 누적 오차 수정 알고리즘 튜닝 및 사내 12시간 연속 주행 테스트 달성', targetMetric: '연속 주행 12시간 무오류 달성', timeframe: 'Day 1-30' },
-        { step: 2, action: '경기도 로봇실증지원센터 테스트베드 신청 및 안전 인증 가이드라인 컨설팅 받기', targetMetric: '테스트베드 입주 및 인증 로드맵 확립', timeframe: 'Day 31-60' },
-        { step: 3, action: 'C 물류센터 조건부 LOI 실증 1단계 시험 집행', targetMetric: '1차 현장 실증 테스트 완료', timeframe: 'Day 61-90' }
+        {
+          step: 1,
+          phaseTitle: '1단계: 주행 안정성 검증 & 오차 튜닝 (단기)',
+          timeframe: '단기 (1~3개월)',
+          action: 'SLAM 누적 오차 보정 알고리즘 고도화 및 사내 12시간 연속 무정지 자율주행 테스트 완료',
+          targetMetric: '12시간 연속 주행 무오류 달성 (오차 1cm 미만)',
+          recommendedProgram: {
+            id: 'PROG-ROBOT-001',
+            organization: 'GBSA / 부천로봇산업연구단지',
+            title: '경기도 로봇 실증 테스트베드 및 기술고도화 지원사업',
+            budget: '최대 4,000만원',
+            fitReason: '군포 스마트물류센터 및 공공 테스트베드 24시간 실주행 트랙 무상 이용'
+          }
+        },
+        {
+          step: 2,
+          phaseTitle: '2단계: 로봇 안전 인증 & 물류센터 현장 실증 (중기)',
+          timeframe: '중기 (4~6개월)',
+          action: 'ISO 3691-4 안전 규격 KCE 인증 취득 및 CJ대한통운 협력 물류센터 조건부 LOI 실증 착수',
+          targetMetric: '로봇 안전 인증서 획득 및 1차 현장 실증 완료',
+          recommendedProgram: {
+            id: 'PROG-ROBOT-002',
+            organization: '한국로봇산업진흥원 / GBSA',
+            title: '유망 로봇 제품 안전인증 및 규제 패스트트랙 지원',
+            budget: '최대 3,000만원',
+            fitReason: '인증 시험 수수료 지원 및 로봇 안전성 기술 컨설팅 100% 매칭'
+          }
+        },
+        {
+          step: 3,
+          phaseTitle: '3단계: 양산 공급 & 물류 풀필먼트 확장 (장기)',
+          timeframe: '장기 (7~12개월+)',
+          action: '도내 중소 물류센터 10개 라인 양산 공급 및 클라우드 군집 제어 SaaS 구독 모델 상용화',
+          targetMetric: 'AMR 20대 납품 완료 (매출 8억원 달성)',
+          recommendedProgram: {
+            id: 'PROG-ROBOT-003',
+            organization: '경기도 / 중소벤처기업부',
+            title: '첨단 스마트 물류로봇 보급 확산 및 스케일업 융자 연계',
+            budget: '최대 2억원 + 저리 융자',
+            fitReason: '물류 수요기업 도입 자금 보조로 로보플로우 AMR 초기 구매 허들 제거'
+          }
+        }
       ],
       verificationNeeded: [
         '연속 주행 멈춤 현상의 원인이 센서 발열인지 SW 메모리 누수인지 정밀 진단 필요'
@@ -315,7 +393,48 @@ export const MOCK_COMPANIES: CompanyWithAnalysis[] = [
         { id: 'EVI-004', category: 'M', source: '사업계획서.pdf', page: 22, excerpt: '식약처 의료기기 2등급 허가 절차 진행 중', interpretation: '규제 병목으로 시장 진입 불가' }
       ],
       actionPlan90Days: [
-        { step: 1, action: '식약처 보완요청 사항 전문 RA 컨설팅 진행', targetMetric: '보완서류 제출 완료', timeframe: 'Day 1-30' }
+        {
+          step: 1,
+          phaseTitle: '1단계: 식약처 인허가 보완 대응 (단기)',
+          timeframe: '단기 (1~3개월)',
+          action: '식약처 의료기기 2등급 품목허가 보완 서류 제출 및 전문 RA 인허가 컨설팅 완료',
+          targetMetric: '식약처 2등급 의료기기 제조허가 승인',
+          recommendedProgram: {
+            id: 'PROG-BIO-001',
+            organization: 'GBSA 바이오센터',
+            title: '경기도 바이오·의료기기 RA 인허가 패스트트랙 지원사업',
+            budget: '최대 3,000만원',
+            fitReason: '식약처 출신 심사관 1:1 보완 서류 작성 및 기술문서 심사 단축'
+          }
+        },
+        {
+          step: 2,
+          phaseTitle: '2단계: 대학병원 확증 임상 & 유효성 검증 (중기)',
+          timeframe: '중기 (4~6개월)',
+          action: '아주대학교병원 및 분당서울대병원 내분비내과와 당뇨 환자 200명 확증 임상 수행',
+          targetMetric: '임상 유효성 논문 및 병원 도입 레퍼런스 확보',
+          recommendedProgram: {
+            id: 'PROG-BIO-002',
+            organization: '보건산업진흥원 / 경기도',
+            title: '디지털 헬스케어 AI 실증 및 병원 연계 임상 바우처',
+            budget: '최대 8,000만원',
+            fitReason: '상급종합병원 임상연구비 지원으로 의사 처방 신뢰도 확보'
+          }
+        },
+        {
+          step: 3,
+          phaseTitle: '3단계: 비급여 처방 확대 & 글로벌 인허가 (장기)',
+          timeframe: '장기 (7~12개월+)',
+          action: '수도권 50개 의원 비급여 처방 등록 및 미국 FDA 510(k) 사전 심사 신청',
+          targetMetric: '월간 처방 환자 수 1,000명 돌파 & 연매출 15억원 달성',
+          recommendedProgram: {
+            id: 'PROG-BIO-003',
+            organization: 'GBSA / KOTRA',
+            title: '경기 바이오 글로벌 챌린지 및 해외 인허가 지원사업',
+            budget: '최대 1억원',
+            fitReason: 'FDA 510(k) 인허가 컨설팅 및 해외 병원 파트너십 매칭'
+          }
+        }
       ],
       verificationNeeded: ['식약처 보완 통지서 내 임상 보완 요구사항 구체적 파악'],
       aiInsightSummary: '메디헬스바이오는 인허가(REGULATION) 규제 해결이 유일한 시장 진입 관문입니다.',
@@ -435,9 +554,48 @@ export const MOCK_COMPANIES: CompanyWithAnalysis[] = [
         }
       ],
       actionPlan90Days: [
-        { step: 1, action: '경기도 기후테크 혁신 펀드 및 스케일업 정책자금 신청', targetMetric: '정책자금 심사 통과 및 5억원 이상 확보', timeframe: 'Day 1-30' },
-        { step: 2, action: 'BIPV 건축 KS 인증 시험 접수 및 신뢰성 성적서 확보', targetMetric: '인증 시험 착수 및 가속 수명 데이터 산출', timeframe: 'Day 31-60' },
-        { step: 3, action: 'H건설사 도심 오피스 시범 시공 파일럿 모듈 공급', targetMetric: '1차 실증 시공 완료 및 홍보 레퍼런스 구축', timeframe: 'Day 61-90' }
+        {
+          step: 1,
+          phaseTitle: '1단계: 양산 설비 펀드 유치 & KS 인증 착수 (단기)',
+          timeframe: '단기 (1~3개월)',
+          action: '경기도 기후테크 혁신 펀드 IR 및 BIPV KS C 8577 건축 내화·내구성 공인 시험 접수',
+          targetMetric: '정책 펀드 5억원 이상 확보 & 시험 인증 접수 완료',
+          recommendedProgram: {
+            id: 'PROG-SOLAR-001',
+            organization: 'GBSA / 경기도',
+            title: '경기 기후테크 100 혁신성장 펀드 및 시설자금 융자 연계',
+            budget: '최대 10억원 융자/투자',
+            fitReason: '롤투롤 파일럿 양산 라인 설비(CAPEX 30억원) 착공 자금 조달'
+          }
+        },
+        {
+          step: 2,
+          phaseTitle: '2단계: 롤투롤 양산 라인 가동 & 파일럿 시공 (중기)',
+          timeframe: '중기 (4~6개월)',
+          action: '1m² 대면적 롤투롤 코팅 파일럿 라인 가동 및 H건설사 도심 오피스 500m² 시범 시공 납품',
+          targetMetric: '대면적 셀 균일도 97% 달성 & 1차 랜드마크 시공 완료',
+          recommendedProgram: {
+            id: 'PROG-SOLAR-002',
+            organization: '경기테크노파크 / 에너지공단',
+            title: '탄소중립 제로에너지빌딩 BIPV 실증 및 신뢰성 평가 지원',
+            budget: '최대 1.5억원',
+            fitReason: '도내 신축 공공·민간 건축물 BIPV 시범 시공비 70% 보조'
+          }
+        },
+        {
+          step: 3,
+          phaseTitle: '3단계: 도내 제로에너지빌딩 시장 선점 & 수출 (장기)',
+          timeframe: '장기 (7~12개월+)',
+          action: '도내 대형 건설사 3곳 공식 BIPV 외장재 벤더 등록 및 유럽 IEC 인증 기반 수출 개시',
+          targetMetric: '연간 수주 계약 50억원 돌파 (흑자 전환)',
+          recommendedProgram: {
+            id: 'PROG-SOLAR-003',
+            organization: '경기도 / GBSA',
+            title: '신재생에너지 상용화 및 녹색수출 스케일업 패키지',
+            budget: '최대 3억원',
+            fitReason: '유럽 RE100 시장 진출을 위한 글로벌 환경인증(EPD) 및 해외 판로 지원'
+          }
+        }
       ],
       verificationNeeded: [
         '1m² 대면적 페로브스카이트 셀의 1,000시간 가속 열화 시험 결과 확인',

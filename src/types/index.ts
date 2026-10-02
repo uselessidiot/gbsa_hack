@@ -104,9 +104,17 @@ export interface EvidenceCard {
 
 export interface ActionStep {
   step: number;
+  phaseTitle?: string; // 예: '1단계: 유상 실증 전환 (단기)'
+  timeframe?: string; // 예: '단기 (1~3개월)' / '중기 (4~6개월)' / '장기 (7~12개월+)'
   action: string;
   targetMetric: string;
-  timeframe?: string; // 예: 'Day 1-30'
+  recommendedProgram?: {
+    id?: string;
+    organization: string; // 'GBSA' | '경기도' | '경기TP' 등
+    title: string;
+    budget: string; // '최대 5,115만원'
+    fitReason: string;
+  };
 }
 
 export interface ConsultingSection {

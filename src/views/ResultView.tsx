@@ -446,31 +446,109 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
         </div>
       </div>
 
-      {/* 6. 90-Day Action Plan */}
-      <div className="w-full bg-surface-container-lowest rounded-2xl p-space-xl shadow-md flex flex-col gap-space-md border border-outline-variant/20">
-        <div>
-          <span className="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wide">
-            단기 성장 액션 플랜
-          </span>
-          <h3 className="font-headline-md text-headline-md font-bold text-on-surface mt-space-2xs">
-            90일 권장 실행 로드맵
-          </h3>
+      {/* 6. Comprehensive Long-Term Growth Roadmap & GBSA Support Programs */}
+      <div className="w-full bg-surface-container-lowest rounded-2xl p-space-xl shadow-md flex flex-col gap-space-lg border border-outline-variant/20">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-space-sm pb-space-sm border-b border-outline-variant/20">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wide">
+                중·장기 스케일업 액션 플랜
+              </span>
+              <span className="px-2 py-0.5 rounded-full bg-primary-container text-primary text-[11px] font-bold">
+                GBSA 지원사업 연계형
+              </span>
+            </div>
+            <h3 className="font-headline-md text-headline-md font-bold text-on-surface">
+              단계별 성장 로드맵 & 맞춤 지원사업 추천
+            </h3>
+            <p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+              단기 실증 전환부터 중기 표준화·인증, 장기 양산 스케일업까지 단계별 실행 과제와 최적 공공 지원사업을 연계 처방합니다.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => onNavigateTab('programs')}
+            className="self-start md:self-auto inline-flex items-center gap-1.5 px-space-md py-space-xs rounded-xl bg-surface-container-low hover:bg-surface-container text-primary font-label-md text-label-md font-bold transition border border-outline-variant/30 active:scale-95 shrink-0"
+          >
+            <span>전체 지원사업 DB 보기</span>
+            <span className="material-symbols-outlined text-base">arrow_forward</span>
+          </button>
         </div>
 
+        {/* 3-Phase Roadmap Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-space-md">
           {analysis.actionPlan90Days.map((plan) => (
-            <div key={plan.step} className="p-space-lg rounded-xl bg-surface-container-low border border-outline-variant/30 flex flex-col justify-between">
+            <div
+              key={plan.step}
+              className="p-space-lg rounded-2xl bg-surface-container-low border border-outline-variant/30 flex flex-col justify-between hover:border-primary/50 hover:shadow-lg transition-all duration-300 relative group overflow-hidden"
+            >
+              {/* Step Ribbon & Timeline Header */}
               <div>
-                <span className="px-2 py-0.5 rounded-full bg-primary text-white text-xs font-bold mb-2 inline-block">
-                  {plan.timeframe || `Step ${plan.step}`}
-                </span>
-                <p className="font-body-md text-body-md font-bold text-on-surface my-1">
+                <div className="flex items-center justify-between mb-space-sm">
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-full bg-primary text-on-primary text-xs font-black flex items-center justify-center">
+                      {plan.step}
+                    </span>
+                    <span className="font-label-sm text-label-sm text-primary font-bold">
+                      {plan.timeframe || `Phase ${plan.step}`}
+                    </span>
+                  </div>
+                  {plan.phaseTitle && (
+                    <span className="text-[11px] px-2 py-0.5 rounded-md bg-surface-container-high text-on-surface font-semibold truncate max-w-[140px]">
+                      {plan.phaseTitle.split(':')[1]?.trim() || plan.phaseTitle}
+                    </span>
+                  )}
+                </div>
+
+                {/* Main Action Description */}
+                <h4 className="font-body-md text-body-md font-bold text-on-surface leading-snug mb-space-sm">
                   {plan.action}
-                </p>
+                </h4>
+
+                {/* Target KPI Metric Badge */}
+                <div className="p-space-sm rounded-xl bg-surface-container-lowest border border-outline-variant/20 flex items-start gap-2 mb-space-md">
+                  <span className="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5">flag</span>
+                  <div>
+                    <span className="font-label-xs text-[11px] text-on-surface-variant font-medium block">달성 목표 지표 (KPI)</span>
+                    <span className="font-body-sm text-body-sm font-bold text-primary">{plan.targetMetric}</span>
+                  </div>
+                </div>
               </div>
-              <div className="mt-space-md pt-space-xs border-t border-outline-variant/20 text-xs text-primary font-semibold">
-                목표 지표: {plan.targetMetric}
-              </div>
+
+              {/* Linked GBSA / Public Support Program Prescription Card */}
+              {plan.recommendedProgram ? (
+                <div className="mt-auto pt-space-sm border-t border-outline-variant/20">
+                  <div className="p-space-sm rounded-xl bg-primary-container/15 border border-primary/20 flex flex-col gap-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="font-label-xs text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-primary text-white tracking-wide">
+                        연계 지원사업
+                      </span>
+                      <span className="font-label-sm text-label-sm font-extrabold text-secondary">
+                        {plan.recommendedProgram.budget}
+                      </span>
+                    </div>
+                    <div className="font-body-sm text-body-sm font-bold text-on-surface leading-tight">
+                      {plan.recommendedProgram.title}
+                    </div>
+                    <p className="font-label-xs text-[11px] text-on-surface-variant leading-relaxed">
+                      💡 {plan.recommendedProgram.fitReason}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => onNavigateTab('programs')}
+                      className="mt-1 inline-flex items-center justify-between text-[11px] font-bold text-primary hover:underline pt-1 border-t border-primary/10"
+                    >
+                      <span>지원사업 상세 및 신청 사유서</span>
+                      <span className="material-symbols-outlined text-xs">arrow_forward</span>
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="mt-auto pt-space-sm border-t border-outline-variant/20 text-xs text-on-surface-variant flex items-center justify-between">
+                  <span>연계 지원사업 매칭</span>
+                  <span className="font-semibold text-primary">GBSA 맞춤 트랙 추천</span>
+                </div>
+              )}
             </div>
           ))}
         </div>
