@@ -11,8 +11,33 @@ const FALLBACK_MODEL = 'gemini-3.5-flash-lite';
 const jsonPrompt = (task: string) => `${task}\n\n반드시 유효한 JSON 객체만 반환하세요. 문서에 없는 사실·수치·출처는 만들지 말고, 불명확하면 '확인 필요'라고 표시하세요. 모든 서술은 전문적인 한국어로 작성하세요.`;
 
 function textOf(response: any) {
-  const raw = response.text || '{}';
-  return JSON.parse(raw.replace(/^```json\s*|\s*```$/g, ''));
+  const raw = String(response.text || '{}').trim();
+  const fenced = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
+  const start = fenced.indexOf('{');
+  const end = fenced.lastIndexOf('}');
+  const candidate = start >= 0 && end > start ? fenced.slice(start, end + 1) : fenced;
+
+  const attempts = [
+    candidate,
+    candidate
+      // Gemini occasionally emits a trailing comma or an unquoted object key despite responseMimeType.
+      .replace(/,\s*([}\]])/g, '$1')
+      .replace(/([{,]\s*)([A-Za-z_$][\w$-]*)(\s*:)/g, '$1"$2"$3')
+      .replace(/[“”]/g, '"')
+      .replace(/[‘’]/g, "'"),
+  ];
+
+  let lastError: unknown;
+  for (const attempt of attempts) {
+    try {
+      return JSON.parse(attempt);
+    } catch (error) {
+      lastError = error;
+    }
+  }
+
+  console.error('Gemini returned invalid JSON', { length: raw.length, error: String(lastError) });
+  throw new Error('Gemini 분석 결과 형식이 올바르지 않습니다. 다시 시도해주세요.');
 }
 
 const wait = (milliseconds: number) => new Promise((resolve) => setTimeout(resolve, milliseconds));
