@@ -102,10 +102,10 @@ function normalizeCompany(raw: any, fileName: string) {
       marketOutlook: asSection(raw.consultingInsights?.marketOutlook),
       technologyAssessment: asSection(raw.consultingInsights?.technologyAssessment),
       businessModelAssessment: asSection(raw.consultingInsights?.businessModelAssessment),
-      futureStrategy: asArray(raw.consultingInsights?.futureStrategy),
-      keyRisks: asArray(raw.consultingInsights?.keyRisks),
-      scenarios: asArray(raw.consultingInsights?.scenarios),
-      consultantQuestions: asArray(raw.consultingInsights?.consultantQuestions),
+      futureStrategy: asArray(raw.consultingInsights?.futureStrategy ?? raw.futureStrategy),
+      keyRisks: asArray(raw.consultingInsights?.keyRisks ?? raw.keyRisks),
+      scenarios: asArray(raw.consultingInsights?.scenarios ?? raw.scenarios),
+      consultantQuestions: asArray(raw.consultingInsights?.consultantQuestions ?? raw.consultantQuestions),
     },
     status: 'COMPLETED',
     createdAt: new Date().toISOString(),
@@ -140,16 +140,21 @@ export default async function handler(req: any, res: any) {
 다음 키를 모두 포함한다.
 company: name,businessNumber,industry,subIndustry,location,foundedYear,employees,revenue,summary,keywords[].
 temDiagnosis: technology/execution/market 각각 level(T1~T4/E1~E4/M1~M4),score(0~100),reason,sourceQuote와 radarScores(tech,validation,market,finance,global).
+등급은 다음 사실 기준을 엄격히 적용한다.
+- T1 아이디어·개념, T2 시제품 개발·초기 성능시험, T3 작동 제품과 현장 PoC 수행, T4 상용 안정성과 반복 구축 검증.
+- E1 대표자 중심 준비, E2 핵심팀과 실행계획 확보, E3 실제 PoC·고객 프로젝트 수행, E4 반복 가능한 영업·납품·운영 체계.
+- M1 유상 고객과 제품매출 없음, M2 첫 유상 고객 또는 초기 제품매출, M3 복수 고객의 반복매출·PMF, M4 시장 확장·수출.
+무상 PoC는 시장검증 M2가 아니다. 작동 제품으로 무상 PoC를 수행했으나 LOI·유상계약·제품매출이 0이면 원칙적으로 T3/E3/M1이며 PMF를 우선 병목으로 검토한다.
 primaryBottleneck, secondaryBottleneck: TECH,VALIDATION,PMF,STANDARDIZE,REGULATION,SALES,GLOBAL,DIVERSIFY,INVESTMENT 중 선택.
 bottlenecks[]: category,title,description,severity(HIGH/MEDIUM/LOW),sourceEvidence,pageNumber.
 companyRequestedSupport[], recommendedSupport[], supportGapAnalysis, strengths[], weaknesses[].
 evidenceList[]: category(T/E/M/BOTTLENECK/GENERAL),page,excerpt,interpretation,confidenceScore. 최소 4개.
 actionPlan90Days[]: step,action,targetMetric,timeframe. 정확히 3개.
 verificationNeeded[], aiInsightSummary.
-consultingInsights: executiveDiagnosis(3~5문장), marketOutlook, technologyAssessment, businessModelAssessment.
+consultingInsights 객체 안에 executiveDiagnosis(3~5문장), marketOutlook, technologyAssessment, businessModelAssessment, futureStrategy, keyRisks, scenarios, consultantQuestions를 모두 넣는다.
 각 assessment는 headline,narrative(3~5문장),implications[],evidence[]를 가진다.
-futureStrategy[]는 NOW/NEXT/LATER 각각 horizon,title,rationale,actions[],kpi.
-keyRisks[]는 risk,impact,mitigation. scenarios[]는 name,condition,outlook. consultantQuestions[]는 상담 시 확인할 질문 5개.
+consultingInsights.futureStrategy[]는 NOW/NEXT/LATER 각각 horizon,title,rationale,actions[],kpi를 가진 정확히 3개다.
+consultingInsights.keyRisks[]는 risk,impact,mitigation. consultingInsights.scenarios[]는 name,condition,outlook. consultingInsights.consultantQuestions[]는 상담 시 확인할 질문 5개다.
 profile: technologies[],products[],targetCustomers[],capabilities[],needs[],desiredPartners[].
 시장 규모나 경쟁사 수치는 문서에 있을 때만 사용하고, 일반 시장 전망과 문서 근거를 명확히 구분하라.
 `);
