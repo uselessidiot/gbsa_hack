@@ -6,7 +6,7 @@ const configuredModel = process.env.GEMINI_MODEL;
 const MODEL = !configuredModel || configuredModel === 'gemini-2.5-flash'
   ? 'gemini-3.8-flash'
   : configuredModel;
-const FALLBACK_MODEL = 'gemini-3.8-flash-lite';
+const FALLBACK_MODEL = 'gemini-3.5-flash-lite';
 
 const jsonPrompt = (task: string) => `${task}\n\n반드시 유효한 JSON 객체만 반환하세요. 문서에 없는 사실·수치·출처는 만들지 말고, 불명확하면 '확인 필요'라고 표시하세요. 모든 서술은 전문적인 한국어로 작성하세요.`;
 
@@ -133,17 +133,6 @@ export default async function handler(req: any, res: any) {
   try {
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
-
-    if (body.action === 'list-models') {
-      const pager = await ai.models.list();
-      const models: Array<{ name?: string; supportedActions?: string[] }> = [];
-      for await (const model of pager) {
-        if (model.supportedActions?.includes('generateContent')) {
-          models.push({ name: model.name, supportedActions: model.supportedActions });
-        }
-      }
-      return res.status(200).json({ models });
-    }
 
     if (body.action === 'analyze-company') {
       const raw = await generateDocument(ai, body, `
