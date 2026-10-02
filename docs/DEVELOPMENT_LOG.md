@@ -111,10 +111,31 @@ pnpm run build
 
 #### 미검증
 
-- 실제 `GEMINI_API_KEY`를 사용한 PDF 분석 응답
-- Vercel Preview 환경의 함수 요청 크기와 타임아웃
+- Vercel Preview 환경의 최대 함수 요청 크기와 장시간 분석 타임아웃
 - 실제 신규 사업기획서에 대한 평가 품질
 - 모바일 화면과 인쇄/PDF 레이아웃
+
+### 2026-10-02 · Codex · Vercel 실서비스 검증
+
+- Production: `https://gbsa-hack.vercel.app`
+- 서버 환경변수 `GEMINI_API_KEY` 연결 확인
+- 주 모델 `gemini-3.8-flash`, 과부하 시 `gemini-3.5-flash-lite` 재시도 적용
+- 정책 생성 API 실제 응답 확인
+- `01_제조AI_비전웍스AI_사업계획서.pdf` 전체 분석 확인
+
+```text
+기업: 주식회사 비전웍스에이아이
+판정: T3 / E3 / M1
+핵심 병목: PMF
+원문 근거: 4개
+미래전략: 3개
+리스크: 2개
+상담 질문: 5개
+90일 액션: 3개
+```
+
+Gemini 응답의 컨설팅 필드가 루트 또는 `consultingInsights`에 반환되는 경우를
+모두 정규화하며, 누락된 T/E/M·배열 필드는 안전한 기본값으로 보완합니다.
 
 ## 7. 다음 작업
 
