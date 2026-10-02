@@ -156,7 +156,7 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
                     <h5 className="font-headline-sm text-headline-sm font-extrabold text-on-surface leading-snug">
                       {insight.headline}
                     </h5>
-                    <p className="font-body-md text-body-md leading-relaxed text-on-surface-variant font-medium">
+                    <p className="font-body-md text-body-md leading-relaxed text-on-surface-variant font-medium whitespace-pre-line">
                       {insight.narrative}
                     </p>
 
@@ -196,7 +196,7 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
                   </div>
 
                   {/* Strategic Action Items: full width below the analysis and evidence */}
-                  <div className="rounded-xl bg-surface-container-low p-space-lg border border-outline-variant/30 flex flex-col justify-between">
+                  <div className="rounded-xl bg-surface-container-low p-space-md border border-outline-variant/30 flex flex-col justify-between">
                     <div>
                       <div className="flex items-center gap-1.5 text-primary mb-space-sm">
                         <span className="material-symbols-outlined text-base">checklist</span>
@@ -204,9 +204,9 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
                           핵심 시사점 및 조치 방안 (Action Items)
                         </span>
                       </div>
-                      <ul className="space-y-space-xs">
+                      <ul className="space-y-1.5">
                         {insight.implications.map((item, idx) => (
-                          <li key={idx} className="flex items-start gap-2 text-body-sm text-on-surface leading-snug">
+                          <li key={idx} className="flex items-start gap-2 text-xs text-on-surface leading-snug">
                             <span className="text-secondary font-black shrink-0 mt-0.5">✓</span>
                             <span>{item}</span>
                           </li>
@@ -214,7 +214,7 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
                       </ul>
                     </div>
 
-                    <div className="mt-space-md pt-space-xs border-t border-outline-variant/20 flex items-center justify-between text-xs text-on-surface-variant">
+                    <div className="mt-space-sm pt-space-xs border-t border-outline-variant/20 flex items-center justify-between text-xs text-on-surface-variant">
                       <span className="font-medium">진단 신뢰도</span>
                       <span className="font-extrabold text-primary">검증도 98.4%</span>
                     </div>
