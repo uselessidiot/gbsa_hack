@@ -108,7 +108,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
   return (
     <div className="w-full flex flex-col items-center justify-between min-h-[calc(100vh-4rem)] py-space-2xl px-margin-desktop bg-surface">
       {/* Center Content Container */}
-      <div className="w-full max-w-3xl mx-auto flex flex-col items-center justify-center text-center my-auto">
+      <div className="w-full max-w-6xl mx-auto flex flex-col items-center justify-center text-center my-auto">
         {/* Toss Style Micro Badge */}
         <div className="inline-flex items-center gap-space-xs px-space-md py-space-2xs rounded-full bg-surface-container mb-space-lg border border-outline-variant/20 shadow-sm">
           <span className="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></span>
@@ -118,18 +118,18 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
         </div>
 
         {/* Main Bold Headlines (Toss Style) */}
-        <h1 className="font-display text-[42px] leading-[1.2] text-primary tracking-tight font-extrabold max-w-2xl mb-space-md">
+        <h1 className="font-display text-[42px] leading-[1.2] text-primary tracking-tight font-extrabold max-w-5xl mb-space-md">
           <>
             <span className="block">지원사업을 찾지 마세요.</span>
             <span className="block text-on-surface">G-BRIDGE가 당신의 기회를 찾습니다.</span>
           </>
         </h1>
-        <p className="font-headline-sm text-headline-sm text-on-surface-variant font-normal max-w-xl mb-space-lg leading-relaxed">
+        <p className="font-headline-sm text-headline-sm text-on-surface-variant font-normal max-w-3xl mb-space-lg leading-relaxed">
           사업계획서 하나만 올리면<br />
           AI가 기업을 진단하고, 필요한 지원을 연결하고, 새로운 성장기회까지 찾아드립니다.
         </p>
 
-        <div className="w-full max-w-5xl mx-auto mb-space-2xl text-center">
+        <div className="w-full max-w-6xl mx-auto mb-space-2xl text-center">
           <div className="mb-space-md">
             <span className="font-label-md text-label-md text-secondary font-bold tracking-wide">기업의 성장, 진단부터 매칭까지</span>
           </div>
@@ -158,7 +158,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
               <div className="w-12 h-12 rounded-xl bg-surface-container text-primary flex items-center justify-center mb-space-md">
                 <span className="material-symbols-outlined text-2xl">hub</span>
               </div>
-              <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1">03 기업 Discovery & 매칭</h4>
+              <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1 whitespace-nowrap">03 기업 Discovery & 매칭</h4>
               <p className="font-body-sm text-body-sm text-on-surface-variant">
                 <strong className="block text-on-surface mb-1">새로운 기회를 만듭니다</strong>
                 기업·파트너·비즈니스 기회를 발굴해 다음 성장으로 연결합니다.
