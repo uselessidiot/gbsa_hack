@@ -124,10 +124,48 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
             <span className="block text-on-surface">G-BRIDGE가 당신의 기회를 찾습니다.</span>
           </>
         </h1>
-        <p className="font-headline-sm text-headline-sm text-on-surface-variant font-normal max-w-xl mb-space-2xl leading-relaxed">
+        <p className="font-headline-sm text-headline-sm text-on-surface-variant font-normal max-w-xl mb-space-lg leading-relaxed">
           사업계획서 하나만 올리면<br />
           AI가 기업을 진단하고, 필요한 지원을 연결하고, 새로운 성장기회까지 찾아드립니다.
         </p>
+
+        <div className="w-full max-w-5xl mx-auto mb-space-2xl text-center">
+          <div className="mb-space-md">
+            <span className="font-label-md text-label-md text-secondary font-bold tracking-wide">기업의 성장, 진단부터 매칭까지</span>
+          </div>
+          <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-space-lg text-left">
+            <div className="min-h-[190px] p-space-xl rounded-3xl bg-surface-container-lowest shadow-lg border border-outline-variant/20 flex flex-col">
+              <div className="w-12 h-12 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center mb-space-md">
+                <span className="material-symbols-outlined text-2xl">analytics</span>
+              </div>
+              <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1">01 기업 성장진단</h4>
+              <p className="font-body-sm text-body-sm text-on-surface-variant">
+                <strong className="block text-on-surface mb-1">가능성을 발견합니다</strong>
+                AI가 사업계획서를 분석해 기업의 성장단계와 핵심역량을 진단합니다.
+              </p>
+            </div>
+            <div className="min-h-[190px] p-space-xl rounded-3xl bg-surface-container-lowest shadow-lg border border-outline-variant/20 flex flex-col">
+              <div className="w-12 h-12 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center mb-space-md">
+                <span className="material-symbols-outlined text-2xl">balance</span>
+              </div>
+              <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1">02 맞춤 지원 연계</h4>
+              <p className="font-body-sm text-body-sm text-on-surface-variant">
+                <strong className="block text-on-surface mb-1">필요한 지원을 연결합니다</strong>
+                기업에 맞는 공공지원사업을 찾아 맞춤형 지원기회를 연결합니다.
+              </p>
+            </div>
+            <div className="min-h-[190px] p-space-xl rounded-3xl bg-surface-container-lowest shadow-lg border border-outline-variant/20 flex flex-col">
+              <div className="w-12 h-12 rounded-xl bg-surface-container text-primary flex items-center justify-center mb-space-md">
+                <span className="material-symbols-outlined text-2xl">hub</span>
+              </div>
+              <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1">03 기업 Discovery & 매칭</h4>
+              <p className="font-body-sm text-body-sm text-on-surface-variant">
+                <strong className="block text-on-surface mb-1">새로운 기회를 만듭니다</strong>
+                기업·파트너·비즈니스 기회를 발굴해 다음 성장으로 연결합니다.
+              </p>
+            </div>
+          </div>
+        </div>
 
         {/* Large Interaction Drag & Drop Card */}
         <div className="w-full bg-surface-container-lowest rounded-[2.5rem] p-space-2xl shadow-2xl transition-all duration-300 relative group overflow-hidden border border-outline-variant/30">
@@ -321,51 +359,6 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
         </div>
       </div>
 
-        <div className="w-full max-w-4xl mx-auto mt-space-2xl mb-space-md text-center">
-          <span className="font-label-md text-label-md text-secondary font-bold tracking-wide">기업의 성장, 진단부터 매칭까지</span>
-        </div>
-
-        {/* 3-Step Service Cards */}
-      <div className="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-space-md mt-space-2xl">
-        <div className="p-space-lg rounded-2xl bg-surface-container-lowest shadow-md border border-outline-variant/20 flex flex-col text-left">
-          <div className="w-10 h-10 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center mb-space-sm">
-            <span className="material-symbols-outlined text-xl">analytics</span>
-          </div>
-          <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1">
-            01 기업 성장진단
-          </h4>
-          <p className="font-body-sm text-body-sm text-on-surface-variant">
-            <strong className="block text-on-surface mb-1">가능성을 발견합니다</strong>
-            AI가 사업계획서를 분석해 기업의 성장단계와 핵심역량을 진단합니다.
-          </p>
-        </div>
-
-        <div className="p-space-lg rounded-2xl bg-surface-container-lowest shadow-md border border-outline-variant/20 flex flex-col text-left">
-          <div className="w-10 h-10 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center mb-space-sm">
-            <span className="material-symbols-outlined text-xl">balance</span>
-          </div>
-          <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1">
-            02 맞춤 지원 연계
-          </h4>
-          <p className="font-body-sm text-body-sm text-on-surface-variant">
-            <strong className="block text-on-surface mb-1">필요한 지원을 연결합니다</strong>
-            기업에 맞는 공공지원사업을 찾아 맞춤형 지원기회를 연결합니다.
-          </p>
-        </div>
-
-        <div className="p-space-lg rounded-2xl bg-surface-container-lowest shadow-md border border-outline-variant/20 flex flex-col text-left">
-          <div className="w-10 h-10 rounded-xl bg-surface-container text-primary flex items-center justify-center mb-space-sm">
-            <span className="material-symbols-outlined text-xl">hub</span>
-          </div>
-          <h4 className="font-headline-sm text-headline-sm font-bold text-on-surface mb-1">
-            03 기업 Discovery & 매칭
-          </h4>
-          <p className="font-body-sm text-body-sm text-on-surface-variant">
-            <strong className="block text-on-surface mb-1">새로운 기회를 만듭니다</strong>
-            기업·파트너·비즈니스 기회를 발굴해 다음 성장으로 연결합니다.
-          </p>
-        </div>
-      </div>
     </div>
   );
 };
