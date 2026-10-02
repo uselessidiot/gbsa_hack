@@ -238,15 +238,7 @@ export const ProgramMatchingView: React.FC<ProgramMatchingViewProps> = ({
               </div>
             </div>
 
-            <div className="pt-space-md border-t border-outline-variant/20 flex flex-col md:flex-row items-center justify-between gap-space-sm">
-              <span className="font-label-sm text-label-sm text-on-surface-variant">
-                접수 마감일: <strong className="text-on-surface">{prog.applicationDeadline}</strong>
-              </span>
-
-              <span className={`font-label-sm font-bold ${prog.status === 'OPEN' ? 'text-secondary' : 'text-on-surface-variant'}`}>
-                {prog.status === 'OPEN' ? '현재 접수 가능' : prog.status === 'CLOSED' ? '접수 종료·다음 공고 참고' : '접수 예정'}
-              </span>
-
+            <div className="pt-space-md border-t border-outline-variant/20 flex flex-col md:flex-row items-center justify-end gap-space-sm">
               <div className="flex items-center gap-space-xs w-full md:w-auto">
                 <button
                   type="button"
