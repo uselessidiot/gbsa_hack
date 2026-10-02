@@ -35,51 +35,51 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
     setActiveFrameIndex(0);
     setProgressText('사업계획서 문서의 기술 지표와 비즈니스 모델을 파싱 중입니다...');
 
-    // 0.5s - Frame 2 (40%)
+    // 0.8s - Frame 2 (40%)
     setTimeout(() => {
       setCurrentStep(1);
       setProgressPercent(40);
       setActiveFrameIndex(1);
-      setProgressText('사업계획서의 주요 수치와 추진 계획을 추출 중입니다...');
-    }, 500);
+      setProgressText('사업계획서의 핵심 수치와 추진 계획을 정밀 추출 중입니다...');
+    }, 800);
 
-    // 1.0s - Frame 3 (60%)
+    // 1.6s - Frame 3 (60%)
     setTimeout(() => {
       setCurrentStep(2);
       setProgressPercent(60);
       setActiveFrameIndex(2);
-      setProgressText('T·E·M 3축 성숙도와 1순위 핵심 병목을 진단 중입니다...');
-    }, 1000);
+      setProgressText('T·E·M 3축 성숙도와 1순위 핵심 병목(Bottleneck)을 진단 중입니다...');
+    }, 1600);
 
-    // 1.6s - Frame 4 (80%)
+    // 2.4s - Frame 4 (80%)
     setTimeout(() => {
       setCurrentStep(3);
       setProgressPercent(80);
       setActiveFrameIndex(3);
-      setProgressText('7종 공공 RAG 산업 리포트와 팩트체크를 교차 검증 중입니다...');
-    }, 1600);
+      setProgressText('7종 공공 RAG 산업 리포트와 팩트체크 교차 검증을 수행 중입니다...');
+    }, 2400);
 
-    // 2.2s - Frame 5 (95%)
+    // 3.2s - Frame 5 (95%)
     setTimeout(() => {
       setCurrentStep(3);
       setProgressPercent(95);
       setActiveFrameIndex(4);
-      setProgressText('경기도 맞춤 지원사업 DB 및 도내 파트너사를 매칭 중입니다...');
-    }, 2200);
+      setProgressText('경기도 120개 맞춤 지원사업 DB 및 도내 협력 파트너사를 매칭 중입니다...');
+    }, 3200);
 
-    // 2.7s - Frame 6 (100% Goal Reached)
+    // 4.0s - Frame 6 (100% Goal Reached)
     setTimeout(() => {
       setCurrentStep(4);
       setProgressPercent(100);
       setActiveFrameIndex(5);
-      setProgressText('경영진 맞춤형 AI 성장진단 & 컨설팅 리포트를 완성했습니다!');
-    }, 2700);
+      setProgressText('목표 달성! 경영진 맞춤형 AI 성장진단 & 컨설팅 리포트를 완성했습니다! 🎉');
+    }, 4000);
 
-    // 3.3s - Finish and show result
+    // 4.8s - Finish and show result
     setTimeout(() => {
       setIsLoading(false);
       onStartAnalysis(targetPayload);
-    }, 3300);
+    }, 4800);
   };
 
   const handleSampleSelect = (companyId: string) => {
