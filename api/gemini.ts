@@ -6,6 +6,7 @@ const configuredModel = process.env.GEMINI_MODEL;
 const MODEL = !configuredModel || configuredModel === 'gemini-2.5-flash'
   ? 'gemini-3.8-flash'
   : configuredModel;
+const FALLBACK_MODEL = 'gemini-3.8-flash-lite';
 
 const jsonPrompt = (task: string) => `${task}\n\n반드시 유효한 JSON 객체만 반환하세요. 문서에 없는 사실·수치·출처는 만들지 말고, 불명확하면 '확인 필요'라고 표시하세요. 모든 서술은 전문적인 한국어로 작성하세요.`;
 
@@ -14,10 +15,38 @@ function textOf(response: any) {
   return JSON.parse(raw.replace(/^```json\s*|\s*```$/g, ''));
 }
 
+const wait = (milliseconds: number) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+
+async function generateWithRetry(ai: GoogleGenAI, request: any) {
+  const models = Array.from(new Set([MODEL, FALLBACK_MODEL]));
+  let lastError: any;
+  for (const model of models) {
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      try {
+        return await ai.models.generateContent({ ...request, model });
+      } catch (error: any) {
+        lastError = error;
+        const message = String(error?.message || error);
+        const retryable = message.includes('503') || message.includes('UNAVAILABLE') || message.includes('high demand');
+        if (!retryable) break;
+        await wait(700 * (attempt + 1));
+      }
+    }
+  }
+  throw lastError;
+}
+
+const asArray = <T>(value: unknown): T[] => Array.isArray(value) ? value : [];
+const asSection = (value: any) => ({
+  headline: value?.headline || '확인 필요',
+  narrative: value?.narrative || '문서에서 충분한 근거를 확인하지 못했습니다.',
+  implications: asArray<string>(value?.implications),
+  evidence: asArray<string>(value?.evidence),
+});
+
 async function generateDocument(ai: GoogleGenAI, body: any, prompt: string) {
   if (!body.data || !body.mimeType) throw new Error('분석할 문서가 없습니다.');
-  const response = await ai.models.generateContent({
-    model: MODEL,
+  const response = await generateWithRetry(ai, {
     contents: [
       { inlineData: { mimeType: body.mimeType, data: body.data } },
       { text: jsonPrompt(prompt) },
@@ -42,7 +71,7 @@ function normalizeCompany(raw: any, fileName: string) {
     employees: Number(raw.company?.employees) || 0,
     revenue: Number(raw.company?.revenue) || 0,
     summary: raw.company?.summary || '사업계획서 기반 기업 분석',
-    keywords: Array.isArray(raw.company?.keywords) ? raw.company.keywords : [],
+    keywords: asArray<string>(raw.company?.keywords),
     createdAt: new Date().toISOString(),
   };
   const analysis = {
@@ -50,20 +79,34 @@ function normalizeCompany(raw: any, fileName: string) {
     companyId,
     documentId,
     analysisVersion: 'TEM-v2.0-consulting',
-    temDiagnosis: raw.temDiagnosis,
+    temDiagnosis: {
+      technology: raw.temDiagnosis?.technology || { level: 'T1', score: 0, reason: '확인 필요', sourceQuote: '확인 필요' },
+      execution: raw.temDiagnosis?.execution || { level: 'E1', score: 0, reason: '확인 필요', sourceQuote: '확인 필요' },
+      market: raw.temDiagnosis?.market || { level: 'M1', score: 0, reason: '확인 필요', sourceQuote: '확인 필요' },
+      radarScores: raw.temDiagnosis?.radarScores || { tech: 0, validation: 0, market: 0, finance: 0, global: 0 },
+    },
     primaryBottleneck: raw.primaryBottleneck || 'PMF',
     secondaryBottleneck: raw.secondaryBottleneck,
-    bottlenecks: raw.bottlenecks || [],
-    companyRequestedSupport: raw.companyRequestedSupport || [],
-    recommendedSupport: raw.recommendedSupport || [],
+    bottlenecks: asArray(raw.bottlenecks),
+    companyRequestedSupport: asArray(raw.companyRequestedSupport),
+    recommendedSupport: asArray(raw.recommendedSupport),
     supportGapAnalysis: raw.supportGapAnalysis || '확인 필요',
-    strengths: raw.strengths || [],
-    weaknesses: raw.weaknesses || [],
-    evidenceList: (raw.evidenceList || []).map((item: any, index: number) => ({ id: `EVI-${now}-${index}`, source: fileName, ...item })),
-    actionPlan90Days: raw.actionPlan90Days || [],
-    verificationNeeded: raw.verificationNeeded || [],
+    strengths: asArray(raw.strengths),
+    weaknesses: asArray(raw.weaknesses),
+    evidenceList: asArray<any>(raw.evidenceList).map((item: any, index: number) => ({ id: `EVI-${now}-${index}`, source: fileName, ...item })),
+    actionPlan90Days: asArray(raw.actionPlan90Days),
+    verificationNeeded: asArray(raw.verificationNeeded),
     aiInsightSummary: raw.aiInsightSummary || raw.consultingInsights?.executiveDiagnosis || '분석 완료',
-    consultingInsights: raw.consultingInsights,
+    consultingInsights: {
+      executiveDiagnosis: raw.consultingInsights?.executiveDiagnosis || raw.aiInsightSummary || '확인 필요',
+      marketOutlook: asSection(raw.consultingInsights?.marketOutlook),
+      technologyAssessment: asSection(raw.consultingInsights?.technologyAssessment),
+      businessModelAssessment: asSection(raw.consultingInsights?.businessModelAssessment),
+      futureStrategy: asArray(raw.consultingInsights?.futureStrategy),
+      keyRisks: asArray(raw.consultingInsights?.keyRisks),
+      scenarios: asArray(raw.consultingInsights?.scenarios),
+      consultantQuestions: asArray(raw.consultingInsights?.consultantQuestions),
+    },
     status: 'COMPLETED',
     createdAt: new Date().toISOString(),
   };
@@ -71,12 +114,12 @@ function normalizeCompany(raw: any, fileName: string) {
     companyId,
     companyName: company.name,
     industry: company.industry,
-    technologies: raw.profile?.technologies || company.keywords,
-    products: raw.profile?.products || [],
-    targetCustomers: raw.profile?.targetCustomers || [],
-    capabilities: raw.profile?.capabilities || [],
-    needs: raw.profile?.needs || [],
-    desiredPartners: raw.profile?.desiredPartners || [],
+    technologies: asArray(raw.profile?.technologies).length ? raw.profile.technologies : company.keywords,
+    products: asArray(raw.profile?.products),
+    targetCustomers: asArray(raw.profile?.targetCustomers),
+    capabilities: asArray(raw.profile?.capabilities),
+    needs: asArray(raw.profile?.needs),
+    desiredPartners: asArray(raw.profile?.desiredPartners),
     visibility: 'PUBLIC',
     updatedAt: new Date().toISOString(),
   };
@@ -130,8 +173,7 @@ priorityRevisions[]에는 제출 전 우선 보완사항 3~5개를 구체적으�
     }
 
     if (body.action === 'generate-policy') {
-      const response = await ai.models.generateContent({
-        model: MODEL,
+      const response = await generateWithRetry(ai, {
         contents: jsonPrompt(`경기도 ${body.industry} 기업 ${body.targetCount}개사의 ${body.bottleneck} 병목을 해결할 신규 지원사업을 설계하라. title,problemStatement,proposedProgramTitle,supportComponents[],expectedImpact를 작성하라.`),
         config: { responseMimeType: 'application/json', temperature: 0.3 },
       });
