@@ -62,6 +62,16 @@ export const AdminIntelligenceView: React.FC = () => {
     { label: '1:1 맞춤 지원사업 매칭', value: '12개 과제', sub: '평균 적합도 91.5%', icon: 'hub', color: 'purple' },
   ];
 
+  const averageScores = ['technology', 'execution', 'market'].map((axis) => {
+    const total = MOCK_COMPANIES.reduce((sum, item) => sum + (item.analysis.temDiagnosis[axis as 'technology' | 'execution' | 'market'].score || 0), 0);
+    return { label: axis === 'technology' ? '기술 T' : axis === 'execution' ? '실행 E' : '시장 M', value: Math.round(total / MOCK_COMPANIES.length) };
+  });
+  const bottleneckChart = ['PMF', 'TECH', 'REGULATION', 'INVESTMENT'].map((category) => ({
+    label: category,
+    value: MOCK_COMPANIES.filter((item) => item.analysis.primaryBottleneck === category).length,
+  }));
+  const maxBottleneck = Math.max(...bottleneckChart.map((item) => item.value), 1);
+
   return (
     <div className="min-h-screen bg-[#f8fafc] text-[#0f172a] animate-fadeIn text-left">
       {/* 1. Enterprise Top Bar */}
@@ -234,7 +244,7 @@ export const AdminIntelligenceView: React.FC = () => {
                     </span>
                   </div>
                   <h1 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">
-                    홍길동 책임님, 4개 접수 기업의 AI 진단 및 지원사업 매칭이 완료되었습니다.
+                     AI실증지원팀 담당자님, 오늘의 기업지원 현황입니다.
                   </h1>
                   <p className="text-xs text-slate-500 mt-1">
                     사업계획서 원문 파싱 데이터와 7종 공공 리포트 RAG 지식베이스가 100% 동기화되어 있습니다.
@@ -291,7 +301,25 @@ export const AdminIntelligenceView: React.FC = () => {
                 ))}
               </div>
 
-              {/* 2-Column Dashboard Main: Realtime Diagnosis Stream (Left) + Detail & Tracking (Right) */}
+               {/* Chart-first dashboard overview */}
+               <section className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                 <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+                   <div className="flex items-center justify-between mb-4"><div><span className="text-[11px] font-bold text-blue-600">성장단계 평균</span><h2 className="text-sm font-black text-slate-900 mt-1">T·E·M 진단 점수</h2></div><span className="material-symbols-outlined text-blue-500">bar_chart</span></div>
+                   <div className="flex items-end justify-between h-32 gap-4 px-2">
+                     {averageScores.map((item) => <div key={item.label} className="flex-1 h-full flex flex-col items-center justify-end gap-2"><span className="text-xs font-black text-slate-700">{item.value}</span><div className="w-full max-w-10 rounded-t-lg bg-blue-500" style={{ height: `${Math.max(item.value, 8)}%` }} /><span className="text-[10px] font-bold text-slate-400">{item.label}</span></div>)}
+                   </div>
+                 </div>
+                 <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+                   <div className="flex items-center justify-between mb-4"><div><span className="text-[11px] font-bold text-rose-600">우선 관리 현황</span><h2 className="text-sm font-black text-slate-900 mt-1">기업별 핵심 병목</h2></div><span className="material-symbols-outlined text-rose-500">donut_large</span></div>
+                   <div className="space-y-3">{bottleneckChart.map((item) => <div key={item.label} className="flex items-center gap-3"><span className="w-20 text-[10px] font-bold text-slate-500">{item.label}</span><div className="h-2 flex-1 rounded-full bg-slate-100 overflow-hidden"><div className="h-full rounded-full bg-rose-400" style={{ width: `${(item.value / maxBottleneck) * 100}%` }} /></div><span className="w-5 text-right text-xs font-black text-slate-700">{item.value}</span></div>)}</div>
+                 </div>
+                 <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+                   <div className="flex items-center justify-between mb-4"><div><span className="text-[11px] font-bold text-emerald-600">실시간 처리 현황</span><h2 className="text-sm font-black text-slate-900 mt-1">접수·진단·추천 파이프라인</h2></div><span className="material-symbols-outlined text-emerald-500">monitoring</span></div>
+                   <div className="space-y-3"><div className="flex items-center justify-between text-xs"><span className="text-slate-500">접수 기업</span><strong className="text-slate-900">{MOCK_COMPANIES.length}개</strong></div><div className="h-2 rounded-full bg-slate-100"><div className="h-full w-full rounded-full bg-emerald-500" /></div><div className="flex items-center justify-between text-xs"><span className="text-slate-500">AI 진단 완료</span><strong className="text-emerald-600">{MOCK_COMPANIES.filter((item) => item.analysis.status === 'COMPLETED').length}개</strong></div><div className="h-2 rounded-full bg-slate-100"><div className="h-full w-3/4 rounded-full bg-blue-500" /></div><div className="flex items-center justify-between text-xs"><span className="text-slate-500">지원사업 추천 연결</span><strong className="text-blue-600">12개 과제</strong></div></div>
+                 </div>
+               </section>
+
+               {/* 2-Column Dashboard Main: Realtime Diagnosis Stream (Left) + Detail & Tracking (Right) */}
               <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
                 {/* Left (8 cols): Realtime Enterprise Diagnostic Table */}
                 <div className="xl:col-span-8 bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-4">
