@@ -75,6 +75,14 @@ export const AdminMailingView: React.FC = () => {
     { title: 'M2 이상 상용화 기업 글로벌 VC 연계', type: '성장단계 진입 트리거', target: 'M2 이상 · 투자/글로벌', count: 22, rate: '91.0%', color: 'indigo' },
   ], []);
 
+  const keywordRules = useMemo(() => [
+    { keyword: 'AI · 비전검사', companies: 48, programs: '제조 AI 실증 지원', channel: '알림톡 + 이메일', status: '자동 발송 중' },
+    { keyword: '실증 · POC', companies: 36, programs: '테스트베드·실증 바우처', channel: '알림톡', status: '자동 발송 중' },
+    { keyword: '제조 · 소부장', companies: 29, programs: '스마트공장 고도화', channel: '이메일 + 담당자 알림', status: '검토 대기' },
+    { keyword: '투자 · pre-A', companies: 22, programs: '투자유치·사업화 연계', channel: '이메일', status: '자동 발송 중' },
+    { keyword: '수출 · 글로벌', companies: 18, programs: '해외진출·수출 바우처', channel: '알림톡 + 이메일', status: '자동 발송 중' },
+  ], []);
+
   // 현재 선택된 기업의 매칭 로그
   const activeLog = matchingLogs.find((l) => l.companyId === selectedCompanyId) || matchingLogs[0];
   const activeCompany = MOCK_COMPANIES.find((c) => c.company.id === selectedCompanyId)?.company || MOCK_COMPANIES[0].company;
@@ -362,7 +370,60 @@ export const AdminMailingView: React.FC = () => {
         </div>
       </div>
 
-      {/* 3. Lower Section: Ongoing Marketing Campaign Pipelines */}
+      {/* 3. Keyword-driven automation map */}
+      <section className="bg-surface-container-lowest rounded-3xl border border-primary/20 p-space-xl shadow-md text-left">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 mb-space-md">
+          <div>
+            <span className="font-label-sm text-label-sm text-secondary font-bold uppercase tracking-wide">
+              Keyword Automation Rules
+            </span>
+            <h3 className="font-headline-sm text-headline-sm font-bold text-on-surface mt-0.5">
+              키워드 기반 기업·지원사업 자동 메일링
+            </h3>
+            <p className="text-xs text-on-surface-variant mt-1">
+              진단 키워드가 일치하는 기업군에 관련 공고를 자동 선별하고, 채널별로 발송합니다.
+            </p>
+          </div>
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold">
+            <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" /> 5개 규칙 가동 중
+          </span>
+        </div>
+
+        <div className="overflow-x-auto rounded-2xl border border-outline-variant/20">
+          <table className="w-full min-w-[760px] text-left">
+            <thead className="bg-surface-container-low text-[11px] text-on-surface-variant font-extrabold">
+              <tr>
+                <th className="px-4 py-3">분석 키워드</th>
+                <th className="px-4 py-3">대상 기업</th>
+                <th className="px-4 py-3">연계 지원사업</th>
+                <th className="px-4 py-3">발송 채널</th>
+                <th className="px-4 py-3">상태</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-outline-variant/15">
+              {keywordRules.map((rule) => (
+                <tr key={rule.keyword} className="hover:bg-surface-container-low/60 transition-colors">
+                  <td className="px-4 py-3">
+                    <span className="inline-flex rounded-full border border-outline-variant/40 bg-surface-container-low px-2.5 py-1 text-[11px] font-bold text-primary">
+                      {rule.keyword}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 text-sm font-extrabold text-on-surface">{rule.companies}개 기업</td>
+                  <td className="px-4 py-3 text-xs font-semibold text-on-surface">{rule.programs}</td>
+                  <td className="px-4 py-3 text-xs text-on-surface-variant">{rule.channel}</td>
+                  <td className="px-4 py-3">
+                    <span className={`rounded-full px-2 py-1 text-[10px] font-extrabold ${rule.status === '자동 발송 중' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
+                      {rule.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* 4. Lower Section: Ongoing Marketing Campaign Pipelines */}
       <section className="bg-surface-container-lowest rounded-3xl border border-outline-variant/30 p-space-xl shadow-md text-left">
         <div className="flex items-center justify-between mb-space-md">
           <div>
