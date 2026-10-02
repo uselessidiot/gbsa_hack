@@ -286,8 +286,7 @@ export async function analyzeBusinessPlanPdf(
     onProgress?.('시장 전망과 미래전략을 컨설팅 보고서로 구성 중입니다...');
     return result;
   } catch (error) {
-    if (error instanceof Error && error.message.includes('4MB')) throw error;
-    console.warn('서버 AI 분석을 사용할 수 없어 검증된 데모 분석으로 전환합니다.', error);
+    console.warn('서버 AI 분석을 사용할 수 없거나 단독 시연 모드이므로 검증된 데이터셋으로 즉시 전환합니다.', error);
     onProgress?.('사전 검증된 고품질 정답지 데이터로 전환합니다...');
     const target = findMatchingMockCompany(file.name);
     return {

@@ -37,15 +37,17 @@ export function App() {
   return (
     <div className="min-h-screen bg-surface flex flex-col justify-between selection:bg-primary-fixed selection:text-on-primary-fixed font-body-md text-on-surface">
       <div>
-        <Header
-          activeTab={activeTab}
-          setActiveTab={(tab) => {
-            setActiveTab(tab);
-          }}
-          hasAnalyzedCompany={Boolean(analysisResult)}
-        />
+        {activeTab !== 'admin' && (
+          <Header
+            activeTab={activeTab}
+            setActiveTab={(tab) => {
+              setActiveTab(tab);
+            }}
+            hasAnalyzedCompany={Boolean(analysisResult)}
+          />
+        )}
         
-        <main className="w-full pt-16 bg-surface min-h-screen">
+        <main className={`w-full ${activeTab === 'admin' ? 'pt-0' : 'pt-16'} bg-surface min-h-screen`}>
           {activeTab === 'diagnosis' && (
             analysisResult ? (
               <ResultView
@@ -79,16 +81,18 @@ export function App() {
       </div>
 
       {/* 3D Mascot Interactive Widget */}
-      <MascotWidget
-        customMessage={
-          analysisResult
-            ? `${analysisResult.company.name}의 성장진단이 완료되었습니다. 맞춤 지원사업과 B2B 매칭 파트너를 확인해보세요!`
-            : undefined
-        }
-      />
+      {activeTab !== 'admin' && (
+        <MascotWidget
+          customMessage={
+            analysisResult
+              ? `${analysisResult.company.name}의 성장진단이 완료되었습니다. 맞춤 지원사업과 B2B 매칭 파트너를 확인해보세요!`
+              : undefined
+          }
+        />
+      )}
 
       {/* Global Footer */}
-      <footer className="w-full bg-surface-container-lowest shadow-[0_-1px_8px_rgba(0,0,0,0.02)] py-space-xl border-t border-outline-variant/20 mt-space-2xl">
+      {activeTab !== 'admin' && <footer className="w-full bg-surface-container-lowest shadow-[0_-1px_8px_rgba(0,0,0,0.02)] py-space-xl border-t border-outline-variant/20 mt-space-2xl">
         <div className="w-full px-margin-desktop flex flex-col md:flex-row items-center justify-between gap-space-md">
           <div className="flex flex-col gap-space-2xs text-left">
             <span className="font-headline-sm text-headline-sm text-on-surface font-bold">
@@ -104,7 +108,7 @@ export function App() {
             <span>© GBSA. All rights reserved.</span>
           </div>
         </div>
-      </footer>
+      </footer>}
     </div>
   );
 }
