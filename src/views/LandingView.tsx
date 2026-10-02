@@ -118,15 +118,15 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis }) => 
         </div>
 
         {/* Main Bold Headlines (Toss Style) */}
-        <h1 className="font-display text-[42px] leading-[1.2] text-primary tracking-tight font-extrabold max-w-5xl mb-space-md">
+        <h1 className="font-display text-[50px] md:text-[58px] leading-[1.16] text-primary tracking-tight font-extrabold max-w-5xl mb-space-md">
           <>
             <span className="block">지원사업을 찾지 마세요.</span>
             <span className="block text-on-surface">G-BRIDGE가 당신의 기회를 찾습니다.</span>
           </>
         </h1>
-        <p className="font-headline-sm text-headline-sm text-on-surface-variant font-normal max-w-3xl mb-space-lg leading-relaxed">
-          사업계획서 하나만 올리면<br />
-          AI가 기업을 진단하고, 필요한 지원을 연결하고, 새로운 성장기회까지 찾아드립니다.
+        <p className="font-headline-sm text-headline-sm text-on-surface-variant font-normal max-w-2xl mb-space-lg leading-relaxed">
+          <span className="block">사업계획서 하나만 올리면</span>
+          <span className="block">AI가 기업을 진단하고, 필요한 지원과 성장기회를 연결합니다.</span>
         </p>
 
         <div className="w-full max-w-6xl mx-auto mb-space-2xl text-center">
