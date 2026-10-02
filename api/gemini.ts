@@ -17,14 +17,51 @@ function textOf(response: any) {
   const end = fenced.lastIndexOf('}');
   const candidate = start >= 0 && end > start ? fenced.slice(start, end + 1) : fenced;
 
+  const escapeControlCharacters = (value: string) => {
+    let output = '';
+    let inString = false;
+    let escaped = false;
+    for (const char of value) {
+      if (escaped) {
+        output += char;
+        escaped = false;
+        continue;
+      }
+      if (char === '\\' && inString) {
+        output += char;
+        escaped = true;
+        continue;
+      }
+      if (char === '"') {
+        inString = !inString;
+        output += char;
+        continue;
+      }
+      if (inString && char === '\n') {
+        output += '\\n';
+      } else if (inString && char === '\r') {
+        output += '\\r';
+      } else if (inString && char === '\t') {
+        output += '\\t';
+      } else if (inString && char.charCodeAt(0) < 32) {
+        output += `\\u${char.charCodeAt(0).toString(16).padStart(4, '0')}`;
+      } else {
+        output += char;
+      }
+    }
+    return output;
+  };
+
+  const repaired = escapeControlCharacters(candidate)
+    .replace(/,\s*([}\]])/g, '$1')
+    .replace(/([{,]\s*)([A-Za-z_$][\w$-]*)(\s*:)/g, '$1"$2"$3')
+    .replace(/:\s*(undefined|NaN|Infinity|-Infinity)\b/g, ': null')
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'");
+
   const attempts = [
     candidate,
-    candidate
-      // Gemini occasionally emits a trailing comma or an unquoted object key despite responseMimeType.
-      .replace(/,\s*([}\]])/g, '$1')
-      .replace(/([{,]\s*)([A-Za-z_$][\w$-]*)(\s*:)/g, '$1"$2"$3')
-      .replace(/[“”]/g, '"')
-      .replace(/[‘’]/g, "'"),
+    repaired,
   ];
 
   let lastError: unknown;
