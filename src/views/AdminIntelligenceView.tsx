@@ -5,9 +5,10 @@ import { AdminCompaniesView } from './AdminCompaniesView';
 import { AdminMailingView } from './AdminMailingView';
 import { AdminRagView } from './AdminRagView';
 import { AdminPerformanceView } from './AdminPerformanceView';
+import { AdminAnalysisMethodView } from './AdminAnalysisMethodView';
 
 type StatusFilter = 'ALL' | 'PENDING' | 'ANALYZING' | 'COMPLETED';
-type AdminPage = 'dashboard' | 'companies' | 'mailing' | 'performance' | 'rag';
+type AdminPage = 'dashboard' | 'companies' | 'mailing' | 'performance' | 'rag' | 'analysis-method';
 
 const statusLabel: Record<StatusFilter, string> = {
   ALL: '전체',
@@ -156,6 +157,7 @@ export const AdminIntelligenceView: React.FC = () => {
                   ['monitoring', '개별 기업 성과 상세', 'performance'],
                   ['mail', '맞춤형 알림톡·메일링', 'mailing'],
                   ['library_books', '공공 RAG 지식베이스', 'rag'],
+                  ['tune', '분석 방법 관리', 'analysis-method'],
                 ].map(([icon, label, pageKey]) => {
                   const isActive = activePage === pageKey;
                   return (
@@ -216,6 +218,8 @@ export const AdminIntelligenceView: React.FC = () => {
             <AdminMailingView />
           ) : activePage === 'rag' ? (
             <AdminRagView />
+          ) : activePage === 'analysis-method' ? (
+            <AdminAnalysisMethodView />
           ) : (
             <div className="max-w-[1500px] mx-auto space-y-6">
               {/* Executive Header Banner */}

@@ -2,6 +2,13 @@ import React from 'react';
 import { Company, AnalysisResult, CompanyB2BProfile } from '../types';
 import { AnalysisKeywordTags } from '../components/AnalysisKeywordTags';
 
+const hideSourceMentions = (text: string) => text
+  .replace(/구글 검색 & 공공 리포트 분석:\s*/g, '')
+  .replace(/RAG 공공 리포트 교차 분석:\s*/g, '')
+  .replace(/사업계획서 p\.\d+ 분석 결과/g, '제출 자료 분석 결과')
+  .replace(/「[^」]+」\s*p\.\d+(?:에서 지적하듯|에 따르면|에 따라)?/g, '관련 시장·현장 데이터에 따르면')
+  .replace(/최신 공공 리포트\([^)]*\)에 따르면,?/g, '시장 데이터상');
+
 interface ResultViewProps {
   data: {
     company: Company;
@@ -154,10 +161,10 @@ export const ResultView: React.FC<ResultViewProps> = ({ data, onBackToUpload, on
                 <div className="flex flex-col gap-space-md">
                   <div className="flex flex-col gap-space-sm">
                     <h5 className="font-headline-sm text-headline-sm font-extrabold text-on-surface leading-snug">
-                      {insight.headline}
+                      {hideSourceMentions(insight.headline)}
                     </h5>
                     <p className="font-body-md text-body-md leading-relaxed text-on-surface-variant font-medium whitespace-pre-line">
-                      {insight.narrative}
+                      {hideSourceMentions(insight.narrative)}
                     </p>
 
                     {insight.evidence && insight.evidence.length > 0 && (
